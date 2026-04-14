@@ -1,0 +1,45 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // ACHIEVEMENTS VIEW
+     Full UI • Badge Feed • Milestones • Auto-Render
+     ============================================================ -->
+
+<section id="view-achievements" class="view hidden">
+
+  <h1 class="knocks-title">ACHIEVEMENTS</h1>
+  <div class="knocks-divider"></div>
+
+  <div id="achievement-feed"></div>
+
+</section>
+
+<script>
+  function renderAchievements() {
+    const feed = document.getElementById("achievement-feed");
+    if (!feed) return;
+
+    const badges = ICE_ACHIEVEMENTS.getBadges();
+    const milestones = ICE_ACHIEVEMENTS.getMilestones();
+
+    feed.innerHTML = `
+      <h3 class="knocks-subtitle">BADGES</h3>
+      <ul>
+        ${badges.length === 0 ? "<li>No badges yet</li>" : badges.map(b => `<li>${b}</li>`).join("")}
+      </ul>
+
+      <div class="knocks-divider"></div>
+
+      <h3 class="knocks-subtitle">MILESTONES</h3>
+      <ul>
+        ${
+          milestones.length === 0
+            ? "<li>No milestones yet</li>"
+            : milestones
+                .map(m => `<li>${m.name} — ${new Date(m.time).toLocaleString()}</li>`)
+                .join("")
+        }
+      </ul>
+    `;
+  }
+
+  document.addEventListener("DOMContentLoaded", renderAchievements);
+</script>
