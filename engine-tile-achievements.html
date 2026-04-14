@@ -1,0 +1,54 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // ACHIEVEMENTS TILE
+     Home Grid Entry • View Trigger • Engine-Aligned UI
+     ============================================================ -->
+
+<div class="engine-tile engine-tile-achievements" data-view-target="view-achievements">
+
+  <div class="engine-tile-inner knocks-panel">
+
+    <div class="engine-tile-header">
+      <span class="engine-tile-label knocks-subtitle">ACHIEVEMENTS</span>
+    </div>
+
+    <div class="engine-tile-body">
+      <p class="engine-tile-text">
+        Badges • Milestones • Progress
+      </p>
+    </div>
+
+    <div class="engine-tile-footer">
+      <button class="knocks-btn knocks-btn-primary">
+        Open Achievements
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+  .engine-tile {
+    cursor: pointer;
+  }
+
+  .engine-tile-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+  }
+
+  .engine-tile-header .engine-tile-label {
+    font-size: 10px;
+  }
+
+  .engine-tile-body .engine-tile-text {
+    font-size: 11px;
+    color: var(--knocks-steel);
+  }
+
+  .engine-tile-footer {
+    margin-top: auto;
+  }
+</style>
