@@ -1,0 +1,72 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // DOCK ENGINE
+     Quick Launch • Blur • Glow • Scaling
+     ============================================================ -->
+
+<div id="dock" class="dock">
+  <div class="dock-inner">
+    <div class="dock-app" data-app="phone">📞</div>
+    <div class="dock-app" data-app="messages">💬</div>
+    <div class="dock-app" data-app="camera">📷</div>
+    <div class="dock-app" data-app="browser">🌐</div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const dockApps = document.querySelectorAll(".dock-app");
+
+    dockApps.forEach(app => {
+      app.addEventListener("click", () => {
+        app.classList.add("active");
+        setTimeout(() => app.classList.remove("active"), 300);
+
+        const appName = app.getAttribute("data-app");
+        document.body.dispatchEvent(new CustomEvent("ascend-open-app", { detail: appName }));
+      });
+    });
+
+  });
+</script>
+
+<style>
+  .dock {
+    position: fixed;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 420px;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(14px);
+    border-radius: var(--radius-large);
+    padding: 10px 14px;
+    box-shadow: var(--shadow-hard);
+    z-index: 9997;
+  }
+
+  .dock-inner {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .dock-app {
+    font-size: 26px;
+    cursor: pointer;
+    transition: transform 200ms var(--fx-curve-soft), opacity 200ms var(--fx-curve-soft);
+    opacity: 0.85;
+  }
+
+  .dock-app:hover {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+
+  .dock-app.active {
+    transform: scale(1.25);
+    opacity: 1;
+    text-shadow: 0 0 12px var(--accent-primary);
+  }
+</style>
