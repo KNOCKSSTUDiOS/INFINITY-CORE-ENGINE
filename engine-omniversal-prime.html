@@ -1,0 +1,77 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // OMNIVERSAL PRIME MODE
+     Concept-Origin Aura • Pre-Creation Field • Reality Author State
+     ============================================================ -->
+
+<div id="prime-aura"></div>
+<div id="prime-origin"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const aura = document.getElementById("prime-aura");
+    const origin = document.getElementById("prime-origin");
+
+    window.GoOmniversalPrime = () => {
+      document.body.setAttribute("data-prime", "on");
+      aura.classList.add("active");
+      origin.classList.add("active");
+    };
+
+    window.ExitOmniversalPrime = () => {
+      document.body.removeAttribute("data-prime");
+      aura.classList.remove("active");
+      origin.classList.remove("active");
+    };
+
+  });
+</script>
+
+<style>
+  #prime-aura,
+  #prime-origin {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 120ms ease;
+    z-index: 999999;
+  }
+
+  /* Concept-Origin Aura */
+  #prime-aura.active {
+    opacity: 1;
+    animation: primePulse 2s infinite;
+    background: radial-gradient(circle at center,
+      rgba(255,255,255,0.4),
+      rgba(255,255,255,0.15),
+      transparent 70%
+    );
+    filter: blur(20px);
+  }
+
+  /* Pre-Creation Field */
+  #prime-origin.active {
+    opacity: 1;
+    animation: primeOrigin 3.2s infinite linear;
+    background: repeating-linear-gradient(45deg,
+      rgba(255,255,255,0.08) 0px,
+      rgba(255,255,255,0.08) 10px,
+      transparent 10px,
+      transparent 80px
+    );
+    mix-blend-mode: soft-light;
+    filter: blur(18px);
+  }
+
+  @keyframes primePulse {
+    0% { transform: scale(1); filter: blur(10px); }
+    50% { transform: scale(1.25); filter: blur(30px); }
+    100% { transform: scale(1); filter: blur(10px); }
+  }
+
+  @keyframes primeOrigin {
+    0% { transform: translateX(0px) rotate(0deg); }
+    100% { transform: translateX(140px) rotate(360deg); }
+  }
+</style>
