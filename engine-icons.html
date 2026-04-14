@@ -1,0 +1,107 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // ICON ENGINE
+     Shapes • Styles • Scaling • Rendering Law
+     ============================================================ -->
+
+<section id="settings-icons" class="settings-subview hidden">
+
+  <h2 class="knocks-title">ICON ENGINE</h2>
+  <div class="knocks-divider"></div>
+
+  <!-- ICON SHAPE -->
+  <div class="icon-section">
+    <h3 class="knocks-subtitle">ICON SHAPE</h3>
+    <div class="icon-options">
+      <button class="icon-shape-btn" data-shape="rounded">Rounded</button>
+      <button class="icon-shape-btn" data-shape="square">Square</button>
+      <button class="icon-shape-btn" data-shape="circle">Circle</button>
+    </div>
+  </div>
+
+  <!-- ICON STYLE -->
+  <div class="icon-section">
+    <h3 class="knocks-subtitle">ICON STYLE</h3>
+    <div class="icon-options">
+      <button class="icon-style-btn" data-style="flat">Flat</button>
+      <button class="icon-style-btn" data-style="glow">Glow</button>
+      <button class="icon-style-btn" data-style="outline">Outline</button>
+    </div>
+  </div>
+
+  <!-- ICON SCALE -->
+  <div class="icon-section">
+    <h3 class="knocks-subtitle">ICON SCALE</h3>
+    <div class="icon-options">
+      <button class="icon-scale-btn" data-scale="0.8">Small</button>
+      <button class="icon-scale-btn" data-scale="1.0">Normal</button>
+      <button class="icon-scale-btn" data-scale="1.2">Large</button>
+    </div>
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    // Shape
+    document.querySelectorAll(".icon-shape-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const shape = btn.getAttribute("data-shape");
+        document.body.setAttribute("data-icon-shape", shape);
+      });
+    });
+
+    // Style
+    document.querySelectorAll(".icon-style-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const style = btn.getAttribute("data-style");
+        document.body.setAttribute("data-icon-style", style);
+      });
+    });
+
+    // Scale
+    document.querySelectorAll(".icon-scale-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const scale = btn.getAttribute("data-scale");
+        document.body.setAttribute("data-icon-scale", scale);
+      });
+    });
+
+  });
+</script>
+
+<style>
+  #settings-icons {
+    padding-bottom: 40px;
+  }
+
+  .icon-section {
+    margin-bottom: 24px;
+  }
+
+  .icon-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .icon-shape-btn,
+  .icon-style-btn,
+  .icon-scale-btn {
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--knocks-white);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .icon-shape-btn:hover,
+  .icon-style-btn:hover,
+  .icon-scale-btn:hover {
+    background: rgba(255,255,255,0.12);
+  }
+</style>
