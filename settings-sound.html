@@ -1,0 +1,98 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // SETTINGS: SOUND
+     Volume • Alerts • System Audio Modes
+     ============================================================ -->
+
+<section id="settings-sound" class="settings-subview hidden">
+
+  <h2 class="knocks-title">SOUND</h2>
+  <div class="knocks-divider"></div>
+
+  <div class="sound-section">
+    <h3 class="knocks-subtitle">MASTER VOLUME</h3>
+    <input id="volume-slider" type="range" min="0" max="100" value="70" />
+  </div>
+
+  <div class="sound-section">
+    <h3 class="knocks-subtitle">ALERTS</h3>
+    <div class="alert-options">
+      <button class="alert-btn" data-alert="chime">Chime</button>
+      <button class="alert-btn" data-alert="ping">Ping</button>
+      <button class="alert-btn" data-alert="pulse">Pulse</button>
+    </div>
+  </div>
+
+  <div class="sound-section">
+    <h3 class="knocks-subtitle">AUDIO MODE</h3>
+    <div class="mode-options">
+      <button class="mode-btn" data-mode="normal">Normal</button>
+      <button class="mode-btn" data-mode="silent">Silent</button>
+      <button class="mode-btn" data-mode="vibrate">Vibrate</button>
+    </div>
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const volumeSlider = document.getElementById("volume-slider");
+
+    volumeSlider.addEventListener("input", () => {
+      const val = volumeSlider.value;
+      document.documentElement.style.setProperty("--master-volume", val + "%");
+    });
+
+    document.querySelectorAll(".alert-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const alertType = btn.getAttribute("data-alert");
+        console.log("Alert sound selected:", alertType);
+      });
+    });
+
+    document.querySelectorAll(".mode-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const mode = btn.getAttribute("data-mode");
+        document.body.setAttribute("data-audiomode", mode);
+      });
+    });
+  });
+</script>
+
+<style>
+  #settings-sound {
+    padding-bottom: 40px;
+  }
+
+  .sound-section {
+    margin-bottom: 24px;
+  }
+
+  .alert-options,
+  .mode-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .alert-btn,
+  .mode-btn {
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--knocks-white);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .alert-btn:hover,
+  .mode-btn:hover {
+    background: rgba(255,255,255,0.12);
+  }
+
+  input[type="range"] {
+    width: 100%;
+  }
+</style>
