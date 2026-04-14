@@ -1,0 +1,53 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // TASK SWITCHER
+     App Cards • Multitasking • Close & Switch Logic
+     ============================================================ -->
+
+<div id="engine-taskswitcher" class="engine-taskswitcher hidden">
+
+  <div class="ts-header">
+    <h2 class="knocks-title">TASKS</h2>
+    <div class="knocks-divider"></div>
+  </div>
+
+  <div id="ts-cards" class="ts-cards"></div>
+
+</div>
+
+<script>
+  const TASKS = new Map();
+
+  function registerTask(id, title) {
+    TASKS.set(id, { id, title });
+    renderTaskCards();
+  }
+
+  function closeTask(id) {
+    TASKS.delete(id);
+    renderTaskCards();
+  }
+
+  function renderTaskCards() {
+    const container = document.getElementById("ts-cards");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    TASKS.forEach(task => {
+      const card = document.createElement("div");
+      card.className = "ts-card knocks-panel";
+
+      card.innerHTML = `
+        <div class="ts-card-header">
+          <span class="ts-card-title">${task.title}</span>
+          <button class="ts-close">×</button>
+        </div>
+        <button class="ts-open">Open</button>
+      `;
+
+      // OPEN
+      card.querySelector(".ts-open").addEventListener("click", () => {
+        document.getElementById("engine-taskswitcher").classList.add("hidden");
+        const target = document.getElementById(task.id);
+        if (target) {
+          document.querySelectorAll(".view").forEach(v => v.class
