@@ -1,0 +1,115 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // POWER MENU
+     Restart • Shutdown • Lock • Sleep
+     ============================================================ -->
+
+<div id="engine-powermenu" class="engine-powermenu hidden">
+
+  <div class="pm-container knocks-panel">
+
+    <h2 class="knocks-title">POWER</h2>
+    <div class="knocks-divider"></div>
+
+    <div class="pm-actions">
+      <button class="pm-btn" data-pm-action="lock">Lock</button>
+      <button class="pm-btn" data-pm-action="sleep">Sleep</button>
+      <button class="pm-btn" data-pm-action="restart">Restart</button>
+      <button class="pm-btn pm-danger" data-pm-action="shutdown">Shutdown</button>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const statusbar = document.getElementById("engine-statusbar");
+    const powermenu = document.getElementById("engine-powermenu");
+
+    if (!statusbar || !powermenu) return;
+
+    let holdTimer = null;
+
+    // Long press to open power menu
+    statusbar.addEventListener("mousedown", () => {
+      holdTimer = setTimeout(() => {
+        powermenu.classList.remove("hidden");
+      }, 900);
+    });
+
+    document.addEventListener("mouseup", () => {
+      clearTimeout(holdTimer);
+    });
+
+    // Power menu actions
+    powermenu.querySelectorAll(".pm-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const action = btn.getAttribute("data-pm-action");
+
+        switch (action) {
+          case "lock":
+            alert("System Locked");
+            break;
+          case "sleep":
+            alert("System Sleeping");
+            break;
+          case "restart":
+            alert("Restarting Engine...");
+            break;
+          case "shutdown":
+            alert("Shutting Down Engine...");
+            break;
+        }
+
+        powermenu.classList.add("hidden");
+      });
+    });
+  });
+</script>
+
+<style>
+  .engine-powermenu {
+    position: fixed;
+    top: 32px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 32px);
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+  }
+
+  .pm-container {
+    width: 260px;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .pm-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .pm-btn {
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--knocks-white);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .pm-danger {
+    background: rgba(255,0,0,0.15);
+    border-color: rgba(255,0,0,0.35);
+    color: #ff6666;
+  }
+    </style>
