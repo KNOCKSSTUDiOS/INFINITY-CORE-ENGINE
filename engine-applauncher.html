@@ -1,0 +1,129 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // APP LAUNCHER ENGINE
+     Full App List • Search • Scroll FX
+     ============================================================ -->
+
+<div id="app-launcher" class="app-launcher hidden">
+
+  <div class="launcher-header">
+    <input id="launcher-search" type="text" placeholder="Search apps..." />
+  </div>
+
+  <div id="launcher-list" class="launcher-list">
+    <!-- Apps injected dynamically -->
+  </div>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const launcher = document.getElementById("app-launcher");
+    const list = document.getElementById("launcher-list");
+    const search = document.getElementById("launcher-search");
+
+    /* DEMO APP LIST */
+    const apps = [
+      "ASCEND-OS",
+      "Browser",
+      "Camera",
+      "Clock",
+      "Files",
+      "Gallery",
+      "Messages",
+      "Music",
+      "Notes",
+      "Phone",
+      "Settings",
+      "Weather"
+    ];
+
+    function renderApps(filter = "") {
+      list.innerHTML = "";
+      apps
+        .filter(a => a.toLowerCase().includes(filter.toLowerCase()))
+        .forEach(app => {
+          const item = document.createElement("div");
+          item.className = "launcher-item fx-slide-up show";
+          item.textContent = app;
+          item.addEventListener("click", () => {
+            document.body.dispatchEvent(new CustomEvent("ascend-open-app", { detail: app }));
+          });
+          list.appendChild(item);
+        });
+    }
+
+    renderApps();
+
+    /* SEARCH */
+    search.addEventListener("input", () => {
+      renderApps(search.value);
+    });
+
+    /* OPEN LAUNCHER */
+    document.body.addEventListener("ascend-open-launcher", () => {
+      launcher.classList.remove("hidden");
+      search.value = "";
+      renderApps();
+    });
+
+    /* CLOSE ON BACK */
+    document.body.addEventListener("ascend-back", () => {
+      launcher.classList.add("hidden");
+    });
+
+  });
+</script>
+
+<style>
+  .app-launcher {
+    position: fixed;
+    inset: 0;
+    background: var(--surface-0);
+    z-index: 9996;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .launcher-header {
+    margin-bottom: 14px;
+  }
+
+  #launcher-search {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: var(--radius-medium);
+    border: 1px solid var(--surface-3);
+    background: var(--surface-1);
+    color: var(--knocks-white);
+    font-size: 14px;
+  }
+
+  .launcher-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .launcher-item {
+    padding: 14px;
+    background: var(--surface-1);
+    border: 1px solid var(--surface-3);
+    border-radius: var(--radius-medium);
+    color: var(--knocks-white);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 260ms var(--fx-curve-soft), transform 260ms var(--fx-curve-soft);
+  }
+
+  .launcher-item.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
