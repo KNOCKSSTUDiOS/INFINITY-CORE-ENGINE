@@ -1,0 +1,95 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // SETTINGS: NETWORK
+     WiFi • Data • Airplane Mode
+     ============================================================ -->
+
+<section id="settings-network" class="settings-subview hidden">
+
+  <h2 class="knocks-title">NETWORK</h2>
+  <div class="knocks-divider"></div>
+
+  <div class="network-section">
+    <h3 class="knocks-subtitle">WIFI</h3>
+    <div class="wifi-list" id="wifi-list">
+      <div class="wifi-item">Loading...</div>
+    </div>
+  </div>
+
+  <div class="network-section">
+    <h3 class="knocks-subtitle">MOBILE DATA</h3>
+    <div class="data-options">
+      <button class="data-btn" data-data="on">Data On</button>
+      <button class="data-btn" data-data="off">Data Off</button>
+    </div>
+  </div>
+
+  <div class="network-section">
+    <h3 class="knocks-subtitle">AIRPLANE MODE</h3>
+    <button id="airplane-toggle" class="airplane-btn">Toggle Airplane Mode</button>
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const wifiList = document.getElementById("wifi-list");
+
+    // Fake WiFi networks for UI demonstration
+    const networks = [
+      "ASCEND-NET",
+      "KNOCKSSTUDiOS-5G",
+      "OBSIDIAN-LINK",
+      "VOIDGLASS-WIFI",
+      "SentinelMesh"
+    ];
+
+    // Render WiFi list
+    wifiList.innerHTML = "";
+    networks.forEach(net => {
+      const item = document.createElement("div");
+      item.className = "wifi-item";
+      item.textContent = net;
+      item.addEventListener("click", () => {
+        document.querySelectorAll(".wifi-item").forEach(i => i.classList.remove("active"));
+        item.classList.add("active");
+      });
+      wifiList.appendChild(item);
+    });
+
+    // Mobile Data
+    document.querySelectorAll(".data-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const state = btn.getAttribute("data-data");
+        document.body.setAttribute("data-mobiledata", state);
+      });
+    });
+
+    // Airplane Mode
+    document.getElementById("airplane-toggle").addEventListener("click", () => {
+      const current = document.body.getAttribute("data-airplane") === "on";
+      document.body.setAttribute("data-airplane", current ? "off" : "on");
+    });
+  });
+</script>
+
+<style>
+  #settings-network {
+    padding-bottom: 40px;
+  }
+
+  .network-section {
+    margin-bottom: 24px;
+  }
+
+  .wifi-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .wifi-item {
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--
