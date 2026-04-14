@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>INFINITY-CORE-ENGINE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="media/engine_reel.mp4" type="video/mp4" />
+  </video>
+
+  <audio id="sfx-type" src="media/sfx_typewriter.mp3" preload="auto"></audio>
+  <audio id="sfx-glitch" src="media/sfx_glitch.mp3" preload="auto"></audio>
+  <audio id="sfx-mech" src="media/sfx_mech_click.mp3" preload="auto"></audio>
+
+  <div id="engine-shell">
+    <header id="engine-header">
+      <div id="brand-mark">
+        <span class="brand-letter" data-sfx="type">I</span>
+        <span class="brand-letter" data-sfx="type">N</span>
+        <span class="brand-letter" data-sfx="type">F</span>
+        <span class="brand-letter" data-sfx="type">I</span>
+        <span class="brand-letter" data-sfx="type">N</span>
+        <span class="brand-letter" data-sfx="type">I</span>
+        <span class="brand-letter" data-sfx="type">T</span>
+        <span class="brand-letter" data-sfx="type">Y</span>
+        <span class="brand-letter spacer">-</span>
+        <span class="brand-letter" data-sfx="glitch">C</span>
+        <span class="brand-letter" data-sfx="glitch">O</span>
+        <span class="brand-letter" data-sfx="glitch">R</span>
+        <span class="brand-letter" data-sfx="glitch">E</span>
+        <span class="brand-letter spacer">-</span>
+        <span class="brand-letter" data-sfx="mech">E</span>
+        <span class="brand-letter" data-sfx="mech">N</span>
+        <span class="brand-letter" data-sfx="mech">G</span>
+        <span class="brand-letter" data-sfx="mech">I</span>
+        <span class="brand-letter" data-sfx="mech">N</span>
+        <span class="brand-letter" data-sfx="mech">E</span>
+      </div>
+
+      <div id="payment-strip">
+        <span class="pay-logo visa">VISA</span>
+        <span class="pay-logo mc">MASTERCARD</span>
+        <span class="pay-logo amex">AMEX</span>
+        <span class="pay-logo pp">PAYPAL</span>
+        <span class="pay-logo apple">APPLE PAY</span>
+        <span class="pay-logo gpay">GOOGLE PAY</span>
+      </div>
+    </header>
+
+    <main id="tile-grid">
+      <div class="tile tile-auth" data-view="view-auth-engine">
+        <div class="tile-front">
+          <span class="tile-letter" data-sfx="type">S</span>
+          <span class="tile-letter" data-sfx="type">U</span>
+          <span class="tile-letter" data-sfx="type">B</span>
+          <span class="tile-letter" data-sfx="type">S</span>
+          <span class="tile-letter" data-sfx="type">C</span>
+          <span class="tile-letter" data-sfx="type">R</span>
+          <span class="tile-letter" data-sfx="type">I</span>
+          <span class="tile-letter" data-sfx="type">B</span>
+          <span class="tile-letter" data-sfx="type">E</span>
+        </div>
+        <div class="tile-back">
+          <button class="cta" data-view-target="view-auth-engine">ENGINE SIGN UP</button>
+          <button class="cta" data-view-target="view-login-engine">ENGINE LOGIN</button>
+        </div>
+      </div>
+
+      <div class="tile tile-engine" data-view="view-engine-gallery">
+        <div class="tile-front">
+          <span class="tile-letter" data-sfx="mech">E</span>
+          <span class="tile-letter" data-sfx="mech">N</span>
+          <span class="tile-letter" data-sfx="mech">G</span>
+          <span class="tile-letter" data-sfx="mech">I</span>
+          <span class="tile-letter" data-sfx="mech">N</span>
+          <span class="tile-letter" data-sfx="mech">E</span>
+        </div>
+        <div class="tile-back">
+          <p>PRIVATE // SUBSCRIBER ONLY</p>
+          <button class="cta" data-view-target="view-engine-gallery">ENTER ENGINE GALLERY</button>
+        </div>
+      </div>
+
+      <div class="tile tile-public" data-view="view-public-gallery">
+        <div class="tile-front">
+          <span class="tile-letter" data-sfx="glitch">P</span>
+          <span class="tile-letter" data-sfx="glitch">U</span>
+          <span class="tile-letter" data-sfx="glitch">B</span>
+          <span class="tile-letter" data-sfx="glitch">L</span>
+          <span class="tile-letter" data-sfx="glitch">I</span>
+          <span class="tile-letter" data-sfx="glitch">C</span>
+        </div>
+        <div class="tile-back">
+          <p>NO ACCOUNT NEEDED // VERIFIED PURCHASE</p>
+          <button class="cta" data-view-target="view-public-gallery">ENTER PUBLIC GALLERY</button>
+        </div>
+      </div>
+
+      <div class="tile tile-request" data-view="view-request-hub">
+        <div class="tile-front">
+          <span class="tile-letter" data-sfx="type">R</span>
+          <span class="tile-letter" data-sfx="type">E</span>
+          <span class="tile-letter" data-sfx="type">Q</span>
+          <span class="tile-letter" data-sfx="type">U</span>
+          <span class="tile-letter" data-sfx="type">E</span>
+          <span class="tile-letter" data-sfx="type">S</span>
+          <span class="tile-letter" data-sfx="type">T</span>
+        </div>
+        <div class="tile-back">
+          <p>REQUESTS • BRIEFS • CUSTOM ENGINE RUNS</p>
+          <button class="cta" data-view-target="view-request-hub">OPEN REQUEST HUB</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
