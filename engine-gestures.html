@@ -1,0 +1,78 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // SYSTEM GESTURES ENGINE
+     Navigation • Multitask • Back Gesture • FX Hooks
+     ============================================================ -->
+
+<div id="gesture-layer" class="gesture-layer"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const layer = document.getElementById("gesture-layer");
+    let startX = 0;
+    let startY = 0;
+    let endX = 0;
+    let endY = 0;
+
+    /* TOUCH START */
+    layer.addEventListener("touchstart", (e) => {
+      const t = e.touches[0];
+      startX = t.clientX;
+      startY = t.clientY;
+    });
+
+    /* TOUCH END */
+    layer.addEventListener("touchend", (e) => {
+      const t = e.changedTouches[0];
+      endX = t.clientX;
+      endY = t.clientY;
+
+      const dx = endX - startX;
+      const dy = endY - startY;
+
+      /* SWIPE UP → HOME */
+      if (dy < -60 && Math.abs(dx) < 40) {
+        document.body.dispatchEvent(new Event("ascend-home"));
+      }
+
+      /* SWIPE LEFT → NEXT APP */
+      if (dx < -60 && Math.abs(dy) < 40) {
+        document.body.dispatchEvent(new Event("ascend-next-app"));
+      }
+
+      /* SWIPE RIGHT → PREV APP */
+      if (dx > 60 && Math.abs(dy) < 40) {
+        document.body.dispatchEvent(new Event("ascend-prev-app"));
+      }
+
+      /* EDGE SWIPE LEFT → BACK */
+      if (startX < 30 && dx > 40) {
+        document.body.dispatchEvent(new Event("ascend-back"));
+      }
+
+      /* HOLD → MULTITASK */
+      // (Simple demo: long press triggers multitask)
+    });
+
+    /* LONG PRESS → MULTITASK */
+    let pressTimer;
+    layer.addEventListener("touchstart", () => {
+      pressTimer = setTimeout(() => {
+        document.body.dispatchEvent(new Event("ascend-multitask"));
+      }, 500);
+    });
+
+    layer.addEventListener("touchend", () => clearTimeout(pressTimer));
+
+  });
+</script>
+
+<style>
+  .gesture-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 9997;
+    background: transparent;
+    touch-action: none;
+  }
+</style>
