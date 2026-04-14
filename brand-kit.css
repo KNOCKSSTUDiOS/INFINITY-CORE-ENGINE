@@ -145,6 +145,59 @@
 /* WATCHDOG ALERT FLASH */
 body.ice-alert {
   animation: alertFlash 0.6s ease-in-out;
+   /* ============================================================
+   NOTIFICATION SYSTEM STYLES
+   ============================================================ */
+
+#ice-notify-container {
+  position: fixed;
+  top: 64px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 99999;
+}
+
+.ice-note {
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  background: rgba(10, 10, 10, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f5f5f5;
+}
+
+.ice-note.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ice-note.system {
+  border-color: rgba(255, 204, 102, 0.4);
+  color: #ffcc66;
+}
+
+.ice-note.success {
+  border-color: rgba(120, 255, 120, 0.4);
+  color: #88ff88;
+}
+
+.ice-note.warn {
+  border-color: rgba(255, 120, 120, 0.4);
+  color: #ff8888;
+}
+
+.ice-note.badge {
+  border-color: rgba(255, 204, 102, 0.6);
+  background: linear-gradient(135deg, rgba(255,204,102,0.2), rgba(255,255,255,0.05));
+  color: #ffcc66;
+}
 }
 
 @keyframes alertFlash {
