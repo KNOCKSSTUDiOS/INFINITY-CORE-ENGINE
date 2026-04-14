@@ -1,0 +1,77 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // GRAND PRIEST MODE
+     Fractal Divine Aura • Dimensional Pressure • Omni-Flow
+     ============================================================ -->
+
+<div id="gp-aura"></div>
+<div id="gp-fractal"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const aura = document.getElementById("gp-aura");
+    const fractal = document.getElementById("gp-fractal");
+
+    window.GoGrandPriestMode = () => {
+      document.body.setAttribute("data-grandpriest", "on");
+      aura.classList.add("active");
+      fractal.classList.add("active");
+    };
+
+    window.ExitGrandPriestMode = () => {
+      document.body.removeAttribute("data-grandpriest");
+      aura.classList.remove("active");
+      fractal.classList.remove("active");
+    };
+
+  });
+</script>
+
+<style>
+  #gp-aura,
+  #gp-fractal {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 150ms ease;
+    z-index: 999999;
+  }
+
+  /* Divine Fractal Aura */
+  #gp-aura.active {
+    opacity: 1;
+    animation: gpPulse 1.5s infinite;
+    background: radial-gradient(circle at center,
+      rgba(180,255,255,0.6),
+      rgba(140,220,255,0.3),
+      transparent 70%
+    );
+  }
+
+  /* Dimensional Fractal Geometry */
+  #gp-fractal.active {
+    opacity: 1;
+    animation: gpFractal 3s infinite linear;
+    background-image:
+      repeating-linear-gradient(45deg,
+        rgba(255,255,255,0.2) 0px,
+        rgba(255,255,255,0.2) 6px,
+        transparent 6px,
+        transparent 50px
+      );
+    mix-blend-mode: screen;
+    filter: blur(10px);
+  }
+
+  @keyframes gpPulse {
+    0% { transform: scale(1); filter: blur(0px); }
+    50% { transform: scale(1.15); filter: blur(16px); }
+    100% { transform: scale(1); filter: blur(0px); }
+  }
+
+  @keyframes gpFractal {
+    0% { transform: translateX(0px) rotate(0deg); }
+    100% { transform: translateX(80px) rotate(360deg); }
+  }
+</style>
