@@ -1,0 +1,132 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // APP PERMISSIONS ENGINE
+     Camera • Mic • Location • Files • Network
+     ============================================================ -->
+
+<section id="permissions" class="permissions hidden">
+
+  <h2 class="knocks-title">APP PERMISSIONS</h2>
+  <div class="knocks-divider"></div>
+
+  <div id="perm-list" class="perm-list">
+    <!-- Permissions injected dynamically -->
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const permList = document.getElementById("perm-list");
+
+    /* DEMO PERMISSIONS */
+    const permissions = [
+      { app: "Camera", perms: ["Camera", "Microphone"] },
+      { app: "Messages", perms: ["Notifications", "Files"] },
+      { app: "Browser", perms: ["Network", "Location"] },
+      { app: "Gallery", perms: ["Files"] }
+    ];
+
+    function renderPermissions() {
+      permList.innerHTML = "";
+      permissions.forEach(entry => {
+        const block = document.createElement("div");
+        block.className = "perm-block";
+
+        const permsHTML = entry.perms.map(p => `
+          <div class="perm-item">
+            <span>${p}</span>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+        `).join("");
+
+        block.innerHTML = `
+          <div class="perm-app">${entry.app}</div>
+          ${permsHTML}
+        `;
+
+        permList.appendChild(block);
+      });
+    }
+
+    renderPermissions();
+
+  });
+</script>
+
+<style>
+  .perm-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .perm-block {
+    background: var(--surface-1);
+    border: 1px solid var(--surface-3);
+    border-radius: var(--radius-medium);
+    padding: 16px;
+  }
+
+  .perm-app {
+    font-size: 14px;
+    color: var(--accent-primary);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .perm-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    color: var(--knocks-white);
+    font-size: 12px;
+  }
+
+  /* SWITCH */
+  .switch {
+    position: relative;
+    width: 40px;
+    height: 20px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: var(--surface-3);
+    border-radius: 20px;
+    transition: 200ms;
+  }
+
+  .slider:before {
+    content: "";
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background: var(--knocks-white);
+    border-radius: 50%;
+    transition: 200ms;
+  }
+
+  input:checked + .slider {
+    background: var(--accent-primary);
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(20px);
+  }
+</style>
