@@ -1,0 +1,75 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // ULTRA INSTINCT OMEN MODE
+     Silver Aura • Autonomous Movement • Cosmic Drift FX
+     ============================================================ -->
+
+<div id="ui-omen-aura"></div>
+<div id="ui-omen-drift"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const aura = document.getElementById("ui-omen-aura");
+    const drift = document.getElementById("ui-omen-drift");
+
+    window.GoUltraInstinctOmen = () => {
+      document.body.setAttribute("data-ui-omen", "on");
+      aura.classList.add("active");
+      drift.classList.add("active");
+    };
+
+    window.ExitUltraInstinctOmen = () => {
+      document.body.removeAttribute("data-ui-omen");
+      aura.classList.remove("active");
+      drift.classList.remove("active");
+    };
+
+  });
+</script>
+
+<style>
+  #ui-omen-aura,
+  #ui-omen-drift {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 180ms ease;
+    z-index: 999999;
+  }
+
+  /* Silver Aura */
+  #ui-omen-aura.active {
+    opacity: 1;
+    animation: uiOmenPulse 1.1s infinite;
+    background: radial-gradient(circle at center,
+      rgba(200, 200, 255, 0.45),
+      rgba(150, 150, 255, 0.25),
+      transparent 70%
+    );
+  }
+
+  /* Cosmic Drift */
+  #ui-omen-drift.active {
+    opacity: 1;
+    animation: uiOmenDrift 3s infinite linear;
+    background: repeating-linear-gradient(45deg,
+      rgba(255,255,255,0.15) 0px,
+      rgba(255,255,255,0.15) 4px,
+      transparent 4px,
+      transparent 40px
+    );
+    filter: blur(6px);
+  }
+
+  @keyframes uiOmenPulse {
+    0% { transform: scale(1); filter: blur(0px); }
+    50% { transform: scale(1.06); filter: blur(10px); }
+    100% { transform: scale(1); filter: blur(0px); }
+  }
+
+  @keyframes uiOmenDrift {
+    0% { transform: translateX(0px); }
+    100% { transform: translateX(60px); }
+  }
+</style>
