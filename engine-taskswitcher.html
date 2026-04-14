@@ -50,4 +50,97 @@
         document.getElementById("engine-taskswitcher").classList.add("hidden");
         const target = document.getElementById(task.id);
         if (target) {
-          document.querySelectorAll(".view").forEach(v => v.class
+          document.querySelectorAll(".view").forEach(v => v.classList.add("hidden"));
+          target.classList.remove("hidden");
+        }
+      });
+
+      // CLOSE
+      card.querySelector(".ts-close").addEventListener("click", () => {
+        closeTask(task.id);
+      });
+
+      container.appendChild(card);
+    });
+  }
+
+  // Toggle Task Switcher
+  document.addEventListener("DOMContentLoaded", () => {
+    const drawer = document.getElementById("engine-systemdrawer");
+    const ts = document.getElementById("engine-taskswitcher");
+
+    if (!drawer || !ts) return;
+
+    // Long press on status bar opens task switcher
+    let pressTimer = null;
+
+    document.getElementById("engine-statusbar").addEventListener("mousedown", () => {
+      pressTimer = setTimeout(() => {
+        ts.classList.toggle("hidden");
+      }, 600);
+    });
+
+    document.addEventListener("mouseup", () => {
+      clearTimeout(pressTimer);
+    });
+  });
+</script>
+
+<style>
+  .engine-taskswitcher {
+    position: fixed;
+    top: 32px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 32px);
+    background: rgba(10,10,10,0.96);
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 9997;
+  }
+
+  .ts-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .ts-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ts-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .ts-card-title {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--knocks-steel);
+  }
+
+  .ts-close {
+    background: transparent;
+    border: none;
+    color: var(--knocks-gold);
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  .ts-open {
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--knocks-white);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+</style>
