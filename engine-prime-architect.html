@@ -1,0 +1,84 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // PRIME ARCHITECT MODE
+     Zero-Form Light • Blueprint Layer • System-Origin Authority
+     ============================================================ -->
+
+<div id="architect-aura"></div>
+<div id="architect-grid"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const aura = document.getElementById("architect-aura");
+    const grid = document.getElementById("architect-grid");
+
+    window.GoPrimeArchitect = () => {
+      document.body.setAttribute("data-architect", "on");
+      aura.classList.add("active");
+      grid.classList.add("active");
+    };
+
+    window.ExitPrimeArchitect = () => {
+      document.body.removeAttribute("data-architect");
+      aura.classList.remove("active");
+      grid.classList.remove("active");
+    };
+
+  });
+</script>
+
+<style>
+  #architect-aura,
+  #architect-grid {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 120ms ease;
+    z-index: 999999;
+  }
+
+  /* Zero-Form Light Aura */
+  #architect-aura.active {
+    opacity: 1;
+    animation: architectPulse 2.2s infinite;
+    background: radial-gradient(circle at center,
+      rgba(255,255,255,0.25),
+      rgba(255,255,255,0.08),
+      transparent 70%
+    );
+    filter: blur(18px);
+  }
+
+  /* Blueprint Grid Layer */
+  #architect-grid.active {
+    opacity: 1;
+    animation: architectGrid 3.6s infinite linear;
+    background-image:
+      repeating-linear-gradient(90deg,
+        rgba(255,255,255,0.12) 0px,
+        rgba(255,255,255,0.12) 2px,
+        transparent 2px,
+        transparent 60px
+      ),
+      repeating-linear-gradient(0deg,
+        rgba(255,255,255,0.12) 0px,
+        rgba(255,255,255,0.12) 2px,
+        transparent 2px,
+        transparent 60px
+      );
+    mix-blend-mode: soft-light;
+    filter: blur(10px);
+  }
+
+  @keyframes architectPulse {
+    0% { transform: scale(1); filter: blur(10px); }
+    50% { transform: scale(1.22); filter: blur(28px); }
+    100% { transform: scale(1); filter: blur(10px); }
+  }
+
+  @keyframes architectGrid {
+    0% { transform: translateX(0px) translateY(0px); }
+    100% { transform: translateX(80px) translateY(80px); }
+  }
+</style>
