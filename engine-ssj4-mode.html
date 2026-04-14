@@ -1,0 +1,75 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // SUPER SAIYAN 4 MODE
+     Primal Aura • Red-Gold Plasma • Beast Lightning
+     ============================================================ -->
+
+<div id="ssj4-aura"></div>
+<div id="ssj4-lightning"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const aura = document.getElementById("ssj4-aura");
+    const lightning = document.getElementById("ssj4-lightning");
+
+    window.GoSuperSaiyan4 = () => {
+      document.body.setAttribute("data-ssj4", "on");
+      aura.classList.add("active");
+      lightning.classList.add("active");
+    };
+
+    window.ExitSuperSaiyan4 = () => {
+      document.body.removeAttribute("data-ssj4");
+      aura.classList.remove("active");
+      lightning.classList.remove("active");
+    };
+
+  });
+</script>
+
+<style>
+  #ssj4-aura,
+  #ssj4-lightning {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 200ms ease;
+    z-index: 999999;
+  }
+
+  #ssj4-aura.active {
+    opacity: 1;
+    animation: ssj4Pulse 0.8s infinite;
+    background: radial-gradient(circle at center,
+      rgba(255, 60, 60, 0.45),
+      rgba(255, 0, 0, 0.25),
+      transparent 70%
+    );
+  }
+
+  #ssj4-lightning.active {
+    opacity: 1;
+    animation: ssj4Lightning 0.45s infinite;
+    background-image:
+      repeating-linear-gradient(90deg,
+        rgba(255,255,255,0.8) 0px,
+        rgba(255,255,255,0.8) 3px,
+        transparent 3px,
+        transparent 55px
+      );
+    filter: blur(3px);
+  }
+
+  @keyframes ssj4Pulse {
+    0% { transform: scale(1); filter: blur(0px); }
+    50% { transform: scale(1.1); filter: blur(10px); }
+    100% { transform: scale(1); filter: blur(0px); }
+  }
+
+  @keyframes ssj4Lightning {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+  }
+</style>
