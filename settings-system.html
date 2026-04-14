@@ -1,0 +1,133 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // SETTINGS: SYSTEM
+     About • Storage • Reset • Diagnostics
+     ============================================================ -->
+
+<section id="settings-system" class="settings-subview hidden">
+
+  <h2 class="knocks-title">SYSTEM</h2>
+  <div class="knocks-divider"></div>
+
+  <!-- ABOUT -->
+  <div class="system-section">
+    <h3 class="knocks-subtitle">ABOUT</h3>
+    <ul class="system-info">
+      <li>ASCEND-OS Engine</li>
+      <li>Version 1.0</li>
+      <li>Build: INFINITY-CORE</li>
+      <li>Device: KNOCKSSTUDiOS Virtual Runtime</li>
+    </ul>
+  </div>
+
+  <!-- STORAGE -->
+  <div class="system-section">
+    <h3 class="knocks-subtitle">STORAGE</h3>
+    <div class="storage-bar">
+      <div class="storage-used" style="width: 42%;"></div>
+    </div>
+    <p class="storage-label">42% Used</p>
+  </div>
+
+  <!-- RESET -->
+  <div class="system-section">
+    <h3 class="knocks-subtitle">RESET OPTIONS</h3>
+    <button class="system-btn" id="reset-settings">Reset Settings</button>
+    <button class="system-btn system-danger" id="reset-engine">Reset Engine</button>
+  </div>
+
+  <!-- DIAGNOSTICS -->
+  <div class="system-section">
+    <h3 class="knocks-subtitle">DIAGNOSTICS</h3>
+    <button class="system-btn" id="run-diagnostics">Run Diagnostics</button>
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    // Reset Settings
+    document.getElementById("reset-settings").addEventListener("click", () => {
+      alert("Settings have been reset.");
+    });
+
+    // Reset Engine
+    document.getElementById("reset-engine").addEventListener("click", () => {
+      alert("Engine reset initiated.");
+    });
+
+    // Diagnostics
+    document.getElementById("run-diagnostics").addEventListener("click", () => {
+      alert("Running diagnostics...");
+    });
+
+  });
+</script>
+
+<style>
+  #settings-system {
+    padding-bottom: 40px;
+  }
+
+  .system-section {
+    margin-bottom: 24px;
+  }
+
+  .system-info {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: var(--knocks-steel);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .system-info li {
+    margin-bottom: 6px;
+  }
+
+  .storage-bar {
+    width: 100%;
+    height: 12px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+
+  .storage-used {
+    height: 100%;
+    background: var(--knocks-gold);
+  }
+
+  .storage-label {
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--knocks-steel);
+  }
+
+  .system-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--knocks-white);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+
+  .system-btn:hover {
+    background: rgba(255,255,255,0.12);
+  }
+
+  .system-danger {
+    background: rgba(255,0,0,0.15);
+    border-color: rgba(255,0,0,0.35);
+    color: #ff6666;
+  }
+</style>
