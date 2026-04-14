@@ -1,0 +1,78 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // ZENO MODE
+     Absolute Void Aura • Existence Authority • Erasure Field
+     ============================================================ -->
+
+<div id="zeno-aura"></div>
+<div id="zeno-field"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const aura = document.getElementById("zeno-aura");
+    const field = document.getElementById("zeno-field");
+
+    window.GoZenoMode = () => {
+      document.body.setAttribute("data-zeno", "on");
+      aura.classList.add("active");
+      field.classList.add("active");
+    };
+
+    window.ExitZenoMode = () => {
+      document.body.removeAttribute("data-zeno");
+      aura.classList.remove("active");
+      field.classList.remove("active");
+    };
+
+  });
+</script>
+
+<style>
+  #zeno-aura,
+  #zeno-field {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 140ms ease;
+    z-index: 999999;
+  }
+
+  /* Absolute White Void Aura */
+  #zeno-aura.active {
+    opacity: 1;
+    animation: zenoPulse 1.6s infinite;
+    background: radial-gradient(circle at center,
+      rgba(255,255,255,0.7),
+      rgba(240,240,255,0.3),
+      transparent 70%
+    );
+  }
+
+  /* Erasure Field */
+  #zeno-field.active {
+    opacity: 1;
+    animation: zenoErase 0.9s infinite;
+    background-image:
+      repeating-linear-gradient(90deg,
+        rgba(255,255,255,1) 0px,
+        rgba(255,255,255,1) 4px,
+        transparent 4px,
+        transparent 100px
+      );
+    mix-blend-mode: difference;
+    filter: blur(12px);
+  }
+
+  @keyframes zenoPulse {
+    0% { transform: scale(1); filter: blur(0px); }
+    50% { transform: scale(1.18); filter: blur(18px); }
+    100% { transform: scale(1); filter: blur(0px); }
+  }
+
+  @keyframes zenoErase {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+  }
+</style>
