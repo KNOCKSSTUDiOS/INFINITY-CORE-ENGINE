@@ -1,0 +1,117 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // SYSTEM COMMAND BAR (SHERIFF STRIP)
+     Global Search • Quick Launch • System Pulse • Identity Tag
+     ============================================================ -->
+
+<div id="ice-commandbar">
+
+  <!-- LEFT: ENGINE IDENTITY -->
+  <div class="cmd-left">
+    <span class="cmd-engine">INFINITY‑CORE‑ENGINE</span>
+    <span class="cmd-sheriff">SHERIFF OVERRIDE</span>
+  </div>
+
+  <!-- CENTER: GLOBAL SEARCH -->
+  <div class="cmd-center">
+    <input id="cmd-search" type="text" placeholder="Search engine, galleries, requests, tools…" />
+  </div>
+
+  <!-- RIGHT: SYSTEM STATUS -->
+  <div class="cmd-right">
+    <div class="cmd-pulse"></div>
+    <span class="cmd-status">ONLINE</span>
+  </div>
+
+</div>
+
+<style>
+  #ice-commandbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background: rgba(5, 5, 5, 0.92);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    z-index: 9999;
+    backdrop-filter: blur(6px);
+  }
+
+  .cmd-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cmd-engine {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #ffcc66;
+  }
+
+  .cmd-sheriff {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(255, 204, 102, 0.18);
+    border: 1px solid rgba(255, 204, 102, 0.4);
+    color: #ffcc66;
+  }
+
+  .cmd-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  #cmd-search {
+    width: 60%;
+    max-width: 480px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(10, 10, 10, 0.9);
+    color: #f5f5f5;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  #cmd-search::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .cmd-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .cmd-status {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .cmd-pulse {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ffcc66;
+    box-shadow: 0 0 12px #ffcc66;
+    animation: pulseOnline 1.8s infinite ease-in-out;
+  }
+
+  @keyframes pulseOnline {
+    0% { transform: scale(0.7); opacity: 0.5; }
+    50% { transform: scale(1.3); opacity: 1; }
+    100% { transform: scale(0.7); opacity: 0.5; }
+  }
+</style>
