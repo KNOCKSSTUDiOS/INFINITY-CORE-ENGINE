@@ -1,0 +1,77 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // OMNIKING MODE
+     Conceptual Aura • Omniversal Pressure • Reality Framework Control
+     ============================================================ -->
+
+<div id="omniking-aura"></div>
+<div id="omniking-distort"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const aura = document.getElementById("omniking-aura");
+    const distort = document.getElementById("omniking-distort");
+
+    window.GoOmnikingMode = () => {
+      document.body.setAttribute("data-omniking", "on");
+      aura.classList.add("active");
+      distort.classList.add("active");
+    };
+
+    window.ExitOmnikingMode = () => {
+      document.body.removeAttribute("data-omniking");
+      aura.classList.remove("active");
+      distort.classList.remove("active");
+    };
+
+  });
+</script>
+
+<style>
+  #omniking-aura,
+  #omniking-distort {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 130ms ease;
+    z-index: 999999;
+  }
+
+  /* Invisible Pressure Aura (subtle distortion) */
+  #omniking-aura.active {
+    opacity: 1;
+    animation: omnikingPulse 1.8s infinite;
+    background: radial-gradient(circle at center,
+      rgba(255,255,255,0.05),
+      rgba(255,255,255,0.02),
+      transparent 70%
+    );
+    filter: blur(4px);
+  }
+
+  /* Reality Distortion Layer */
+  #omniking-distort.active {
+    opacity: 1;
+    animation: omnikingDistort 2.6s infinite linear;
+    background: repeating-linear-gradient(45deg,
+      rgba(255,255,255,0.1) 0px,
+      rgba(255,255,255,0.1) 8px,
+      transparent 8px,
+      transparent 60px
+    );
+    mix-blend-mode: overlay;
+    filter: blur(14px);
+  }
+
+  @keyframes omnikingPulse {
+    0% { transform: scale(1); filter: blur(4px); }
+    50% { transform: scale(1.2); filter: blur(14px); }
+    100% { transform: scale(1); filter: blur(4px); }
+  }
+
+  @keyframes omnikingDistort {
+    0% { transform: translateX(0px) rotate(0deg); }
+    100% { transform: translateX(120px) rotate(360deg); }
+  }
+</style>
