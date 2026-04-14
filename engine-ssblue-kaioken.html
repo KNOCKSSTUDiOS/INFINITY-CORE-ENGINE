@@ -1,0 +1,75 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // SUPER SAIYAN BLUE KAIOKEN MODE
+     Blue God Aura • Red Kaioken Overlay • Overload Pulse
+     ============================================================ -->
+
+<div id="ssbkk-aura"></div>
+<div id="ssbkk-kaioken"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const aura = document.getElementById("ssbkk-aura");
+    const kaioken = document.getElementById("ssbkk-kaioken");
+
+    window.GoSuperSaiyanBlueKaioken = () => {
+      document.body.setAttribute("data-ssbkk", "on");
+      aura.classList.add("active");
+      kaioken.classList.add("active");
+    };
+
+    window.ExitSuperSaiyanBlueKaioken = () => {
+      document.body.removeAttribute("data-ssbkk");
+      aura.classList.remove("active");
+      kaioken.classList.remove("active");
+    };
+
+  });
+</script>
+
+<style>
+  #ssbkk-aura,
+  #ssbkk-kaioken {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 180ms ease;
+    z-index: 999999;
+  }
+
+  /* Blue God Aura */
+  #ssbkk-aura.active {
+    opacity: 1;
+    animation: ssbkkBluePulse 0.85s infinite;
+    background: radial-gradient(circle at center,
+      rgba(0, 140, 255, 0.45),
+      rgba(0, 90, 255, 0.25),
+      transparent 70%
+    );
+  }
+
+  /* Red Kaioken Overlay */
+  #ssbkk-kaioken.active {
+    opacity: 1;
+    animation: ssbkkRedPulse 0.45s infinite;
+    background: radial-gradient(circle at center,
+      rgba(255, 40, 40, 0.45),
+      rgba(255, 0, 0, 0.25),
+      transparent 70%
+    );
+    mix-blend-mode: screen;
+  }
+
+  @keyframes ssbkkBluePulse {
+    0% { transform: scale(1); filter: blur(0px); }
+    50% { transform: scale(1.08); filter: blur(8px); }
+    100% { transform: scale(1); filter: blur(0px); }
+  }
+
+  @keyframes ssbkkRedPulse {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+  }
+</style>
