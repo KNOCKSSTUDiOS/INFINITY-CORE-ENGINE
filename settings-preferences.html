@@ -1,0 +1,93 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // SETTINGS: PREFERENCES
+     Animations • Haptics • Transitions • Behavior
+     ============================================================ -->
+
+<section id="settings-preferences" class="settings-subview hidden">
+
+  <h2 class="knocks-title">PREFERENCES</h2>
+  <div class="knocks-divider"></div>
+
+  <!-- ANIMATIONS -->
+  <div class="pref-section">
+    <h3 class="knocks-subtitle">ANIMATIONS</h3>
+    <div class="pref-options">
+      <button class="pref-btn" data-pref="anim-on">On</button>
+      <button class="pref-btn" data-pref="anim-off">Off</button>
+    </div>
+  </div>
+
+  <!-- HAPTICS -->
+  <div class="pref-section">
+    <h3 class="knocks-subtitle">HAPTICS</h3>
+    <div class="pref-options">
+      <button class="pref-btn" data-pref="haptic-strong">Strong</button>
+      <button class="pref-btn" data-pref="haptic-medium">Medium</button>
+      <button class="pref-btn" data-pref="haptic-off">Off</button>
+    </div>
+  </div>
+
+  <!-- TRANSITIONS -->
+  <div class="pref-section">
+    <h3 class="knocks-subtitle">TRANSITIONS</h3>
+    <div class="pref-options">
+      <button class="pref-btn" data-pref="trans-fast">Fast</button>
+      <button class="pref-btn" data-pref="trans-normal">Normal</button>
+      <button class="pref-btn" data-pref="trans-slow">Slow</button>
+    </div>
+  </div>
+
+  <!-- ENGINE BEHAVIOR -->
+  <div class="pref-section">
+    <h3 class="knocks-subtitle">ENGINE BEHAVIOR</h3>
+    <div class="pref-options">
+      <button class="pref-btn" data-pref="behavior-fluid">Fluid</button>
+      <button class="pref-btn" data-pref="behavior-snappy">Snappy</button>
+      <button class="pref-btn" data-pref="behavior-cinematic">Cinematic</button>
+    </div>
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".pref-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const pref = btn.getAttribute("data-pref");
+        document.body.setAttribute("data-pref-" + pref, "true");
+      });
+    });
+  });
+</script>
+
+<style>
+  #settings-preferences {
+    padding-bottom: 40px;
+  }
+
+  .pref-section {
+    margin-bottom: 24px;
+  }
+
+  .pref-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .pref-btn {
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--knocks-white);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .pref-btn:hover {
+    background: rgba(255,255,255,0.12);
+  }
+                     </style>
