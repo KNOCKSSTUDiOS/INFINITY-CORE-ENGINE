@@ -1,0 +1,78 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // TRUE GOD OF DESTRUCTION MODE
+     Hakai Aura • Void Lightning • Reality Collapse FX
+     ============================================================ -->
+
+<div id="godd-aura"></div>
+<div id="godd-void"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const aura = document.getElementById("godd-aura");
+    const voidFx = document.getElementById("godd-void");
+
+    window.GoGodOfDestruction = () => {
+      document.body.setAttribute("data-godd", "on");
+      aura.classList.add("active");
+      voidFx.classList.add("active");
+    };
+
+    window.ExitGodOfDestruction = () => {
+      document.body.removeAttribute("data-godd");
+      aura.classList.remove("active");
+      voidFx.classList.remove("active");
+    };
+
+  });
+</script>
+
+<style>
+  #godd-aura,
+  #godd-void {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 150ms ease;
+    z-index: 999999;
+  }
+
+  /* Hakai Purple Aura */
+  #godd-aura.active {
+    opacity: 1;
+    animation: goddPulse 1.25s infinite;
+    background: radial-gradient(circle at center,
+      rgba(150, 0, 255, 0.55),
+      rgba(90, 0, 180, 0.35),
+      transparent 70%
+    );
+  }
+
+  /* Void Lightning / Reality Collapse */
+  #godd-void.active {
+    opacity: 1;
+    animation: goddVoid 0.65s infinite;
+    background-image:
+      repeating-linear-gradient(90deg,
+        rgba(255,255,255,0.9) 0px,
+        rgba(255,255,255,0.9) 2px,
+        transparent 2px,
+        transparent 70px
+      );
+    mix-blend-mode: difference;
+    filter: blur(4px);
+  }
+
+  @keyframes goddPulse {
+    0% { transform: scale(1); filter: blur(0px); }
+    50% { transform: scale(1.15); filter: blur(14px); }
+    100% { transform: scale(1); filter: blur(0px); }
+  }
+
+  @keyframes goddVoid {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
+  }
+</style>
