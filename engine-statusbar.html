@@ -1,60 +1,77 @@
 <!-- ============================================================
-     INFINITY-CORE-ENGINE // STATUS BAR
-     Time • Battery • Signal • Engine Identity
+     INFINITY-CORE-ENGINE // STATUS BAR ENGINE
+     Time • Signal • Battery • System Indicators
      ============================================================ -->
 
-<div id="engine-statusbar" class="engine-statusbar">
+<div id="status-bar" class="status-bar">
 
   <div class="sb-left">
     <span id="sb-signal" class="sb-icon">📶</span>
-    <span id="sb-engine">ASCEND-OS</span>
+    <span id="sb-wifi" class="sb-icon">📡</span>
+    <span id="sb-bt" class="sb-icon">🔵</span>
   </div>
 
   <div class="sb-center">
-    <span id="sb-time">--:--</span>
+    <span id="sb-time" class="sb-time">00:00</span>
   </div>
 
   <div class="sb-right">
-    <span id="sb-battery" class="sb-icon">🔋</span>
+    <span id="sb-notif" class="sb-icon">•</span>
+    <span id="sb-battery" class="sb-icon">🔋 100%</span>
   </div>
 
 </div>
 
 <script>
-  function updateStatusBar() {
-    const timeEl = document.getElementById("sb-time");
-    const batteryEl = document.getElementById("sb-battery");
-
-    // TIME
-    const now = new Date();
-    const hours = now.getHours().toString().padStart(2, "0");
-    const minutes = now.getMinutes().toString().padStart(2, "0");
-    timeEl.textContent = `${hours}:${minutes}`;
-
-    // BATTERY (placeholder)
-    batteryEl.textContent = "🔋 100%";
-  }
-
   document.addEventListener("DOMContentLoaded", () => {
-    updateStatusBar();
-    setInterval(updateStatusBar, 30000);
+
+    /* CLOCK */
+    function updateStatusTime() {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, "0");
+      const minutes = now.getMinutes().toString().padStart(2, "0");
+      document.getElementById("sb-time").textContent = `${hours}:${minutes}`;
+    }
+
+    updateStatusTime();
+    setInterval(updateStatusTime, 1000);
+
+    /* BATTERY (SIMULATED) */
+    let batteryLevel = 100;
+    setInterval(() => {
+      batteryLevel = Math.max(0, batteryLevel - 1);
+      document.getElementById("sb-battery").textContent = `🔋 ${batteryLevel}%`;
+    }, 60000);
+
+    /* NOTIFICATION DOT HOOK */
+    window.AscendNotifyDot = (state) => {
+      document.getElementById("sb-notif").style.opacity = state ? 1 : 0.2;
+    };
+
+    /* SIGNAL + WIFI + BT STATES */
+    document.body.addEventListener("data-cc-wifi", () => {
+      document.getElementById("sb-wifi").classList.toggle("active");
+    });
+
   });
 </script>
 
 <style>
-  .engine-statusbar {
-    width: 100%;
-    height: 32px;
-    background: rgba(10,10,10,0.92);
-    border-bottom: 1px solid rgba(255,255,255,0.12);
+  .status-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 26px;
+    background: var(--surface-0);
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 0 14px;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--knocks-white);
+    align-items: center;
+    padding: 0 10px;
+    border-bottom: 1px solid var(--surface-2);
+    z-index: 9999;
+    font-size: 12px;
+    letter-spacing: 0.05em;
   }
 
   .sb-left, .sb-center, .sb-right {
@@ -64,6 +81,11 @@
   }
 
   .sb-icon {
-    opacity: 0.8;
+    color: var(--knocks-steel);
+  }
+
+  .sb-time {
+    color: var(--knocks-white);
+    font-weight: 500;
   }
 </style>
