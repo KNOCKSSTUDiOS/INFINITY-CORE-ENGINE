@@ -1,0 +1,76 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // ULTRA INSTINCT BEYOND MODE
+     Prismatic Aura • Limitless Flow • Reality-Bend Drift
+     ============================================================ -->
+
+<div id="uib-aura"></div>
+<div id="uib-spectrum"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const aura = document.getElementById("uib-aura");
+    const spectrum = document.getElementById("uib-spectrum");
+
+    window.GoUltraInstinctBeyond = () => {
+      document.body.setAttribute("data-uib", "on");
+      aura.classList.add("active");
+      spectrum.classList.add("active");
+    };
+
+    window.ExitUltraInstinctBeyond = () => {
+      document.body.removeAttribute("data-uib");
+      aura.classList.remove("active");
+      spectrum.classList.remove("active");
+    };
+
+  });
+</script>
+
+<style>
+  #uib-aura,
+  #uib-spectrum {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 150ms ease;
+    z-index: 999999;
+  }
+
+  /* Prismatic White-Silver Aura */
+  #uib-aura.active {
+    opacity: 1;
+    animation: uibPulse 1.3s infinite;
+    background: radial-gradient(circle at center,
+      rgba(255,255,255,0.6),
+      rgba(200,200,255,0.3),
+      transparent 70%
+    );
+  }
+
+  /* Spectrum Distortion */
+  #uib-spectrum.active {
+    opacity: 1;
+    animation: uibSpectrum 2.2s infinite linear;
+    background: repeating-linear-gradient(45deg,
+      rgba(255,0,255,0.15) 0px,
+      rgba(0,255,255,0.15) 20px,
+      rgba(255,255,0,0.15) 40px,
+      transparent 60px
+    );
+    mix-blend-mode: screen;
+    filter: blur(8px);
+  }
+
+  @keyframes uibPulse {
+    0% { transform: scale(1); filter: blur(0px); }
+    50% { transform: scale(1.14); filter: blur(14px); }
+    100% { transform: scale(1); filter: blur(0px); }
+  }
+
+  @keyframes uibSpectrum {
+    0% { transform: translateX(0px); }
+    100% { transform: translateX(80px); }
+  }
+</style>
