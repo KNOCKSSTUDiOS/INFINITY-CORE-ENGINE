@@ -1,32 +1,58 @@
-INFINITY-CORE ENGINE
-Unbreakable. Unbeatable. Self-regenerating.
-The GOD-MODE runtime powering ASCEND-OS and all future KNOCKSSTUDiOS systems.
+# INFINITY‑CORE‑ENGINE
 
-PURPOSE
-Infinity-Core is the origin layer — the engine that creates engines.
-It adapts, evolves, and restructures itself dynamically with zero drift.
+The **INFINITY‑CORE‑ENGINE** is a mythic‑industrial, cosmic engine architecture designed to forge worlds, subsystems, and identities.
 
-CORE LAWS
-1. Nothing outside the Core can define it.
-2. Everything inside the Core can be rewritten.
-3. The Core regenerates any missing or corrupted part instantly.
-4. All subsystems are forged on demand through Origin → Forge → Pulse.
+This is not an app.  
+This is not a theme.  
+This is a **universe‑forging engine**.
 
-STRUCTURE
-ENGINE/infinity/origin.js
-ENGINE/infinity/forge.js
-ENGINE/infinity/pulse.js
-ENGINE/systems/
-ENGINE/render/
-ENGINE/world/
-ENGINE/ui/
-ENGINE/audio/
-ENGINE/net/
-ENGINE/os/
+---
 
-STATUS
-ACTIVE — GOD MODE ENABLED
-This engine cannot be destroyed, outperformed, or surpassed.
+## Core Pillars
 
-LICENSE
-KNOCKSSTUDiOS INTERNAL — ASCEND-OS ROOT LAYER
+- **Silent Power** — monolith presence  
+- **Cosmic Energy** — living pulse  
+- **Engineered Precision** — technical mastery  
+
+Every module, visual, sound, and behavior in this engine must reflect all three.
+
+---
+
+## Repository Structure
+
+```bash
+INFINITY-CORE-ENGINE/
+  core/
+    engine_core.py        # heartbeat, modes, pulse system
+    energy_system.py      # Fluxline, Astral Pulse, Emberstone logic
+    glyph_system.py       # ∞‑Prime, Forge‑Triangle, etc.
+    forge_system.py       # module/mode creation
+  shell/
+    hud/
+      hud_layout.py       # HUD frames, states
+      hud_themes.py       # Obsidian, Voidglass, Sentinel Steel
+    ui/
+      ui_components.py    # panels, buttons, overlays
+      transitions.py      # monolith rise, flux cuts, void collapse
+    audio/
+      sound_cues.py       # pulse, hum, impact, surge
+  cinematic/
+    boot_sequence.py      # void → pulse → monolith → glyphs → lock
+    intro_scenes.py       # social/cinematic intros
+  brand/
+    materials.py          # Obsidian Core, Fluxline Blue, etc.
+    palette.py            # color law
+    motion_rules.py       # motion law
+    brand_law.md          # brand rules
+  social_kits/
+    tiktok/
+      overlays.json
+      transitions.json
+    youtube/
+      templates.json
+    capcut/
+      presets.json
+  docs/
+    ENGINE_BLUEPRINT.md   # engine architecture
+    LORE_BIBLE.md         # mythic story
+    EXPANSION_MAP.md      # future evolution
