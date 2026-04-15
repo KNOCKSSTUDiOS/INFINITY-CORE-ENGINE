@@ -1,0 +1,17 @@
+{
+  "engine_settings": {
+    "default_mode": "IDLE",
+    "pulse_rate": 1,
+    "energy_limits": {
+      "fluxline_max": 100.0,
+      "astral_pulse_max": 100.0,
+      "emberstone_max": 100.0
+    },
+    "glyph_behavior": {
+      "auto_activate_on_boot": true,
+      "auto_deactivate_on_shutdown": true
+    },
+    "visual_profile": "OBSIDIAN_CORE",
+    "audio_profile": "CORE_HUM"
+  }
+}
