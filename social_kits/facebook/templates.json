@@ -1,0 +1,35 @@
+{
+  "facebook_templates": [
+    {
+      "name": "Core_Monolith_Reveal",
+      "duration": 1.4,
+      "elements": [
+        "void_fade",
+        "monolith_rise",
+        "fluxline_flash",
+        "identity_stamp"
+      ],
+      "description": "Heavy monolith reveal optimized for Facebook video posts."
+    },
+    {
+      "name": "Astral_Pulse_Frame",
+      "duration": 1.0,
+      "elements": [
+        "astral_wave",
+        "voidglass_glow",
+        "title_slide"
+      ],
+      "description": "Cosmic frame with Astral Pulse Violet™ accents."
+    },
+    {
+      "name": "Forge_Heat_Title",
+      "duration": 1.3,
+      "elements": [
+        "emberstone_heat",
+        "crack_glow",
+        "title_burn_in"
+      ],
+      "description": "Heat‑forged title reveal using Emberstone™ distortion."
+    }
+  ]
+}
