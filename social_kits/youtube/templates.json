@@ -1,0 +1,36 @@
+{
+  "youtube_templates": [
+    {
+      "name": "Nebula_Intro_Frame",
+      "duration": 2.0,
+      "elements": [
+        "nebula_swirl",
+        "astral_wave",
+        "monolith_rise",
+        "glyph_activation",
+        "brand_lock"
+      ],
+      "description": "Cinematic Nebula intro for YouTube videos."
+    },
+    {
+      "name": "Fluxline_Title_Card",
+      "duration": 1.2,
+      "elements": [
+        "fluxline_flash",
+        "voidglass_fade",
+        "title_reveal"
+      ],
+      "description": "High‑energy Fluxline Blue™ title card."
+    },
+    {
+      "name": "Eclipse_Endscreen",
+      "duration": 1.8,
+      "elements": [
+        "eclipse_collapse",
+        "emberstone_glow",
+        "subscribe_stamp"
+      ],
+      "description": "Dark cosmic endscreen with Emberstone accents."
+    }
+  ]
+}
