@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hollywood Imaging Cinema</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="cinema-root">
+    <header class="cinema-header">
+      <div class="cinema-logo">HOLLYWOODIMAGING.STUDIO</div>
+      <div class="cinema-tagline">We don’t make clips. We make movies.</div>
+    </header>
+
+    <main class="cinema-main">
+      <section class="cinema-hero" data-parallax>
+        <div class="cinema-hero-overlay"></div>
+        <div class="cinema-hero-content">
+          <h1 class="cinema-hero-title">CINEMA GALLERY</h1>
+          <p class="cinema-hero-subtitle">
+            Ultra‑cinematic gallery powered by INFINITY‑CORE‑ENGINE.
+          </p>
+        </div>
+      </section>
+
+      <section class="cinema-gallery" id="cinema-gallery"></section>
+
+      <div class="cinema-loader" id="cinema-loader">
+        <span>Loading scenes…</span>
+      </div>
+    </main>
+  </div>
+
+  <div class="cinema-lightbox" id="cinema-lightbox">
+    <div class="cinema-lightbox-backdrop" id="cinema-lightbox-backdrop"></div>
+    <div class="cinema-lightbox-inner">
+      <button class="cinema-lightbox-close" id="cinema-lightbox-close">×</button>
+      <div class="cinema-lightbox-media" id="cinema-lightbox-media"></div>
+      <div class="cinema-lightbox-meta">
+        <h2 id="cinema-lightbox-title"></h2>
+        <p id="cinema-lightbox-description"></p>
+        <div class="cinema-lightbox-tags" id="cinema-lightbox-tags"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="./app.js" type="module"></script>
+</body>
+</html>
