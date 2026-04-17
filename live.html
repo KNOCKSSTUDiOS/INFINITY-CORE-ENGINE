@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LIVE • HOLLYWOODIMAGING.STUDIO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="hi-body hi-bg">
+  <header class="hi-header">
+    <div class="hi-logo">HOLLYWOODIMAGING.STUDIO</div>
+    <nav class="hi-nav">
+      <a href="index.html">Home</a>
+      <a href="live.html" class="hi-active">Live</a>
+      <a href="vod.html">On‑Demand</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <main class="hi-main">
+    <section class="hi-section hi-section-tight">
+      <div class="hi-section-header">
+        <div>
+          <h1>LIVE BROADCAST</h1>
+          <p>Studio‑grade live feed, delivered through your domain.</p>
+        </div>
+        <div class="hi-live-pill">
+          <span class="hi-live-dot"></span>
+          <span class="hi-live-text">LIVE</span>
+        </div>
+      </div>
+
+      <div class="hi-live-layout">
+        <div class="hi-live-player-wrap">
+          <div class="hi-live-player">
+            <iframe
+              id="hi-live-iframe"
+              src="https://www.youtube.com/embed/live_stream?channel=YOUR_CHANNEL_OR_STREAM_ID&autoplay=1"
+              title="HOLLYWOODIMAGING.STUDIO LIVE"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+
+          <div class="hi-live-meta">
+            <div class="hi-meta-left">
+              <h2>INFINITY‑CORE‑ENGINE • LIVE</h2>
+              <p>Broadcasting from the sovereign studio network.</p>
+            </div>
+            <div class="hi-meta-right">
+              <div class="hi-viewers">
+                <span class="hi-viewers-dot"></span>
+                <span id="hi-viewer-count">LIVE VIEWERS: —</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hi-live-sidebar">
+          <div class="hi-card hi-chat-card">
+            <h3>Live Chat</h3>
+            <div class="hi-chat-window" id="hi-chat-window">
+              <div class="hi-chat-message hi-chat-system">
+                <span class="hi-chat-user">SYSTEM</span>
+                <span class="hi-chat-text">Welcome to HOLLYWOODIMAGING.STUDIO LIVE.</span>
+              </div>
+            </div>
+
+            <div class="hi-chat-input-wrap">
+              <input
+                type="text"
+                id="hi-chat-input"
+                class="hi-input"
+                placeholder="Type a message (local demo only)..."
+              />
+              <button id="hi-chat-send" class="hi-btn hi-btn-primary">Send</button>
+            </div>
+          </div>
+
+          <div class="hi-card hi-info-card">
+            <h3>Studio‑Grade Pipeline</h3>
+            <ul class="hi-list">
+              <li>RTMP ingest → external live backend (YouTube Live)</li>
+              <li>HLS delivery via global CDN</li>
+              <li>Embedded in your sovereign domain</li>
+              <li>Ready for OBS / Streamlabs / studio workflows</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="hi-footer">
+    <span>© <span id="hi-year"></span> HOLLYWOODIMAGING.STUDIO • LIVE NETWORK</span>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/live.js"></script>
+</body>
+</html>
