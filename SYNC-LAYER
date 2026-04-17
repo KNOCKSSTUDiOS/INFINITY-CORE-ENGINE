@@ -1,13 +1,16 @@
 export const SyncLayer = {
     syncBufferToRepo() {
         console.log("SYNC-LAYER: buffer → repo [stub]");
+        // hook: write buffer contents to filesystem / API
     },
 
     syncRepoToEngine() {
         console.log("SYNC-LAYER: repo → engine [stub]");
+        // hook: read repo state and hydrate engine/bundles/assets
     },
 
     syncEngineToRuntime() {
         console.log("SYNC-LAYER: engine → runtime [stub]");
+        // hook: pass engine state into runtime layer
     }
 };
