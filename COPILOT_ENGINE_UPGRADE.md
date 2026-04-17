@@ -1,5 +1,5 @@
 @github-copilot apply
-Perform a full repository engine upgrade. Scan the entire repository and fix, add, refine, clean up, and correct all files. Improve HTML, CSS, JS, and any other code. Repair broken structure, missing tags, invalid syntax, and inconsistent formatting.
+Perform a scan of full repository, if need to do engine upgrade. Scan the entire repository and fix, add, refine, clean up, and correct all files. Improve HTML, CSS, JS, and any other code. Repair broken structure, missing tags, invalid syntax, and inconsistent formatting.
 
 Optimize all files for performance, readability, and stability. Ensure all filenames remain the same unless a correction is required. Organize assets, remove duplicates, and fix broken paths or references.
 
