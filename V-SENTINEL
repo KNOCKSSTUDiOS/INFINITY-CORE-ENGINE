@@ -1,0 +1,5 @@
+export const VSentinel = {
+    watch(target) {
+        console.log("V-SENTINEL: Watching →", target);
+    }
+};
