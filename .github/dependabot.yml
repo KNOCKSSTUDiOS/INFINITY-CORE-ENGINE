@@ -1,0 +1,167 @@
+# version: 2
+updates:
+  # ───────────────────────────────────────────────
+  #  GITHUB ACTIONS WORKFLOWS (ALL WORKFLOWS)
+  # ───────────────────────────────────────────────
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 1
+    allow:
+      - dependency-type: "direct"
+    ignore:
+      - dependency-type: "all"
+
+  # ───────────────────────────────────────────────
+  #  NODE / NPM (ENGINE SCRIPTS, FRONTEND, TOOLS)
+  # ───────────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 1
+    allow:
+      - dependency-type: "direct"
+    ignore:
+      - dependency-type: "all"
+
+  # ───────────────────────────────────────────────
+  #  PYTHON / PIP (ENGINE UTILITIES)
+  # ───────────────────────────────────────────────
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 1
+    allow:
+      - dependency-type: "direct"
+    ignore:
+      - dependency-type: "all"
+
+  # ───────────────────────────────────────────────
+  #  DOCKER (CONTAINERS, BUILDS, RUNTIME)
+  # ───────────────────────────────────────────────
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 1
+    allow:
+      - dependency-type: "direct"
+    ignore:
+      - dependency-type: "all"
+
+  # ───────────────────────────────────────────────
+  #  RUBY / BUNDLER (GITHUB PAGES INTERNAL)
+  # ───────────────────────────────────────────────
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 1
+    allow:
+      - dependency-type: "direct"
+    ignore:
+      - dependency-type: "all"
+
+  # ───────────────────────────────────────────────
+  #  GIT SUBMODULES (ENGINE MODULES)
+  # ───────────────────────────────────────────────
+  - package-ecosystem: "gitsubmodule"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 1
+    allow:
+      - dependency-type: "direct"
+    ignore:
+      - dependency-type: "all"
+
+  # ───────────────────────────────────────────────
+  #  TERRAFORM (INFRASTRUCTURE OPTIONAL)
+  # ───────────────────────────────────────────────
+  - package-ecosystem: "terraform"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 1
+    allow:
+      - dependency-type: "direct"
+    ignore:
+      - dependency-type: "all"
+
+  # ───────────────────────────────────────────────
+  #  MAVEN (JAVA MODULES)
+  # ───────────────────────────────────────────────
+  - package-ecosystem: "maven"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 1
+    allow:
+      - dependency-type: "direct"
+    ignore:
+      - dependency-type: "all"
+
+  # ───────────────────────────────────────────────
+  #  GRADLE (ANDROID / JVM)
+  # ───────────────────────────────────────────────
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 1
+    allow:
+      - dependency-type: "direct"
+    ignore:
+      - dependency-type: "all"
+
+  # ───────────────────────────────────────────────
+  #  COMPOSER (PHP MODULES)
+  # ───────────────────────────────────────────────
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 1
+    allow:
+      - dependency-type: "direct"
+    ignore:
+      - dependency-type: "all"
+
+  # ───────────────────────────────────────────────
+  #  CARGO (RUST MODULES)
+  # ───────────────────────────────────────────────
+  - package-ecosystem: "cargo"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 1
+    allow:
+      - dependency-type: "direct"
+    ignore:
+      - dependency-type: "all"
+
+  # ───────────────────────────────────────────────
+  #  NUGET (.NET MODULES)
+  # ───────────────────────────────────────────────
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 1
+    allow:
+      - dependency-type: "direct"
+    ignore:
+      - dependency-type: "all"To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: "" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "weekly"
