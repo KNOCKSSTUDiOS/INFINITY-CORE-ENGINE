@@ -1,0 +1,7 @@
+hollywoodimaging.studio/
+  ├── app/
+  ├── public/
+  ├── package.json
+  ├── next.config.js
+  ├── tsconfig.json
+  ├── README.md
