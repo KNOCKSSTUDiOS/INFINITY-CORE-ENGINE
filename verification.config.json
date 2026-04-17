@@ -1,0 +1,8 @@
+{
+  "verify_spdx": true,
+  "verify_cyclonedx": true,
+  "verify_signature": true,
+  "verify_provenance": true,
+  "verify_dependencies": true,
+  "verify_artifact_integrity": true
+}
