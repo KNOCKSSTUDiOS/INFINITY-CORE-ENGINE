@@ -1,0 +1,7 @@
+export const StudioOps = {
+    tasks: [],
+    queue(task) {
+        this.tasks.push(task);
+        console.log("STUDIO-OPS: Task queued →", task.name);
+    }
+};
