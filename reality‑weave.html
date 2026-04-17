@@ -1,0 +1,68 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // REALITY-WEAVE SUBSYSTEM
+     Synchronization Layer • Mode Linking • Engine Stability
+     ============================================================ -->
+
+<div id="reality-weave-core"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const RealityWeave = {
+    activeLinks: new Set(),
+    registry: {},
+
+    register(moduleName, hooks) {
+      this.registry[moduleName] = hooks;
+    },
+
+    link(modA, modB) {
+      const key = `${modA}::${modB}`;
+      this.activeLinks.add(key);
+      this.sync(modA, modB);
+    },
+
+    unlink(modA, modB) {
+      const key = `${modA}::${modB}`;
+      this.activeLinks.delete(key);
+    },
+
+    sync(modA, modB) {
+      const A = this.registry[modA];
+      const B = this.registry[modB];
+      if (!A || !B) return;
+
+      if (A.state && B.applyState) {
+        B.applyState(A.state);
+      }
+      if (B.state && A.applyState) {
+        A.applyState(B.state);
+      }
+    },
+
+    broadcast(moduleName) {
+      for (const link of this.activeLinks) {
+        const [A, B] = link.split("::");
+        if (A === moduleName) this.sync(A, B);
+        if (B === moduleName) this.sync(B, A);
+      }
+    }
+  };
+
+  window.RealityWeave = RealityWeave;
+});
+</script>
+
+<style>
+#reality-weave-core {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999999;
+  background: radial-gradient(circle at center,
+    rgba(0,255,255,0.05),
+    rgba(0,0,0,0)
+  );
+  mix-blend-mode: overlay;
+}
+</style>
