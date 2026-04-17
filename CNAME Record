@@ -1,0 +1,4 @@
+Type: CNAME
+Name: www
+Value: KNOCKSSTUDiOS.github.io
+TTL: 3600
