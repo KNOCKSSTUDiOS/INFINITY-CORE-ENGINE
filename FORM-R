@@ -1,0 +1,12 @@
+export const FORM_R = {
+    mode: "hyper-real",
+    quality: "cinematic",
+    apply(target) {
+        console.log("FORM-R: Applying hyper-real layer to", target);
+        return {
+            ...target,
+            form: "R",
+            enhancedAt: Date.now()
+        };
+    }
+};
