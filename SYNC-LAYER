@@ -1,0 +1,13 @@
+export const SyncLayer = {
+    syncBufferToRepo() {
+        console.log("SYNC-LAYER: buffer → repo [stub]");
+    },
+
+    syncRepoToEngine() {
+        console.log("SYNC-LAYER: repo → engine [stub]");
+    },
+
+    syncEngineToRuntime() {
+        console.log("SYNC-LAYER: engine → runtime [stub]");
+    }
+};
