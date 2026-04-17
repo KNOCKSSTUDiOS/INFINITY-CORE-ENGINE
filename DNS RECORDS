@@ -1,13 +1,9 @@
 Type: A
 Host: @
-Value: 185.199.108.153
-TTL: 3600Type: A
+Value: 185.199.108.153Type: A
 Host: @
-Value: 185.199.109.153
-TTL: 3600Type: A
+Value: 185.199.109.153Type: A
 Host: @
-Value: 185.199.110.153
-TTL: 3600Type: A
+Value: 185.199.110.153Type: A
 Host: @
 Value: 185.199.111.153
-TTL: 3600
