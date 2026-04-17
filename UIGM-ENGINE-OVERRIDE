@@ -1,0 +1,41 @@
+export const UIGM_EngineOverride = {
+    apply(engine, ultraInstinct) {
+        if (!engine || !ultraInstinct) {
+            console.warn("UIGM-ENGINE-OVERRIDE: Missing engine or UIGM module.");
+            return;
+        }
+
+        console.log("⚡ UIGM ENGINE OVERRIDE: Injecting Ultra Instinct logic into engine core...");
+
+        // Activate UIGM if not already active
+        if (!ultraInstinct.active) {
+            ultraInstinct.activate(engine);
+        }
+
+        // Override engine internal state
+        engine.state.override = {
+            mode: "ultra-instinct",
+            latency: 0,
+            awareness: "total",
+            reaction: "instant",
+            prediction: "pre-emptive",
+            timestamp: Date.now()
+        };
+
+        // Override engine.register()
+        const originalRegister = engine.register.bind(engine);
+
+        engine.register = (name, module) => {
+            console.log(`⚡ UIGM OVERRIDE: Registering module in Ultra Instinct mode → ${name}`);
+
+            // Auto-enhance module through UIGM
+            const enhanced = ultraInstinct.apply({
+                name,
+                ...module
+            });
+
+            originalRegister(name, enhanced);
+        };
+
+        // Override engine.getModule()
+        const originalGet = engine.getModule.bind(engine);
