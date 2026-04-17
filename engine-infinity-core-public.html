@@ -1,0 +1,179 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // PUBLIC CORE ENGINE
+     Module Upload • Refine • Rewrite • Upgrade • Add
+     ============================================================ -->
+
+<div id="infinity-core-engine"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const InfinityCore = {
+    version: "1.0.0-public",
+    modules: {},
+    hooks: {
+      beforeLoad: [],
+      afterLoad: [],
+      beforeUpgrade: [],
+      afterUpgrade: [],
+      beforeRewrite: [],
+      afterRewrite: []
+    },
+
+    log(...args) {
+      console.log("[INFINITY-CORE]", ...args);
+    },
+
+    registerHook(type, fn) {
+      if (!this.hooks[type]) return;
+      this.hooks[type].push(fn);
+    },
+
+    async runHooks(type, payload) {
+      if (!this.hooks[type]) return;
+      for (const fn of this.hooks[type]) {
+        try { await fn(payload); } catch (e) { this.log("Hook error:", e); }
+      }
+    },
+
+    exists(name) {
+      return !!this.modules[name];
+    },
+
+    get(name) {
+      return this.modules[name] || null;
+    },
+
+    list() {
+      return Object.keys(this.modules);
+    },
+
+    async uploadModule(definition) {
+      const { name, code, meta = {} } = definition;
+      if (!name || !code) {
+        this.log("Invalid module upload:", definition);
+        return;
+      }
+
+      await this.runHooks("beforeLoad", { name, code, meta });
+
+      this.modules[name] = {
+        name,
+        code,
+        meta: {
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+          ...meta
+        }
+      };
+
+      this.log("Module uploaded:", name);
+      await this.runHooks("afterLoad", this.modules[name]);
+    },
+
+    async refineModule(name, refineFn) {
+      const mod = this.modules[name];
+      if (!mod) {
+        this.log("Refine failed, module not found:", name);
+        return;
+      }
+
+      await this.runHooks("beforeRewrite", { name, mod });
+
+      try {
+        const newCode = await refineFn(mod.code, mod.meta);
+        mod.code = newCode;
+        mod.meta.updatedAt = Date.now();
+        mod.meta.refined = true;
+        this.log("Module refined:", name);
+      } catch (e) {
+        this.log("Refine error:", e);
+      }
+
+      await this.runHooks("afterRewrite", this.modules[name]);
+    },
+
+    async rewriteModule(name, newDefinition) {
+      const mod = this.modules[name];
+      if (!mod) {
+        this.log("Rewrite failed, module not found:", name);
+        return;
+      }
+
+      await this.runHooks("beforeRewrite", { name, old: mod, incoming: newDefinition });
+
+      this.modules[name] = {
+        name,
+        code: newDefinition.code || mod.code,
+        meta: {
+          ...mod.meta,
+          ...newDefinition.meta,
+          updatedAt: Date.now(),
+          rewritten: true
+        }
+      };
+
+      this.log("Module rewritten:", name);
+      await this.runHooks("afterRewrite", this.modules[name]);
+    },
+
+    async upgradeModule(name, upgradeFn) {
+      const mod = this.modules[name];
+      if (!mod) {
+        this.log("Upgrade failed, module not found:", name);
+        return;
+      }
+
+      await this.runHooks("beforeUpgrade", { name, mod });
+
+      try {
+        const upgraded = await upgradeFn(mod);
+        this.modules[name] = {
+          ...mod,
+          ...upgraded,
+          meta: {
+            ...mod.meta,
+            ...(upgraded.meta || {}),
+            updatedAt: Date.now(),
+            upgraded: true
+          }
+        };
+        this.log("Module upgraded:", name);
+      } catch (e) {
+        this.log("Upgrade error:", e);
+      }
+
+      await this.runHooks("afterUpgrade", this.modules[name]);
+    },
+
+    async addOrUpdate(definition) {
+      if (this.exists(definition.name)) {
+        await this.rewriteModule(definition.name, definition);
+      } else {
+        await this.uploadModule(definition);
+      }
+    }
+  };
+
+  // PUBLIC GLOBAL HANDLE
+  window.INFINITY_CORE_ENGINE = InfinityCore;
+});
+</script>
+
+<style>
+#infinity-core-engine {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999998;
+  background:
+    radial-gradient(circle at 20% 0%,
+      rgba(0, 255, 255, 0.08),
+      transparent 60%)
+    ,
+    radial-gradient(circle at 80% 100%,
+      rgba(255, 0, 255, 0.08),
+      transparent 60%);
+  mix-blend-mode: soft-light;
+}
+</style>
