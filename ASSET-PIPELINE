@@ -1,0 +1,19 @@
+export const AssetPipeline = {
+    assets: {},
+
+    register(id, meta) {
+        this.assets[id] = {
+            ...meta,
+            registeredAt: Date.now()
+        };
+        console.log(`ASSET: Registered → ${id}`);
+    },
+
+    get(id) {
+        return this.assets[id] || null;
+    },
+
+    list() {
+        return Object.keys(this.assets);
+    }
+};
