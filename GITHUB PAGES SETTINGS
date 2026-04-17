@@ -1,0 +1,5 @@
+Settings → Pages
+Build and Deployment:
+Source: Deploy from branch
+Branch: main
+Folder: /
