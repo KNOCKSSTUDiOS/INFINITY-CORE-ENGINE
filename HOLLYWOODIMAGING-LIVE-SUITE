@@ -1,0 +1,12 @@
+hollywoodimaging-live/
+├─ index.html
+├─ live.html
+├─ vod.html
+├─ about.html
+├─ assets/
+│  ├─ css/
+│  │  └─ style.css
+│  └─ js/
+│     ├─ main.js
+│     └─ live.js
+└─ README-HOLLYWOODIMAGING-LIVE.txt
