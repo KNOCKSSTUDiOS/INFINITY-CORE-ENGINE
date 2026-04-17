@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cinema Engine Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050509;
+      --accent: #ff4b2b;
+      --muted: #9a9aaf;
+      --border-soft: rgba(255, 255, 255, 0.12);
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Inter", sans-serif;
+      background: radial-gradient(circle at top, #151520, #050509);
+      color: #f5f5f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .admin-shell {
+      width: min(520px, 100%);
+      background: rgba(5, 5, 9, 0.96);
+      border-radius: 22px;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+      padding: 22px 22px 18px;
+    }
+    h1 {
+      margin: 0 0 4px;
+      font-size: 18px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    p {
+      margin: 0 0 18px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 4px;
+      color: var(--muted);
+    }
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border-soft);
+      background: rgba(0, 0, 0, 0.7);
+      color: #f5f5f7;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+    button {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #ff4b2b, #ff416c);
+      color: #fff;
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+    .status {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-shell">
+    <h1>Cinema Engine Admin</h1>
+    <p>Upload frames or sequences directly into the cinematic gallery pipeline.</p>
+
+    <form id="upload-form">
+      <label for="type">Type</label>
+      <select id="type" name="type">
+        <option value="video">Video Sequence</option>
+        <option value="image">Still Frame</option>
+      </select>
+
+      <label for="title">Title</label>
+      <input id="title" name="title" placeholder="Scene title" />
+
+      <label for="collection">Collection</label>
+      <input id="collection" name="collection" placeholder="Reel / Feature / Campaign" />
+
+      <label for="tags">Tags (comma separated)</label>
+      <input id="tags" name="tags" placeholder="Reel, Studio, BTS" />
+
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        name="description"
+        placeholder="Describe the scene, context, or client."
+      ></textarea>
+
+      <label for="asset">Asset</label>
+      <input id="asset" name="asset" type="file" accept="video/*,image/*" required />
+
+      <button type="submit">Upload to Cinema Engine</button>
+      <div class="status" id="status"></div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("upload-form");
+    const statusEl = document.getElementById("status");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      statusEl.textContent = "Uploading…";
+      const btn = form.querySelector("button");
+      btn.disabled = true;
+
+      try {
+        const formData = new FormData(form);
+        const res = await fetch("/api/cinema/upload", {
+          method: "POST",
+          body: formData
+        });
+        const data = await res.json();
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || "Upload failed");
+        }
+        statusEl.textContent = "Uploaded. Scene is now live in the gallery.";
+        form.reset();
+      } catch (err) {
+        statusEl.textContent = "Error: " + err.message;
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
