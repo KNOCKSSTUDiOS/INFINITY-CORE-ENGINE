@@ -1,0 +1,56 @@
+export const UIGM_FORM_R_Fusion = {
+    fuse(engine, ultraInstinct, formR) {
+        if (!engine || !ultraInstinct || !formR) {
+            console.warn("UIGM-FORM-R-FUSION: Missing engine, UIGM, or FORM-R.");
+            return null;
+        }
+
+        console.log("⚡ FUSION: Initiating Ultra Instinct × FORM-R hybrid sequence...");
+
+        // Ensure UIGM is active
+        if (!ultraInstinct.active) {
+            ultraInstinct.activate(engine);
+        }
+
+        // Base fused core
+        const fusedCore = {
+            id: "UIGM-FORM-R-FUSED-CORE",
+            timestamp: Date.now(),
+            mode: "ultra-instinct-hyper-real",
+            latency: 0,
+            awareness: "total",
+            reaction: "instant",
+            prediction: "pre-emptive",
+            visual: "cinematic-hyper-real",
+            engine: engine,
+            modules: {}
+        };
+
+        // Apply FORM-R enhancement to engine state
+        fusedCore.engine.state.formR = formR.apply({
+            name: "engine-core",
+            state: engine.state
+        });
+
+        console.log("⚡ FUSION: FORM-R hyper-real layer applied to engine.");
+
+        // Enhance all registered modules
+        Object.keys(engine.state.modules).forEach((modName) => {
+            const mod = engine.state.modules[modName];
+
+            const enhanced = formR.apply(
+                ultraInstinct.apply({
+                    name: modName,
+                    ...mod
+                })
+            );
+
+            fusedCore.modules[modName] = enhanced;
+
+            console.log(`⚡ FUSION: Module fused → ${modName}`);
+        });
+
+        console.log("⚡ FUSION COMPLETE — Ultra Instinct × FORM-R hybrid core online.");
+        return fusedCore;
+    }
+};
