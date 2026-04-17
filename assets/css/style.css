@@ -1,0 +1,343 @@
+:root {
+  --hi-bg: #050509;
+  --hi-bg-soft: #0b0b12;
+  --hi-card: #11111b;
+  --hi-border: #26263a;
+  --hi-accent: #ff3366;
+  --hi-accent-soft: rgba(255, 51, 102, 0.2);
+  --hi-text: #f5f5ff;
+  --hi-text-soft: #a0a0c0;
+  --hi-radius: 14px;
+  --hi-radius-soft: 10px;
+  --hi-shadow: 0 18px 45px rgba(0, 0, 0, 0.7);
+  --hi-font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body.hi-body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--hi-font-main);
+  color: var(--hi-text);
+  background: radial-gradient(circle at top, #18182a 0, #050509 55%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hi-bg {
+  background-color: transparent;
+}
+
+.hi-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 32px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(18px);
+  background: linear-gradient(to right, rgba(5, 5, 9, 0.95), rgba(5, 5, 9, 0.7));
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.hi-logo {
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.hi-nav a {
+  color: var(--hi-text-soft);
+  text-decoration: none;
+  margin-left: 18px;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  transition: all 0.18s ease-out;
+}
+
+.hi-nav a:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--hi-text);
+}
+
+.hi-nav a.hi-active {
+  background: var(--hi-accent-soft);
+  color: #ffffff;
+  border: 1px solid var(--hi-accent);
+}
+
+.hi-main {
+  flex: 1;
+  padding: 32px 32px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hi-footer {
+  padding: 16px 32px 22px;
+  font-size: 12px;
+  color: var(--hi-text-soft);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  background: #050509;
+  text-align: center;
+}
+
+/* Hero */
+
+.hi-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+  align-items: center;
+}
+
+.hi-hero-text h1 {
+  font-size: 36px;
+  margin: 0 0 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hi-hero-text p {
+  margin: 0 0 20px;
+  color: var(--hi-text-soft);
+  max-width: 480px;
+}
+
+.hi-hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hi-btn {
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-size: 14px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.18s ease-out;
+}
+
+.hi-btn-primary {
+  background: linear-gradient(135deg, #ff3366, #ff7a3c);
+  color: #ffffff;
+  box-shadow: 0 12px 30px rgba(255, 51, 102, 0.45);
+}
+
+.hi-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 40px rgba(255, 51, 102, 0.6);
+}
+
+.hi-btn-ghost {
+  background: transparent;
+  color: var(--hi-text-soft);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.hi-btn-ghost:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: var(--hi-text);
+}
+
+.hi-hero-panel {
+  background: radial-gradient(circle at top left, #2b1a3a, #0b0b12);
+  border-radius: 24px;
+  padding: 18px 18px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: var(--hi-shadow);
+}
+
+.hi-status-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(5, 5, 9, 0.7);
+  border-radius: 16px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.hi-status-label {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--hi-text-soft);
+}
+
+.hi-status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  margin-right: 6px;
+}
+
+.hi-status-live {
+  background: #2bff88;
+  box-shadow: 0 0 12px rgba(43, 255, 136, 0.9);
+}
+
+.hi-status-text {
+  font-size: 12px;
+  color: #e8ffe8;
+}
+
+.hi-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.hi-metric {
+  background: rgba(5, 5, 9, 0.7);
+  border-radius: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.hi-metric-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--hi-text-soft);
+}
+
+.hi-metric-value {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+}
+
+/* Sections */
+
+.hi-section {
+  margin-bottom: 32px;
+}
+
+.hi-section-tight {
+  margin-top: 8px;
+}
+
+.hi-section h1,
+.hi-section h2 {
+  margin: 0 0 10px;
+}
+
+.hi-section p {
+  margin: 0 0 18px;
+  color: var(--hi-text-soft);
+}
+
+/* Grids & Cards */
+
+.hi-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.hi-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.hi-card {
+  background: var(--hi-card);
+  border-radius: var(--hi-radius);
+  padding: 16px 16px 18px;
+  border: 1px solid var(--hi-border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.hi-card h3,
+.hi-card h2 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.hi-card p {
+  margin: 0 0 10px;
+  color: var(--hi-text-soft);
+}
+
+.hi-link {
+  font-size: 13px;
+  color: var(--hi-accent);
+  text-decoration: none;
+}
+
+.hi-link:hover {
+  text-decoration: underline;
+}
+
+/* Live Layout */
+
+.hi-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.hi-live-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 51, 102, 0.12);
+  border: 1px solid rgba(255, 51, 102, 0.6);
+}
+
+.hi-live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #ff3366;
+  margin-right: 6px;
+  box-shadow: 0 0 10px rgba(255, 51, 102, 0.9);
+}
+
+.hi-live-text {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.hi-live-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr);
+  gap: 18px;
+}
+
+.hi-live-player-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hi-live-player {
+  position: relative;
+  padding-top: 56.25%;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--hi-shadow);
+  border: 1px solid
