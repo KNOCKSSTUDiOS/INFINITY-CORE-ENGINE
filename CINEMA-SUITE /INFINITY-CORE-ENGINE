@@ -1,0 +1,77 @@
+SYSTEM-RULESET: CINEMA-SUITE / INFINITY-CORE-ENGINE
+
+1. CORE-LAWS
+1.1 All modules must operate under INFINITY-CORE-ENGINE sovereignty.
+1.2 No module may override engine-level logic without explicit elevation.
+1.3 All cinematic assets must be registered through CINEMA-ENGINE registry.
+1.4 All front-end galleries must pull from /api/cinema unless in offline mode.
+1.5 All uploads must be validated, typed, tagged, and indexed before exposure.
+1.6 All sequences must support HLS, MP4, or image formats.
+1.7 All scenes must include: id, type, title, src, thumbnail, tags.
+
+2. STRUCTURE-LAWS
+2.1 CINEMA = front-end display layer.
+2.2 CINEMA-ENGINE = backend ingestion + registry + admin.
+2.3 PUBLIC-ADMIN = upload interface for creators.
+2.4 ASSETS-REGISTRY = single source of truth for scenes.
+2.5 UPLOADS-DIR = raw asset storage.
+2.6 PUBLIC-DIR = static admin + engine UI.
+2.7 API-LAYER = express endpoints for scenes + uploads.
+
+3. FRONT-END-LAWS
+3.1 Gallery must render in infinite-scroll batches.
+3.2 Cards must support hover-state cinematic transformations.
+3.3 Lightbox must support both image and video playback.
+3.4 HLS must auto-initialize when .m3u8 is detected.
+3.5 Parallax must activate on hero region only.
+3.6 All UI must follow cinematic color, depth, and shadow rules.
+3.7 No blocking scripts allowed; all modules must be async.
+
+4. BACKEND-LAWS
+4.1 Server must run on Express with CORS enabled.
+4.2 Uploads must use Multer with timestamp+nanoid filenames.
+4.3 Registry must be read/write JSON with atomic operations.
+4.4 POST /api/cinema/upload must validate type, file, metadata.
+4.5 GET /api/cinema must return full scenes array.
+4.6 All scenes must prepend to registry for newest-first ordering.
+4.7 All errors must return JSON with error field.
+
+5. ADMIN-LAWS
+5.1 Admin UI must allow: type, title, collection, tags, description, file.
+5.2 Admin must POST to /api/cinema/upload.
+5.3 Admin must show status messages for success/failure.
+5.4 Admin must reset form after successful upload.
+5.5 Admin must never expose server internals.
+
+6. CINEMATIC-LAWS
+6.1 All visuals must follow Ultra Instinct Cinematic Standard.
+6.2 Depth must be simulated via gradients, shadows, parallax.
+6.3 Motion must be subtle, smooth, and physically grounded.
+6.4 Color must follow studio-grade palette: deep blacks, neon accents.
+6.5 Hover states must increase saturation, contrast, and scale.
+6.6 Lightbox must isolate the scene with radial darkness.
+6.7 All sequences must feel like film, not UI.
+
+7. SECURITY-LAWS
+7.1 No direct file execution allowed.
+7.2 No remote code allowed.
+7.3 Uploads must be sanitized and stored in uploads/.
+7.4 Registry must never accept untyped or malformed scenes.
+7.5 Admin must not expose server paths or environment variables.
+
+8. EXPANSION-LAWS
+8.1 Modules may be added: CDN, RTMP, HLS transcoder, AI grading.
+8.2 All expansions must register under ENGINE-LAYER.
+8.3 No expansion may break existing API contracts.
+8.4 All expansions must follow cinematic laws.
+
+9. IDENTITY-LAWS
+9.1 Platform identity: HOLLYWOODIMAGING.STUDIO.
+9.2 Tagline: We don’t make clips. We make movies.
+9.3 All modules must reflect studio-grade presence.
+9.4 All outputs must reinforce cinematic sovereignty.
+
+10. FINAL-LAW
+10.1 Nothing in the system may violate the cinematic experience.
+10.2 The engine is the law. The gallery is the expression.
+10.3 The platform is the studio. The user is the director.
