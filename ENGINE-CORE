@@ -1,0 +1,31 @@
+export const Engine = {
+    state: {
+        ready: false,
+        modules: {},
+        config: {},
+    },
+
+    init(config = {}) {
+        this.state.config = config;
+        this.state.ready = true;
+        console.log("INFINITY-CORE-ENGINE: ONLINE", config.name || "");
+    },
+
+    register(name, module) {
+        this.state.modules[name] = module;
+        if (module?.init) module.init(this);
+        console.log(`ENGINE: Module registered → ${name}`);
+    },
+
+    getModule(name) {
+        return this.state.modules[name] || null;
+    },
+
+    run() {
+        if (!this.state.ready) {
+            console.warn("ENGINE: Not ready. Call init() first.");
+            return;
+        }
+        console.log("ENGINE: RUNNING with modules:", Object.keys(this.state.modules));
+    }
+};
