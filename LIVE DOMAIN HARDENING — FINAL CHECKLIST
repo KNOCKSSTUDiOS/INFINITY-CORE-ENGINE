@@ -1,0 +1,6 @@
+1. Domain locked at registrar
+2. 2FA enabled everywhere
+3. DNS records minimal + correct
+4. CNAME file present
+5. HTTPS enforced
+6. No unknown redirects
