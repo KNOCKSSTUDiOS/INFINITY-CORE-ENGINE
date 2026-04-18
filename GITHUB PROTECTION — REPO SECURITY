@@ -1,0 +1,6 @@
+1. Enable Branch Protection Rules
+2. Require Pull Requests for changes
+3. Disable force-push on main
+4. Enable Dependabot alerts
+5. Turn on 2FA for GitHub account
+6. Make repo private if not public-facing
