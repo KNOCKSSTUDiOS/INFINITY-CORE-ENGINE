@@ -1,0 +1,18 @@
+AUTHORIZED RECORDS (ONLY):
+
+@ → 185.199.108.153
+@ → 185.199.109.153
+@ → 185.199.110.153
+@ → 185.199.111.153
+
+www → knocksstudios-labs.github.io
+TTL: 3600
+
+ZERO‑TRUST RULES:
+1. No wildcard (*)
+2. No TXT unless explicitly required
+3. No MX unless email is configured
+4. No AAAA unless IPv6 is intentional
+5. No SRV, NS, or CAA unless required
+6. Delete ANY record not listed above
+7. Screenshot DNS after locking
