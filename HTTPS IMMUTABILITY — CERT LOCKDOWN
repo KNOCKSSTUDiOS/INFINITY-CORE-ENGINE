@@ -1,0 +1,5 @@
+1. GitHub Pages → Enforce HTTPS: ON
+2. No http:// assets
+3. No mixed-content scripts
+4. No external scripts from unknown CDNs
+5. Re-check SSL after DNS changes
