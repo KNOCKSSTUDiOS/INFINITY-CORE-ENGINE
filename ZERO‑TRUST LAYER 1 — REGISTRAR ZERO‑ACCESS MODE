@@ -1,0 +1,14 @@
+1. Domain Lock: ON (mandatory)
+2. Transfer Lock: ON (mandatory)
+3. Registrar Login:
+   - 2FA required
+   - No SMS fallback
+   - Authenticator app only
+4. Disable:
+   - API access
+   - Sub‑account access
+   - Delegated access
+5. Require:
+   - Full login for DNS edits
+   - Full login for WHOIS edits
+   - Full login for contact edits
