@@ -1,0 +1,4 @@
+1. GitHub Pages → Enforce HTTPS: ON
+2. No mixed-content scripts
+3. No external scripts from unknown CDNs
+4. Use only https:// assets
