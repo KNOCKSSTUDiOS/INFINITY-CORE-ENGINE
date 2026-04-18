@@ -1,0 +1,13 @@
+AUTHORIZED RECORDS ONLY:
+
+@ → 185.199.108.153
+@ → 185.199.109.153
+@ → 185.199.110.153
+@ → 185.199.111.153
+
+www → knocksstudios-labs.github.io
+TTL: 3600
+
+ALL OTHER RECORDS:
+- DELETE
+(A, AAAA, CNAME, TXT, MX, SRV, NS, WILDCARD)
