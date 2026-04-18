@@ -1,0 +1,8 @@
+1. Branch Protection: ON
+2. Force Push: Disabled
+3. PR Required: Enabled
+4. Status Checks: Required
+5. GitHub 2FA: Enabled
+6. Repo Visibility: Private (unless intentionally public)
+7. Actions: Disabled unless required
+8. Fork Deployments: Disabled
