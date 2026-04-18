@@ -1,0 +1,8 @@
+1. Enable Branch Protection on main
+2. Disable force-push
+3. Require PRs for all changes
+4. Require status checks to pass
+5. Enable 2FA on GitHub account
+6. Disable GitHub Pages from forks
+7. Disable Actions unless needed
+8. Make repo private if not public-facing
