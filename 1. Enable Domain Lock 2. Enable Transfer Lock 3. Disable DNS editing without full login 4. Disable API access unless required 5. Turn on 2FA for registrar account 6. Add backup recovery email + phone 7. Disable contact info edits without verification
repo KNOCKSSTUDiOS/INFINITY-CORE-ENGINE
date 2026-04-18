@@ -1,0 +1,7 @@
+1. Enable Domain Lock
+2. Enable Transfer Lock
+3. Disable DNS editing without full login
+4. Disable API access unless required
+5. Turn on 2FA for registrar account
+6. Add backup recovery email + phone
+7. Disable contact info edits without verification
