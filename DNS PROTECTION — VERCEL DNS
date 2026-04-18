@@ -1,0 +1,7 @@
+1. Keep nameservers: ns1.vercel-dns.com / ns2.vercel-dns.com
+2. Do NOT add unknown A-records or IPs
+3. Do NOT add wildcard (*) unless required
+4. Only allow:
+   @ → GitHub Pages IPs
+   www → knocksstudios-labs.github.io
+5. Remove any record you did not create
