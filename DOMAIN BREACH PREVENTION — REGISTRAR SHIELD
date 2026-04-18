@@ -1,0 +1,6 @@
+1. Enable Domain Lock (prevents unauthorized transfers)
+2. Enable Transfer Lock (blocks registrar‑level hijacks)
+3. Turn on 2FA for registrar login
+4. Add backup recovery email + phone
+5. Disable domain editing without full login
+6. Disable API access unless required
