@@ -1,0 +1,4 @@
+dig hollywoodimaging.studio A
+dig www.hollywoodimaging.studio CNAME
+dig hollywoodimaging.studio NS
+curl -I https://hollywoodimaging.studio
