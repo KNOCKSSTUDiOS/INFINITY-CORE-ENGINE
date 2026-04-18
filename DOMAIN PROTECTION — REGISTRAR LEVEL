@@ -1,5 +1,7 @@
-1. Enable Domain Lock (prevents unauthorized transfers)
-2. Enable 2FA on your registrar account
-3. Add recovery email + phone
-4. Disable WHOIS editing without login
-5. Turn on Registrar Transfer Lock (if available)
+1. Keep nameservers: ns1.vercel-dns.com / ns2.vercel-dns.com
+2. Do NOT add unknown A-records or IPs
+3. Do NOT add wildcard (*) unless required
+4. Only allow:
+   @ → GitHub Pages IPs
+   www → knocksstudios-labs.github.io
+5. Remove any record you did not create
