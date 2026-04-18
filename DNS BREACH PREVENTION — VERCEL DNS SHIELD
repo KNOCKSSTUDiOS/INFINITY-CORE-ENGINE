@@ -1,0 +1,14 @@
+1. Keep ONLY these records:
+   @ → 185.199.108.153
+   @ → 185.199.109.153
+   @ → 185.199.110.153
+   @ → 185.199.111.153
+   www → knocksstudios-labs.github.io
+
+2. Delete ANY unknown A, AAAA, CNAME, TXT, or wildcard (*)
+
+3. Disable wildcard DNS unless intentionally used
+
+4. Never add IPs you did not verify
+
+5. Re-check DNS after every change
