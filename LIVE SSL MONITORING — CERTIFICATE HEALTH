@@ -1,0 +1,3 @@
+1. curl -Iv https://hollywoodimaging.studio
+2. openssl s_client -connect hollywoodimaging.studio:443 -servername hollywoodimaging.studio
+3. Check: expiration date, issuer, chain validity
