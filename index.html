@@ -2,215 +2,158 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>INFINITY-CORE-ENGINE · Hollywood Imaging</title>
+  <title>INFINITY-CORE-ENGINE</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="INFINITY-CORE-ENGINE — Hollywood Imaging Engine in FULL PRODUCTION · SENTINEL WAR INSTINCT SPIRIT GOD LEVEL mode at hollywoodimaging.studio." />
 
-  <!-- CORE STYLES -->
-  <link rel="stylesheet" href="core/infinity-core.css" />
-  <link rel="stylesheet" href="core/infinity-layout.css" />
-
-  <!-- UI SKINS -->
-  <link rel="stylesheet" href="ui/sentinel-skin.css" />
   <link rel="stylesheet" href="ui/cinematic-glow.css" />
+
+  <style>
+    body {
+      margin: 0;
+      background: #050509;
+      color: #f5f5f7;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .hero {
+      padding: 60px 24px 40px;
+      text-align: center;
+    }
+
+    .ic-hero-title {
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      background: linear-gradient(120deg, #ff4b9a, #4be3ff);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .ic-hero-title span {
+      display: inline-block;
+    }
+
+    .ic-sub {
+      font-size: 14px;
+      color: #9b9bb2;
+      margin-bottom: 40px;
+    }
+
+    .ic-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+
+    .ic-toggle {
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #f5f5f7;
+      font-size: 12px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .ic-toggle-active {
+      background: linear-gradient(120deg, #ff4b9a, #4be3ff);
+      color: #050509;
+      font-weight: 700;
+    }
+
+    .ic-status {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 13px;
+      color: #4be3ff;
+    }
+
+    .ic-btn {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 999px;
+      background: linear-gradient(120deg, #ff4b9a, #ff8a4b);
+      color: #050509;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      border: none;
+    }
+
+    #icToast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .ic-toast-show {
+      opacity: 1;
+    }
+  </style>
 </head>
-<body class="ic-body">
-  <div class="ic-page">
-    <header class="ic-header">
-      <div class="ic-brand">
-        <div class="ic-brand-logo"></div>
-        <div class="ic-brand-text">
-          <div class="ic-brand-title">KNOCKSSTUDiOS</div>
-          <div class="ic-brand-name">INFINITY-CORE-ENGINE</div>
-        </div>
-      </div>
-      <div class="ic-pill ic-pill-live">
-        <span class="ic-pill-dot"></span>
-        <span>LIVE</span>
-        <span class="ic-pill-domain">hollywoodimaging.studio</span>
-      </div>
-    </header>
 
-    <main class="ic-main-grid">
-      <section class="ic-hero-card">
-        <div class="ic-hero-inner">
-          <div class="ic-hero-kicker">
-            FULL PRODUCTION · <span>SENTINEL WAR INSTINCT SPIRIT · GOD LEVEL</span>
-          </div>
-          <h1 class="ic-hero-title">
-            The <span>engine</span> beyond Blender, Unity, or any living pipeline.
-          </h1>
-          <p class="ic-hero-sub">
-            Not a plugin. Not a toy. A full production imaging engine wired for
-            <span>real work and real money</span> under your name only.
-          </p>
-          <p class="ic-hero-sub ic-hero-sub-es">
-            No es demo. No es beta. Es un motor de producción total, listo para cobrar por cada frame que salga.
-          </p>
+<body>
 
-          <div class="ic-hero-actions">
-            <button class="ic-btn-primary" id="btnStartEngine">
-              Engage Sentinel Mode
-              <span>▶</span>
-            </button>
-            <button class="ic-btn-ghost" id="btnCopyDomain">
-              Copy domain · hollywoodimaging.studio
-            </button>
-          </div>
+  <div class="hero">
+    <div class="ic-hero-title">
+      <span>INFINITY‑CORE‑ENGINE</span>
+    </div>
+    <div class="ic-sub">
+      Sentinel War Instinct Spirit God Level — Full Production Mode
+    </div>
 
-          <div class="ic-hero-metrics">
-            <div class="ic-metric">
-              <strong>Production Tier</strong>
-              <div><span>FULL</span> · Client-ready · Studio-grade</div>
-            </div>
-            <div class="ic-metric">
-              <strong>Engine Identity</strong>
-              <div><span>SENTINEL</span> · War · Instinct · Spirit · God Level</div>
-            </div>
-            <div class="ic-metric">
-              <strong>Target</strong>
-              <div>Outperform every “standard” pipeline.</div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <div class="ic-controls">
+      <button class="ic-toggle ic-toggle-active" data-mode="instinct">Instinct</button>
+      <button class="ic-toggle" data-mode="spirit">Spirit</button>
+      <button class="ic-toggle" data-mode="war">War Room</button>
+      <button class="ic-toggle" data-mode="god">God Level</button>
+    </div>
 
-      <aside class="ic-engine-card">
-        <div class="ic-engine-inner">
-          <div class="ic-engine-header">
-            <div class="ic-engine-title">Engine Monitor · INFINITY CORE</div>
-            <div class="ic-engine-status">
-              <span class="ic-engine-status-dot"></span>
-              <span id="engineStatusText">IDLE · READY</span>
-            </div>
-          </div>
+    <div class="ic-status">
+      <div id="engineStatusText">ENGINE · IDLE</div>
+      <div id="enginePhase" style="margin-top:4px;color:#9b9bb2;">SENTINEL · STANDBY</div>
+    </div>
 
-          <div class="ic-engine-display">
-            <div class="ic-engine-display-inner">
-              <div class="ic-engine-row">
-                <div class="ic-engine-label">Domain</div>
-                <div class="ic-engine-value" id="engineDomain">hollywoodimaging.studio</div>
-              </div>
-              <div class="ic-engine-row">
-                <div class="ic-engine-label">Mode</div>
-                <div class="ic-engine-value" id="engineMode">FULL PRODUCTION · REVENUE</div>
-              </div>
-              <div class="ic-engine-main">
-                <div class="ic-engine-main-line">
-                  <span>STATE</span>
-                  <strong id="enginePhase">SENTINEL · WAR INSTINCT SPIRIT</strong>
-                </div>
-                <div class="ic-engine-main-line">
-                  <span>STACK</span>
-                  <strong>ENGINE CORE · AI LAB LEGENDS · HOLLYWOOD IMAGING</strong>
-                </div>
-                <div class="ic-engine-main-line">
-                  <span>MISSION</span>
-                  <strong>Be the engine they depend on when production is serious.</strong>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="ic-engine-controls">
-            <div class="ic-toggle-group">
-              <button class="ic-toggle ic-toggle-active" data-mode="instinct">Instinct</button>
-              <button class="ic-toggle" data-mode="spirit">Spirit</button>
-              <button class="ic-toggle" data-mode="war">War Room</button>
-              <button class="ic-toggle" data-mode="god">God Level</button>
-            </div>
-          </div>
-
-          <div class="ic-engine-cta">
-            <span>Note:</span> This is the front-end shell. Behind it, you plug in jobs, queues,
-            payments, and delivery.
-            <small>Copy, deploy, and connect your backend when you’re ready to charge for every render.</small>
-          </div>
-        </div>
-      </aside>
-    </main>
-
-    <section class="ic-layers-grid">
-      <article class="ic-layer-card">
-        <div class="ic-layer-tag">Layer 1</div>
-        <div class="ic-layer-name"><span>Engine Core</span></div>
-        <p class="ic-layer-desc">
-          Core logic, timing, and identity. Built to run sessions, jobs, and client work without flinching.
-        </p>
-        <div class="ic-layer-foot">Heartbeat of the system.</div>
-      </article>
-
-      <article class="ic-layer-card">
-        <div class="ic-layer-tag">Layer 2</div>
-        <div class="ic-layer-name"><span>AI LAB LEGENDS</span></div>
-        <p class="ic-layer-desc">
-          Automated scripting, sequence generation, and bilingual output. The engine writes and thinks with you.
-        </p>
-        <div class="ic-layer-foot">Automation as a crew member.</div>
-      </article>
-
-      <article class="ic-layer-card">
-        <div class="ic-layer-tag">Layer 3</div>
-        <div class="ic-layer-name"><span>Hollywood Imaging</span></div>
-        <p class="ic-layer-desc">
-          Web deployment, domain wiring, and delivery. From local tests to global premieres at scale.
-        </p>
-        <div class="ic-layer-foot">Client-facing, money-facing.</div>
-      </article>
-    </section>
-
-    <section class="ic-bottom-grid">
-      <article class="ic-money-card">
-        <div class="ic-money-title">Production & Money Flow</div>
-        <div class="ic-money-main">
-          Turn <span>shots</span> into <span>invoices</span>.
-          <small>Use this shell as the control room for how you charge and deliver.</small>
-        </div>
-        <ul class="ic-money-list">
-          <li>Sell finished cinematic renders as premium packages.</li>
-          <li>Offer monthly access to your engine presets and workflows.</li>
-          <li>Charge per sequence, per mission, or per delivery window.</li>
-          <li>Bundle imaging, sound, and brand systems as one “studio in a box.”</li>
-        </ul>
-        <div class="ic-money-foot">
-          This page is your proof-of-operation. The next step is wiring Stripe, credits, and dashboards behind it.
-        </div>
-      </article>
-
-      <article class="ic-lead-card">
-        <div class="ic-lead-title">Client Portal Access</div>
-        <div class="ic-lead-main">
-          This shell can route clients into a dedicated
-          <span>INFINITY-CORE client portal</span> for renders, billing, and delivery.
-        </div>
-        <div class="ic-lead-actions">
-          <a href="client/client-portal.html" class="ic-btn-secondary">
-            Open Client Portal Shell
-          </a>
-        </div>
-        <div class="ic-lead-note">
-          Portal is static right now. <span>Connect it to your backend</span> when you’re ready to onboard real clients.
-        </div>
-      </article>
-    </section>
-
-    <footer class="ic-footer">
-      <span>© <span id="icYear"></span> hollywoodimaging.studio · INFINITY-CORE-ENGINE.</span>
-      <span>Full production mode. Beyond any off-the-shelf pipeline.</span>
-    </footer>
+    <button id="btnStartEngine" class="ic-btn">Start Engine</button>
+    <br /><br />
+    <button id="btnCopyDomain" class="ic-btn">Copy Domain</button>
   </div>
 
-  <div class="ic-toast" id="icToast"></div>
+  <div id="icToast"></div>
 
-  <!-- CORE JS -->
+  <!-- Sentinel -->
   <script src="sentinel/sentinel-core.js"></script>
   <script src="sentinel/instinct-engine.js"></script>
   <script src="sentinel/spirit-ui.js"></script>
   <script src="sentinel/warroom-ops.js"></script>
   <script src="sentinel/godlevel-render.js"></script>
+
+  <!-- Pipeline -->
   <script src="pipeline/render-queue.js"></script>
+  <script src="pipeline/pipeline-config.js"></script>
+
+  <!-- Billing -->
   <script src="billing/billing-shell.js"></script>
   <script src="billing/credits-engine.js"></script>
-  <script src="client/client-portal.js"></script>
+
+  <!-- System -->
+  <script src="system/system-kernel.js"></script>
+  <script src="system/system-diagnostics.js"></script>
+  <script src="system/system-events.js"></script>
+
 </body>
 </html>
