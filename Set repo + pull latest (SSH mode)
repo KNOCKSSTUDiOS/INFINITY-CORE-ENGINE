@@ -1,0 +1,2 @@
+git remote set-url origin git@github.com:KNOCKSSTUDiOS-labs/INFINITY-CORE-ENGINE.git
+git pull origin main
