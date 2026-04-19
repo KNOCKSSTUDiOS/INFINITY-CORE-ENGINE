@@ -2,324 +2,215 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>INFINITY-CORE-ENGINE</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="styles.css" />
-  <script defer src="app.js"></script>
+  <title>INFINITY-CORE-ENGINE · Hollywood Imaging</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="INFINITY-CORE-ENGINE — Hollywood Imaging Engine in FULL PRODUCTION · SENTINEL WAR INSTINCT SPIRIT GOD LEVEL mode at hollywoodimaging.studio." />
+
+  <!-- CORE STYLES -->
+  <link rel="stylesheet" href="core/infinity-core.css" />
+  <link rel="stylesheet" href="core/infinity-layout.css" />
+
+  <!-- UI SKINS -->
+  <link rel="stylesheet" href="ui/sentinel-skin.css" />
+  <link rel="stylesheet" href="ui/cinematic-glow.css" />
 </head>
-<body>
-  <video id="bg-video" autoplay muted loop playsinline>
-    <source src="media/engine_reel.mp4" type="video/mp4" />
-  </video>
-
-  <audio id="sfx-type" src="media/sfx_typewriter.mp3" preload="auto"></audio>
-  <audio id="sfx-glitch" src="media/sfx_glitch.mp3" preload="auto"></audio>
-  <audio id="sfx-mech" src="media/sfx_mech_click.mp3" preload="auto"></audio>
-
-  <div id="engine-shell">
-    <header id="engine-header">
-      <div id="brand-mark">
-        <span class="brand-letter" data-sfx="type">I</span>
-        <span class="brand-letter" data-sfx="type">N</span>
-        <span class="brand-letter" data-sfx="type">F</span>
-        <span class="brand-letter" data-sfx="type">I</span>
-        <span class="brand-letter" data-sfx="type">N</span>
-        <span class="brand-letter" data-sfx="type">I</span>
-        <span class="brand-letter" data-sfx="type">T</span>
-        <span class="brand-letter" data-sfx="type">Y</span>
-        <span class="brand-letter spacer">-</span>
-        <span class="brand-letter" data-sfx="glitch">C</span>
-        <span class="brand-letter" data-sfx="glitch">O</span>
-        <span class="brand-letter" data-sfx="glitch">R</span>
-        <span class="brand-letter" data-sfx="glitch">E</span>
-        <span class="brand-letter spacer">-</span>
-        <span class="brand-letter" data-sfx="mech">E</span>
-        <span class="brand-letter" data-sfx="mech">N</span>
-        <span class="brand-letter" data-sfx="mech">G</span>
-        <span class="brand-letter" data-sfx="mech">I</span>
-        <span class="brand-letter" data-sfx="mech">N</span>
-        <span class="brand-letter" data-sfx="mech">E</span>
+<body class="ic-body">
+  <div class="ic-page">
+    <header class="ic-header">
+      <div class="ic-brand">
+        <div class="ic-brand-logo"></div>
+        <div class="ic-brand-text">
+          <div class="ic-brand-title">KNOCKSSTUDiOS</div>
+          <div class="ic-brand-name">INFINITY-CORE-ENGINE</div>
+        </div>
       </div>
-
-      <div id="payment-strip">
-        <span class="pay-logo visa">VISA</span>
-        <span class="pay-logo mc">MASTERCARD</span>
-        <span class="pay-logo amex">AMEX</span>
-        <span class="pay-logo pp">PAYPAL</span>
-        <span class="pay-logo apple">APPLE PAY</span>
-        <span class="pay-logo gpay">GOOGLE PAY</span>
+      <div class="ic-pill ic-pill-live">
+        <span class="ic-pill-dot"></span>
+        <span>LIVE</span>
+        <span class="ic-pill-domain">hollywoodimaging.studio</span>
       </div>
     </header>
 
-    <main id="tile-grid">
-      <div class="tile tile-auth" data-view="view-auth-engine">
-        <div class="tile-front">
-          <span class="tile-letter" data-sfx="type">S</span>
-          <span class="tile-letter" data-sfx="type">U</span>
-          <span class="tile-letter" data-sfx="type">B</span>
-          <span class="tile-letter" data-sfx="type">S</span>
-          <span class="tile-letter" data-sfx="type">C</span>
-          <span class="tile-letter" data-sfx="type">R</span>
-          <span class="tile-letter" data-sfx="type">I</span>
-          <span class="tile-letter" data-sfx="type">B</span>
-          <span class="tile-letter" data-sfx="type">E</span>
-        </div>
-        <div class="tile-back">
-          <button class="cta" data-view-target="view-auth-engine">ENGINE SIGN UP</button>
-          <button class="cta" data-view-target="view-login-engine">ENGINE LOGIN</button>
-        </div>
-      </div>
+    <main class="ic-main-grid">
+      <section class="ic-hero-card">
+        <div class="ic-hero-inner">
+          <div class="ic-hero-kicker">
+            FULL PRODUCTION · <span>SENTINEL WAR INSTINCT SPIRIT · GOD LEVEL</span>
+          </div>
+          <h1 class="ic-hero-title">
+            The <span>engine</span> beyond Blender, Unity, or any living pipeline.
+          </h1>
+          <p class="ic-hero-sub">
+            Not a plugin. Not a toy. A full production imaging engine wired for
+            <span>real work and real money</span> under your name only.
+          </p>
+          <p class="ic-hero-sub ic-hero-sub-es">
+            No es demo. No es beta. Es un motor de producción total, listo para cobrar por cada frame que salga.
+          </p>
 
-      <div class="tile tile-engine" data-view="view-engine-gallery">
-        <div class="tile-front">
-          <span class="tile-letter" data-sfx="mech">E</span>
-          <span class="tile-letter" data-sfx="mech">N</span>
-          <span class="tile-letter" data-sfx="mech">G</span>
-          <span class="tile-letter" data-sfx="mech">I</span>
-          <span class="tile-letter" data-sfx="mech">N</span>
-          <span class="tile-letter" data-sfx="mech">E</span>
-        </div>
-        <div class="tile-back">
-          <p>PRIVATE // SUBSCRIBER ONLY</p>
-          <button class="cta" data-view-target="view-engine-gallery">ENTER ENGINE GALLERY</button>
-        </div>
-      </div>
+          <div class="ic-hero-actions">
+            <button class="ic-btn-primary" id="btnStartEngine">
+              Engage Sentinel Mode
+              <span>▶</span>
+            </button>
+            <button class="ic-btn-ghost" id="btnCopyDomain">
+              Copy domain · hollywoodimaging.studio
+            </button>
+          </div>
 
-      <div class="tile tile-public" data-view="view-public-gallery">
-        <div class="tile-front">
-          <span class="tile-letter" data-sfx="glitch">P</span>
-          <span class="tile-letter" data-sfx="glitch">U</span>
-          <span class="tile-letter" data-sfx="glitch">B</span>
-          <span class="tile-letter" data-sfx="glitch">L</span>
-          <span class="tile-letter" data-sfx="glitch">I</span>
-          <span class="tile-letter" data-sfx="glitch">C</span>
+          <div class="ic-hero-metrics">
+            <div class="ic-metric">
+              <strong>Production Tier</strong>
+              <div><span>FULL</span> · Client-ready · Studio-grade</div>
+            </div>
+            <div class="ic-metric">
+              <strong>Engine Identity</strong>
+              <div><span>SENTINEL</span> · War · Instinct · Spirit · God Level</div>
+            </div>
+            <div class="ic-metric">
+              <strong>Target</strong>
+              <div>Outperform every “standard” pipeline.</div>
+            </div>
+          </div>
         </div>
-        <div class="tile-back">
-          <p>NO ACCOUNT NEEDED // VERIFIED PURCHASE</p>
-          <button class="cta" data-view-target="view-public-gallery">ENTER PUBLIC GALLERY</button>
-        </div>
-      </div>
+      </section>
 
-      <div class="tile tile-request" data-view="view-request-hub">
-        <div class="tile-front">
-          <span class="tile-letter" data-sfx="type">R</span>
-          <span class="tile-letter" data-sfx="type">E</span>
-          <span class="tile-letter" data-sfx="type">Q</span>
-          <span class="tile-letter" data-sfx="type">U</span>
-          <span class="tile-letter" data-sfx="type">E</span>
-          <span class="tile-letter" data-sfx="type">S</span>
-          <span class="tile-letter" data-sfx="type">T</span>
+      <aside class="ic-engine-card">
+        <div class="ic-engine-inner">
+          <div class="ic-engine-header">
+            <div class="ic-engine-title">Engine Monitor · INFINITY CORE</div>
+            <div class="ic-engine-status">
+              <span class="ic-engine-status-dot"></span>
+              <span id="engineStatusText">IDLE · READY</span>
+            </div>
+          </div>
+
+          <div class="ic-engine-display">
+            <div class="ic-engine-display-inner">
+              <div class="ic-engine-row">
+                <div class="ic-engine-label">Domain</div>
+                <div class="ic-engine-value" id="engineDomain">hollywoodimaging.studio</div>
+              </div>
+              <div class="ic-engine-row">
+                <div class="ic-engine-label">Mode</div>
+                <div class="ic-engine-value" id="engineMode">FULL PRODUCTION · REVENUE</div>
+              </div>
+              <div class="ic-engine-main">
+                <div class="ic-engine-main-line">
+                  <span>STATE</span>
+                  <strong id="enginePhase">SENTINEL · WAR INSTINCT SPIRIT</strong>
+                </div>
+                <div class="ic-engine-main-line">
+                  <span>STACK</span>
+                  <strong>ENGINE CORE · AI LAB LEGENDS · HOLLYWOOD IMAGING</strong>
+                </div>
+                <div class="ic-engine-main-line">
+                  <span>MISSION</span>
+                  <strong>Be the engine they depend on when production is serious.</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ic-engine-controls">
+            <div class="ic-toggle-group">
+              <button class="ic-toggle ic-toggle-active" data-mode="instinct">Instinct</button>
+              <button class="ic-toggle" data-mode="spirit">Spirit</button>
+              <button class="ic-toggle" data-mode="war">War Room</button>
+              <button class="ic-toggle" data-mode="god">God Level</button>
+            </div>
+          </div>
+
+          <div class="ic-engine-cta">
+            <span>Note:</span> This is the front-end shell. Behind it, you plug in jobs, queues,
+            payments, and delivery.
+            <small>Copy, deploy, and connect your backend when you’re ready to charge for every render.</small>
+          </div>
         </div>
-        <div class="tile-back">
-          <p>REQUESTS • BRIEFS • CUSTOM ENGINE RUNS</p>
-          <button class="cta" data-view-target="view-request-hub">OPEN REQUEST HUB</button>
-        </div>
-      </div>
+      </aside>
     </main>
 
-    <section id="view-auth-engine" class="view hidden">
-      <h1>ENGINE SUBSCRIBER SIGN UP</h1>
-      <p class="hint">Create your INFINITY-CORE-ENGINE account with verified billing details.</p>
-      <form id="form-engine-signup">
-        <div class="field-row">
-          <label>Email</label>
-          <input type="email" name="email" required />
-        </div>
-        <div class="field-row">
-          <label>Create Password</label>
-          <input type="password" name="password" required />
-        </div>
-        <div class="field-row">
-          <label>Full Name</label>
-          <input type="text" name="fullName" required />
-        </div>
+    <section class="ic-layers-grid">
+      <article class="ic-layer-card">
+        <div class="ic-layer-tag">Layer 1</div>
+        <div class="ic-layer-name"><span>Engine Core</span></div>
+        <p class="ic-layer-desc">
+          Core logic, timing, and identity. Built to run sessions, jobs, and client work without flinching.
+        </p>
+        <div class="ic-layer-foot">Heartbeat of the system.</div>
+      </article>
 
-        <h2>Billing Address</h2>
-        <div class="field-row">
-          <label>Street Address</label>
-          <input type="text" name="addressLine1" required />
-        </div>
-        <div class="field-row">
-          <label>Apartment / Suite (optional)</label>
-          <input type="text" name="addressLine2" />
-        </div>
-        <div class="field-row">
-          <label>City</label>
-          <input type="text" name="city" required />
-        </div>
-        <div class="field-row">
-          <label>State / Region</label>
-          <input type="text" name="state" required />
-        </div>
-        <div class="field-row">
-          <label>Postal Code</label>
-          <input type="text" name="postalCode" required />
-        </div>
-        <div class="field-row">
-          <label>Country</label>
-          <input type="text" name="country" required />
-        </div>
+      <article class="ic-layer-card">
+        <div class="ic-layer-tag">Layer 2</div>
+        <div class="ic-layer-name"><span>AI LAB LEGENDS</span></div>
+        <p class="ic-layer-desc">
+          Automated scripting, sequence generation, and bilingual output. The engine writes and thinks with you.
+        </p>
+        <div class="ic-layer-foot">Automation as a crew member.</div>
+      </article>
 
-        <h2>Step 1: Selfie + ID Verification</h2>
-        <p class="hint">You are verifying your identity for engine subscription.</p>
-        <div class="field-row">
-          <label>Selfie Capture</label>
-          <input type="file" name="selfie" accept="image/*" capture="user" required />
-        </div>
-        <div class="field-row">
-          <label>ID Photo (front)</label>
-          <input type="file" name="idFront" accept="image/*" required />
-        </div>
-
-        <h2>Step 2: Payment Verification</h2>
-        <p class="hint">Your payment details must match your name and address for approval.</p>
-        <div class="field-row">
-          <label>Name on Card</label>
-          <input type="text" name="cardName" required />
-        </div>
-        <div class="field-row">
-          <label>Card Number</label>
-          <input type="text" name="cardNumber" inputmode="numeric" required />
-        </div>
-        <div class="field-row">
-          <label>Expiry</label>
-          <input type="text" name="cardExpiry" placeholder="MM/YY" required />
-        </div>
-        <div class="field-row">
-          <label>CVC</label>
-          <input type="text" name="cardCvc" inputmode="numeric" required />
-        </div>
-
-        <button type="submit" class="cta primary">CREATE ENGINE ACCOUNT</button>
-        <button type="button" class="cta ghost" data-view-target="root">BACK TO TILES</button>
-      </form>
+      <article class="ic-layer-card">
+        <div class="ic-layer-tag">Layer 3</div>
+        <div class="ic-layer-name"><span>Hollywood Imaging</span></div>
+        <p class="ic-layer-desc">
+          Web deployment, domain wiring, and delivery. From local tests to global premieres at scale.
+        </p>
+        <div class="ic-layer-foot">Client-facing, money-facing.</div>
+      </article>
     </section>
 
-    <section id="view-login-engine" class="view hidden">
-      <h1>ENGINE LOGIN</h1>
-      <form id="form-engine-login">
-        <div class="field-row">
-          <label>Email</label>
-          <input type="email" name="email" required />
+    <section class="ic-bottom-grid">
+      <article class="ic-money-card">
+        <div class="ic-money-title">Production & Money Flow</div>
+        <div class="ic-money-main">
+          Turn <span>shots</span> into <span>invoices</span>.
+          <small>Use this shell as the control room for how you charge and deliver.</small>
         </div>
-        <div class="field-row">
-          <label>Password</label>
-          <input type="password" name="password" required />
+        <ul class="ic-money-list">
+          <li>Sell finished cinematic renders as premium packages.</li>
+          <li>Offer monthly access to your engine presets and workflows.</li>
+          <li>Charge per sequence, per mission, or per delivery window.</li>
+          <li>Bundle imaging, sound, and brand systems as one “studio in a box.”</li>
+        </ul>
+        <div class="ic-money-foot">
+          This page is your proof-of-operation. The next step is wiring Stripe, credits, and dashboards behind it.
         </div>
-        <button type="submit" class="cta primary">ENTER ENGINE</button>
-        <button type="button" class="cta ghost" data-view-target="root">BACK TO TILES</button>
-      </form>
+      </article>
+
+      <article class="ic-lead-card">
+        <div class="ic-lead-title">Client Portal Access</div>
+        <div class="ic-lead-main">
+          This shell can route clients into a dedicated
+          <span>INFINITY-CORE client portal</span> for renders, billing, and delivery.
+        </div>
+        <div class="ic-lead-actions">
+          <a href="client/client-portal.html" class="ic-btn-secondary">
+            Open Client Portal Shell
+          </a>
+        </div>
+        <div class="ic-lead-note">
+          Portal is static right now. <span>Connect it to your backend</span> when you’re ready to onboard real clients.
+        </div>
+      </article>
     </section>
 
-    <section id="view-engine-gallery" class="view hidden">
-      <h1>ENGINE GALLERY // PRIVATE</h1>
-      <p class="hint">Subscriber-only variations generated by INFINITY-CORE-ENGINE.</p>
-      <div id="engine-gallery-grid"></div>
-      <button type="button" class="cta ghost" data-view-target="root">BACK TO TILES</button>
-    </section>
-
-    <section id="view-public-gallery" class="view hidden">
-      <h1>PUBLIC GALLERY</h1>
-      <p class="hint">Browse and purchase with verification at checkout.</p>
-      <div id="public-gallery-grid"></div>
-      <button type="button" class="cta ghost" data-view-target="root">BACK TO TILES</button>
-    </section>
-
-    <section id="view-public-verify" class="view hidden">
-      <h1>PUBLIC PURCHASE VERIFICATION</h1>
-
-      <h2>Billing Address</h2>
-      <form id="form-public-verify">
-        <div class="field-row">
-          <label>Full Name</label>
-          <input type="text" name="publicFullName" required />
-        </div>
-        <div class="field-row">
-          <label>Street Address</label>
-          <input type="text" name="publicAddressLine1" required />
-        </div>
-        <div class="field-row">
-          <label>Apartment / Suite (optional)</label>
-          <input type="text" name="publicAddressLine2" />
-        </div>
-        <div class="field-row">
-          <label>City</label>
-          <input type="text" name="publicCity" required />
-        </div>
-        <div class="field-row">
-          <label>State / Region</label>
-          <input type="text" name="publicState" required />
-        </div>
-        <div class="field-row">
-          <label>Postal Code</label>
-          <input type="text" name="publicPostalCode" required />
-        </div>
-        <div class="field-row">
-          <label>Country</label>
-          <input type="text" name="publicCountry" required />
-        </div>
-
-        <h2>Step 1: Selfie + ID</h2>
-        <p class="hint">You are verifying your identity for a secure purchase.</p>
-        <div class="field-row">
-          <label>Selfie Capture</label>
-          <input type="file" name="publicSelfie" accept="image/*" capture="user" required />
-        </div>
-        <div class="field-row">
-          <label>ID Photo (front)</label>
-          <input type="file" name="publicIdFront" accept="image/*" required />
-        </div>
-
-        <h2>Step 2: Payment Details</h2>
-        <p class="hint">The name on your card must match your billing name.</p>
-        <div class="field-row">
-          <label>Name on Card</label>
-          <input type="text" name="publicCardName" required />
-        </div>
-        <div class="field-row">
-          <label>Card Number</label>
-          <input type="text" name="publicCardNumber" inputmode="numeric" required />
-        </div>
-        <div class="field-row">
-          <label>Expiry</label>
-          <input type="text" name="publicCardExpiry" placeholder="MM/YY" required />
-        </div>
-        <div class="field-row">
-          <label>CVC</label>
-          <input type="text" name="publicCardCvc" inputmode="numeric" required />
-        </div>
-
-        <button type="submit" class="cta primary">COMPLETE VERIFIED PURCHASE</button>
-        <button type="button" class="cta ghost" data-view-target="view-public-gallery">BACK TO PUBLIC GALLERY</button>
-      </form>
-    </section>
-
-    <section id="view-request-hub" class="view hidden">
-      <h1>REQUEST HUB</h1>
-      <p class="hint">Subscribers and visitors can submit briefs and engine requests.</p>
-      <form id="form-request">
-        <div class="field-row">
-          <label>Your Email</label>
-          <input type="email" name="requestEmail" required />
-        </div>
-        <div class="field-row">
-          <label>Request Type</label>
-          <select name="requestType" required>
-            <option value="">Select</option>
-            <option value="engine-variation">Engine variation</option>
-            <option value="video-sequence">Video sequence</option>
-            <option value="gallery-slot">Gallery slot</option>
-            <option value="freelancer-portfolio">Freelancer portfolio</option>
-          </select>
-        </div>
-        <div class="field-row">
-          <label>Brief</label>
-          <textarea name="requestBrief" rows="5" required></textarea>
-        </div>
-        <button type="submit" class="cta primary">SEND REQUEST</button>
-        <button type="button" class="cta ghost" data-view-target="root">BACK TO TILES</button>
-      </form>
-    </section>
+    <footer class="ic-footer">
+      <span>© <span id="icYear"></span> hollywoodimaging.studio · INFINITY-CORE-ENGINE.</span>
+      <span>Full production mode. Beyond any off-the-shelf pipeline.</span>
+    </footer>
   </div>
+
+  <div class="ic-toast" id="icToast"></div>
+
+  <!-- CORE JS -->
+  <script src="sentinel/sentinel-core.js"></script>
+  <script src="sentinel/instinct-engine.js"></script>
+  <script src="sentinel/spirit-ui.js"></script>
+  <script src="sentinel/warroom-ops.js"></script>
+  <script src="sentinel/godlevel-render.js"></script>
+  <script src="pipeline/render-queue.js"></script>
+  <script src="billing/billing-shell.js"></script>
+  <script src="billing/credits-engine.js"></script>
+  <script src="client/client-portal.js"></script>
 </body>
 </html>
