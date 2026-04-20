@@ -3,158 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <title>INFINITY-CORE-ENGINE</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <link rel="stylesheet" href="ui/cinematic-glow.css" />
-
-  <style>
-    body {
-      margin: 0;
-      background: #050509;
-      color: #f5f5f7;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    .hero {
-      padding: 60px 24px 40px;
-      text-align: center;
-    }
-
-    .ic-hero-title {
-      font-size: 42px;
-      font-weight: 800;
-      margin-bottom: 10px;
-      background: linear-gradient(120deg, #ff4b9a, #4be3ff);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .ic-hero-title span {
-      display: inline-block;
-    }
-
-    .ic-sub {
-      font-size: 14px;
-      color: #9b9bb2;
-      margin-bottom: 40px;
-    }
-
-    .ic-controls {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 40px;
-    }
-
-    .ic-toggle {
-      padding: 10px 16px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: #f5f5f7;
-      font-size: 12px;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .ic-toggle-active {
-      background: linear-gradient(120deg, #ff4b9a, #4be3ff);
-      color: #050509;
-      font-weight: 700;
-    }
-
-    .ic-status {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 13px;
-      color: #4be3ff;
-    }
-
-    .ic-btn {
-      display: inline-block;
-      padding: 12px 20px;
-      border-radius: 999px;
-      background: linear-gradient(120deg, #ff4b9a, #ff8a4b);
-      color: #050509;
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      cursor: pointer;
-      border: none;
-    }
-
-    #icToast {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 12px 18px;
-      border-radius: 999px;
-      font-size: 12px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-
-    .ic-toast-show {
-      opacity: 1;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
+  <div id="app">
+    <h1>INFINITY-CORE-ENGINE</h1>
+    <p>Owner: KNOCKS</p>
 
-  <div class="hero">
-    <div class="ic-hero-title">
-      <span>INFINITY‑CORE‑ENGINE</span>
-    </div>
-    <div class="ic-sub">
-      Sentinel War Instinct Spirit God Level — Full Production Mode
-    </div>
-
-    <div class="ic-controls">
-      <button class="ic-toggle ic-toggle-active" data-mode="instinct">Instinct</button>
-      <button class="ic-toggle" data-mode="spirit">Spirit</button>
-      <button class="ic-toggle" data-mode="war">War Room</button>
-      <button class="ic-toggle" data-mode="god">God Level</button>
-    </div>
-
-    <div class="ic-status">
-      <div id="engineStatusText">ENGINE · IDLE</div>
-      <div id="enginePhase" style="margin-top:4px;color:#9b9bb2;">SENTINEL · STANDBY</div>
-    </div>
-
-    <button id="btnStartEngine" class="ic-btn">Start Engine</button>
-    <br /><br />
-    <button id="btnCopyDomain" class="ic-btn">Copy Domain</button>
+    <button id="run">RUN ENGINE</button>
+    <pre id="out"></pre>
   </div>
 
-  <div id="icToast"></div>
-
-  <!-- Sentinel -->
-  <script src="sentinel/sentinel-core.js"></script>
-  <script src="sentinel/instinct-engine.js"></script>
-  <script src="sentinel/spirit-ui.js"></script>
-  <script src="sentinel/warroom-ops.js"></script>
-  <script src="sentinel/godlevel-render.js"></script>
-
-  <!-- Pipeline -->
-  <script src="pipeline/render-queue.js"></script>
-  <script src="pipeline/pipeline-config.js"></script>
-
-  <!-- Billing -->
-  <script src="billing/billing-shell.js"></script>
-  <script src="billing/credits-engine.js"></script>
-
-  <!-- System -->
-  <script src="system/system-kernel.js"></script>
-  <script src="system/system-diagnostics.js"></script>
-  <script src="system/system-events.js"></script>
-
+  <script src="engine-core.js"></script>
+  <script>
+    document.getElementById('run').addEventListener('click', () => {
+      const core = window.createInfinityCoreEngine();
+      document.getElementById('out').textContent =
+        window.formatInfinityCoreEngine(core);
+    });
+  </script>
 </body>
 </html>
 
