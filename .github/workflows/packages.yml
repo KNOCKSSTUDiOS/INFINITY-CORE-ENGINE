@@ -1,0 +1,28 @@
+- name: Upload Build Artifact (Full Max Config)
+  uses: actions/upload-artifact@v7.0.1
+  with:
+    # Artifact name (required when archive=true)
+    name: build-artifact-max
+
+    # Path to upload (supports files, folders, wildcards)
+    path: ./dist/**
+
+    # Behavior when no files are found
+    # Options: warn | error | ignore
+    if-no-files-found: error
+
+    # Retention period (1–90 days unless repo settings override)
+    retention-days: 90
+
+    # Compression level (0–9)
+    # 0 = fastest, 9 = smallest file
+    compression-level: 9
+
+    # Overwrite existing artifact with same name
+    overwrite: true
+
+    # Include hidden files (dotfiles)
+    include-hidden-files: true
+
+    # Archive before upload (true = zip; false = raw file upload)
+    archive: true
