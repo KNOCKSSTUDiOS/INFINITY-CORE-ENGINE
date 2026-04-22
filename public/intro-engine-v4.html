@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>INFINITY-CORE-ENGINE — MP4 Pipeline v4</title>
+  <style>
+    body { background:#000; color:#fff; font-family:system-ui; text-align:center; }
+    canvas { width:100%; max-width:1080px; margin-top:20px; background:#000; }
+    button, a { padding:10px 20px; margin:10px; font-size:16px; }
+  </style>
+</head>
+<body>
+
+  <h1>INFINITY-CORE-ENGINE — Cinematic Engine v4</h1>
+
+  <canvas id="stage" width="1920" height="1080"></canvas>
+
+  <div>
+    <button id="preview">Preview</button>
+    <button id="render">Render MP4</button>
+    <a id="download" style="display:none;" download="INFINITY-INTRO.mp4">Download MP4</a>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("stage");
+    const ctx = canvas.getContext("2d");
+
+    let timeline;
+    let video = document.createElement("video");
+    video.src = "intro.mp4";
+    video.crossOrigin = "anonymous";
+
+    async function loadTimeline() {
+      const res = await fetch("timeline.json");
+      timeline = await res.json();
+    }
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function getKeyframeValue(map, time) {
+      const keys = Object.keys(map).map(Number).sort((a,b)=>a-b);
+      for (let i = 0; i < keys.length - 1; i++) {
+        if (time >= keys[i] && time <= keys[i+1]) {
+          const t = (time - keys[i]) / (keys[i+1] - keys[i]);
+          return lerp(map[keys[i]], map[keys[i+1]], t);
+        }
+      }
+      return map[keys[keys.length - 1]];
+    }
+
+    async function preview() {
+      await loadTimeline();
+      video.play();
+
+      const start = performance.now();
+
+      function frame() {
+        const now = performance.now();
+        const t = now - start;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (const layer of timeline.layers) {
+          if (t < layer.start || t > layer.end) continue;
+
+          if (layer.type === "video") {
+            const scale = getKeyframeValue(layer.transform.scale, t);
+            const x = getKeyframeValue(layer.transform.x, t);
+            const y = getKeyframeValue(layer.transform.y, t);
+
+            ctx.save();
+            ctx.translate(canvas.width/2 + x, canvas.height/2 + y);
+            ctx.scale(scale, scale);
+            ctx.drawImage(video, -canvas.width/2, -canvas.height/2, canvas.width, canvas.height);
+            ctx.restore();
+          }
+
+          if (layer.type === "text") {
+            const opacity = getKeyframeValue(layer.transform.opacity, t);
+
+            ctx.save();
+            ctx.globalAlpha = opacity;
+            ctx.font = layer.style.font;
+            ctx.fillStyle = layer.style.color;
+            ctx.shadowColor = layer.style.color;
+            ctx.shadowBlur = layer.style.glow;
+            ctx.textAlign = "center";
+            ctx.fillText(layer.text, canvas.width/2, canvas.height - 150);
+            ctx.restore();
+          }
+        }
+
+        if (t < timeline.duration) requestAnimationFrame(frame);
+      }
+
+      frame();
+    }
+
+    document.getElementById("preview").onclick = preview;
+
+    document.getElementById("render").onclick = async () => {
+      const stream = canvas.captureStream(30);
+      const recorder = new MediaRecorder(stream, { mimeType: "video/webm" });
+      let chunks = [];
+
+      recorder.ondataavailable = e => chunks.push(e.data);
+
+      recorder.onstop = async () => {
+        const blob = new Blob(chunks, { type: "video/webm" });
+        const formData = new FormData();
+        formData.append("file", blob, "composition.webm");
+
+        const res = await fetch("/render", { method: "POST", body: formData });
+        const mp4Blob = await res.blob();
+
+        const url = URL.createObjectURL(mp4Blob);
+        const dl = document.getElementById("download");
+        dl.href = url;
+        dl.style.display = "inline-block";
+      };
+
+      recorder.start();
+      await preview();
+      setTimeout(() => recorder.stop(), timeline.duration);
+    };
+  </script>
+
+</body>
+</html>
