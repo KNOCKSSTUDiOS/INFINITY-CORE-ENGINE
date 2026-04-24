@@ -8,19 +8,21 @@
 <body>
   <div id="app">
     <h1>KNOCKSSTUDiOS Hollywood MOTiON Pictures</h1>
-    <p>Powered by INFINITY-CORE-ENGINE</p>
+    <p class="tagline">HollywoodImaging.studio · Powered by INFINITY-CORE-ENGINE</p>
 
-    <textarea id="scriptInput" placeholder="Paste your story/script here..."></textarea>
+    <textarea id="scriptInput" placeholder="Paste your story / script here..."></textarea>
 
-    <button id="run">GENERATE CINEMATIC</button>
+    <div class="controls">
+      <button id="run">GENERATE CINEMATIC</button>
+    </div>
 
     <pre id="out"></pre>
   </div>
 
-  <!-- Core engine from your repo -->
+  <!-- Core engine from repo root -->
   <script src="../engine-core.js"></script>
 
-  <!-- Cinema layer -->
+  <!-- Cinema layer modules -->
   <script src="motion-engine.js"></script>
   <script src="atmosphere-engine.js"></script>
   <script src="soundstage-engine.js"></script>
@@ -30,9 +32,17 @@
 
   <script>
     document.getElementById('run').addEventListener('click', async () => {
-      const script = document.getElementById('scriptInput').value;
-      const result = await window.runStudioPipeline(script);
-      document.getElementById('out').textContent = result;
+      const script = document.getElementById('scriptInput').value.trim();
+      if (!script) {
+        document.getElementById('out').textContent = "No script provided.";
+        return;
+      }
+      try {
+        const result = await window.runStudioPipeline(script);
+        document.getElementById('out').textContent = result;
+      } catch (e) {
+        document.getElementById('out').textContent = "ENGINE ERROR:\\n" + e.message;
+      }
     });
   </script>
 </body>
