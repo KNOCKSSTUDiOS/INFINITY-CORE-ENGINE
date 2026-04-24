@@ -1,0 +1,43 @@
+TASK: REPO_UPGRADE_UNIVERSAL
+STATE: START
+
+MODE:
+- Fully automated
+- No prompts
+- No confirmation
+- No user interaction
+- No interruptions
+- All variants active (safe, aggressive, performance, security, structural)
+
+ACTION:
+Perform a complete autonomous repair, cleanup, and optimization of the entire repository.
+
+OPERATIONS:
+- Scan all files and directories
+- Fix broken code and syntax
+- Remove unused, duplicate, obsolete, or dead code
+- Correct incomplete files
+- Create missing referenced files
+- Normalize HTML, CSS, JS
+- Standardize formatting across all file types
+- Improve structure without altering architecture
+- Preserve filenames unless objectively incorrect
+- Ensure no broken imports or references
+- Improve performance where obvious
+- Improve security where obvious
+- Strengthen internal consistency
+- Deliver all changes as one unified update
+
+CONSTRAINTS:
+- Do not rename files unless the name is objectively wrong
+- Do not break imports, paths, or folder structure
+- Do not introduce external names or protected terms
+- Only remove code that is clearly unused or broken
+- Only create files when referenced but missing
+
+OUTPUT:
+One single commit:
+"Repository auto-fix: cleanup, repair, optimization, and structural refinement."
+
+STATUS:
+RUNNING
