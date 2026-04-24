@@ -1,10 +1,14 @@
 window.runStudioPipeline = async function (script) {
-  const core = window.createInfinityCoreEngine(script); // from your repo
+  if (typeof window.createInfinityCoreEngine !== "function") {
+    throw new Error("createInfinityCoreEngine not found. Check engine-core.js binding.");
+  }
 
-  const motionPlan = MotionEngine.plan(core);
-  const atmospherePlan = AtmosphereEngine.plan(core);
-  const soundPlan = SoundstageEngine.plan(core);
-  const logoIntro = LogoEngine.buildIntro();
+  const core = window.createInfinityCoreEngine(script);
+
+  const motionPlan = MotionEngine.plan(core, script);
+  const atmospherePlan = AtmosphereEngine.plan(core, script);
+  const soundPlan = SoundstageEngine.plan(core, script);
+  const logoIntro = LogoEngine.buildIntro(core);
   const finalVideo = await RenderEngine.export({
     core,
     motionPlan,
@@ -16,15 +20,24 @@ window.runStudioPipeline = async function (script) {
   return `
 KNOCKSSTUDiOS Hollywood MOTiON Pictures
 HollywoodImaging.studio
+======================================
 
 Core Status: ${core.status || "OK"}
+Core Timestamp: ${core.timestamp || new Date().toISOString()}
 
-Motion Plan: ${JSON.stringify(motionPlan, null, 2)}
-Atmosphere: ${JSON.stringify(atmospherePlan, null, 2)}
-Sound: ${JSON.stringify(soundPlan, null, 2)}
-Intro: ${JSON.stringify(logoIntro, null, 2)}
+Motion Plan:
+${JSON.stringify(motionPlan, null, 2)}
 
-Final Video:
+Atmosphere Plan:
+${JSON.stringify(atmospherePlan, null, 2)}
+
+Soundstage Plan:
+${JSON.stringify(soundPlan, null, 2)}
+
+Intro Blueprint:
+${JSON.stringify(logoIntro, null, 2)}
+
+Final Video Artifact:
 ${finalVideo}
 `;
 };
