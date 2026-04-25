@@ -1,0 +1,14 @@
+# INFINITY-CORE-ENGINE Code Owners
+# These owners will be automatically requested for review
+
+# Default owner for everything in the repo
+* @KNOCKSSTUDiOS
+
+# Critical paths - require owner review
+/.github/ @KNOCKSSTUDiOS
+/ENGINE/ @KNOCKSSTUDiOS
+/sentinel/ @KNOCKSSTUDiOS
+/pipeline/ @KNOCKSSTUDiOS
+/index.html @KNOCKSSTUDiOS
+/vercel.json @KNOCKSSTUDiOS
+/CNAME @KNOCKSSTUDiOS
