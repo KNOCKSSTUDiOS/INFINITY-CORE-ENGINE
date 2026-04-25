@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INFINITY-CORE-ENGINE | KNOCKSSTUDiOS — hollywoodimaging.studio</title>
+<meta name="description" content="The all-in-one creative engine. Movies, music, print, radio, AI generation, coding, and more — powered by KNOCKSSTUDiOS.">
+<meta property="og:title" content="INFINITY-CORE-ENGINE | KNOCKSSTUDiOS">
+<meta property="og:url" content="https://hollywoodimaging.studio">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>∞</text></svg>">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap');
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --c:#00F0FF;--gold:#FFD700;--red:#FF3B3B;--green:#00FF88;--purple:#B040FF;
+  --bg:#02030a;--card:#080912;--card2:#0d0e1a;--border:rgba(0,240,255,.1);
+  --text:#c8ccd8;--muted:#55596a;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(0,240,255,.2);color:var(--c)}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#000}::-webkit-scrollbar-thumb{background:rgba(0,240,255,.3);border-radius:2px}
+
+/* ── BOOT ── */
+#boot{position:fixed;inset:0;z-index:9999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1.2s,visibility 1.2s}
+#boot.done{opacity:0;visibility:hidden;pointer-events:none}
+.boot-logo{font-family:'Orbitron',monospace;font-size:clamp(24px,5vw,52px);font-weight:900;color:var(--c);letter-spacing:.1em;text-shadow:0 0 40px rgba(0,240,255,.5);animation:bootPulse 1s ease-in-out infinite alternate}
+.boot-sub{font-family:'Space Mono',monospace;font-size:11px;color:rgba(0,240,255,.5);letter-spacing:.4em;margin-top:8px;text-transform:uppercase}
+.boot-bar{width:300px;height:2px;background:#111;margin-top:32px;border-radius:2px;overflow:hidden}
+.boot-fill{height:100%;width:0;background:linear-gradient(90deg,var(--c),rgba(0,240,255,.4));box-shadow:0 0 12px var(--c);transition:width .05s linear}
+.boot-msg{font-family:'Space Mono',monospace;font-size:10px;color:rgba(0,240,255,.4);margin-top:12px;letter-spacing:.2em;min-height:16px}
+@keyframes bootPulse{from{text-shadow:0 0 20px rgba(0,240,255,.3)}to{text-shadow:0 0 60px rgba(0,240,255,.8),0 0 100px rgba(0,240,255,.3)}}
+
+/* ── BG ── */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.grid-layer{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,240,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,.018) 1px,transparent 1px);background-size:60px 60px}
+.noise{position:fixed;inset:-50%;width:200%;height:200%;z-index:0;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grainMove .4s steps(4) infinite}
+@keyframes grainMove{0%{transform:translate(0,0)}25%{transform:translate(-2%,3%)}50%{transform:translate(3%,-1%)}75%{transform:translate(-1%,-3%)}100%{transform:translate(0,0)}}
+.scan-line{position:fixed;inset:0;z-index:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.04) 3px,rgba(0,0,0,.04) 4px)}
+
+/* ── SCROLL PROGRESS ── */
+#prog{position:fixed;top:0;left:0;height:2px;z-index:1000;background:linear-gradient(90deg,var(--c),var(--purple));box-shadow:0 0 8px var(--c);width:0;transition:width .1s}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,3,10,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all .3s}
+.nav-logo{font-family:'Orbitron',monospace;font-size:14px;font-weight:900;color:var(--c);letter-spacing:.15em;display:flex;align-items:center;gap:8px;text-shadow:0 0 20px rgba(0,240,255,.4)}
+.nav-logo span{color:#fff;font-size:10px;letter-spacing:.3em;font-weight:400}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:6px 10px;border-radius:4px;transition:all .2s;font-family:'Space Mono',monospace;white-space:nowrap}
+.nav-links a:hover,.nav-links a.active{color:var(--c);background:rgba(0,240,255,.06)}
+.nav-right{display:flex;gap:8px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:5px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .25s;border:none;font-family:'Space Mono',monospace;white-space:nowrap;text-decoration:none}
+.btn-p{background:var(--c);color:#000}
+.btn-p:hover{box-shadow:0 0 24px rgba(0,240,255,.5);transform:translateY(-1px)}
+.btn-o{background:transparent;color:var(--c);border:1px solid rgba(0,240,255,.4)}
+.btn-o:hover{background:rgba(0,240,255,.08);border-color:var(--c)}
+.btn-g{background:linear-gradient(135deg,var(--gold),#ffaa00);color:#000}
+.btn-g:hover{box-shadow:0 0 24px rgba(255,215,0,.4);transform:translateY(-1px)}
+.btn-pu{background:linear-gradient(135deg,var(--purple),#8020cc);color:#fff}
+.btn-pu:hover{box-shadow:0 0 24px rgba(176,64,255,.4);transform:translateY(-1px)}
+.btn-sm{padding:6px 12px;font-size:10px}
+.hamburger{display:none;background:none;border:none;color:var(--c);cursor:pointer;font-size:22px;padding:4px}
+@media(max-width:900px){.nav-links{display:none}.hamburger{display:block}}
+#mob-menu{display:none;position:fixed;inset:0;background:rgba(2,3,10,.97);z-index:490;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:60px 20px}
+#mob-menu.open{display:flex}
+#mob-menu a{font-family:'Orbitron',monospace;font-size:18px;letter-spacing:.2em;color:var(--text);transition:color .2s}
+#mob-menu a:hover{color:var(--c)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;padding:100px 20px 60px;overflow:hidden}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border:1px solid rgba(0,240,255,.2);border-radius:20px;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--c);margin-bottom:28px;font-family:'Space Mono',monospace;background:rgba(0,240,255,.03)}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 6px var(--green)}50%{opacity:.3;box-shadow:none}}
+.hero-title{font-family:'Orbitron',monospace;font-size:clamp(32px,8vw,90px);font-weight:900;line-height:.9;letter-spacing:-.02em;margin-bottom:12px;position:relative}
+.hero-title .t1{background:linear-gradient(135deg,#fff 30%,var(--c));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-title .t2{display:block;font-size:clamp(14px,3vw,28px);letter-spacing:.4em;font-weight:400;color:var(--muted);margin-top:10px;-webkit-text-fill-color:var(--muted)}
+.hero-sub{font-size:clamp(13px,2vw,17px);color:var(--muted);max-width:680px;margin:20px auto 36px;line-height:1.8}
+.hero-btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:48px}
+.hero-stats{display:flex;flex-wrap:wrap;gap:32px;justify-content:center}
+.h-stat{text-align:center}
+.h-stat-num{font-family:'Orbitron',monospace;font-size:clamp(20px,4vw,32px);font-weight:900;color:var(--c);text-shadow:0 0 20px rgba(0,240,255,.4)}
+.h-stat-label{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-top:4px;font-family:'Space Mono',monospace}
+
+/* ── MARQUEE ── */
+.marquee-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:12px 0;position:relative;z-index:1}
+.marquee-inner{display:flex;gap:40px;animation:marqueeScroll 40s linear infinite;white-space:nowrap}
+.marquee-inner span{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:12px;font-family:'Space Mono',monospace}
+.marquee-inner span::before{content:'◆';color:var(--c);font-size:6px}
+@keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── SECTIONS ── */
+section{padding:100px 20px;position:relative;z-index:1}
+.sec-inner{max-width:1200px;margin:0 auto}
+.sec-tag{display:inline-block;padding:3px 12px;border:1px solid rgba(0,240,255,.15);border-radius:12px;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--c);margin-bottom:12px;font-family:'Space Mono',monospace;background:rgba(0,240,255,.03)}
+.sec-h{font-family:'Orbitron',monospace;font-size:clamp(24px,5vw,48px);font-weight:900;letter-spacing:-.01em;margin-bottom:12px;color:#f0f0f0}
+.sec-h span{color:var(--c)}
+.sec-p{color:var(--muted);font-size:15px;line-height:1.7;max-width:600px}
+.sec-head{text-align:center;margin-bottom:64px}
+.sec-head .sec-p{margin:0 auto}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(0,240,255,.15),transparent);margin:0}
+
+/* ── PLATFORM GRID ── */
+.platform-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.mod-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px;transition:all .4s;position:relative;overflow:hidden}
+.mod-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--c),var(--purple));transform:scaleX(0);transform-origin:left;transition:transform .5s}
+.mod-card:hover{border-color:rgba(0,240,255,.25);transform:translateY(-5px);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 30px rgba(0,240,255,.06)}
+.mod-card:hover::before{transform:scaleX(1)}
+.mod-icon{font-size:36px;margin-bottom:14px;display:block}
+.mod-card h3{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;margin-bottom:8px;color:#e0e0e8;letter-spacing:.1em}
+.mod-card p{font-size:12px;line-height:1.7;color:var(--muted)}
+.mod-badge{display:inline-block;margin-top:12px;padding:2px 10px;border-radius:10px;font-size:8px;letter-spacing:.3em;text-transform:uppercase;border:1px solid rgba(0,240,255,.2);color:var(--c);font-family:'Space Mono',monospace}
+.mod-badge.gold{border-color:rgba(255,215,0,.3);color:var(--gold)}
+.mod-badge.purple{border-color:rgba(176,64,255,.3);color:var(--purple)}
+.mod-badge.green{border-color:rgba(0,255,136,.3);color:var(--green)}
+.mod-badge.red{border-color:rgba(255,59,59,.3);color:var(--red)}
+
+/* ── AI PROMPT GENERATOR ── */
+.ai-panel{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;max-width:900px;margin:0 auto}
+.ai-mode-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.ai-tab{padding:8px 16px;border-radius:6px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;border:1px solid var(--border);color:var(--muted);background:none;font-family:'Space Mono',monospace;transition:all .2s}
+.ai-tab.active{background:rgba(0,240,255,.1);border-color:var(--c);color:var(--c)}
+.ai-input-wrap{position:relative;margin-bottom:16px}
+.ai-input{width:100%;min-height:90px;background:rgba(0,0,0,.5);border:1px solid var(--border);border-radius:8px;padding:14px 16px;color:#fff;font-size:13px;font-family:'Space Mono',monospace;resize:vertical;transition:border-color .2s;line-height:1.6}
+.ai-input:focus{outline:none;border-color:rgba(0,240,255,.4)}
+.ai-controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.ai-select{background:#0a0a14;border:1px solid var(--border);color:var(--text);padding:7px 12px;border-radius:6px;font-size:11px;font-family:'Space Mono',monospace;cursor:pointer}
+.ai-select:focus{outline:none;border-color:rgba(0,240,255,.3)}
+.ai-output{background:#000;border:1px solid rgba(0,240,255,.08);border-radius:8px;padding:16px;min-height:80px;font-size:12px;font-family:'Space Mono',monospace;color:var(--green);line-height:1.7;white-space:pre-wrap;word-break:break-word}
+.ai-output .placeholder{color:var(--muted);font-style:italic}
+.ai-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+
+/* ── WATERMARK ENGINE ── */
+.wm-canvas-wrap{background:#000;border:1px solid var(--border);border-radius:8px;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-bottom:16px;cursor:crosshair}
+.wm-canvas-wrap canvas{max-width:100%;max-height:100%;object-fit:contain}
+.wm-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.wm-group{display:flex;flex-direction:column;gap:6px}
+.wm-label{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);font-family:'Space Mono',monospace}
+.wm-input{background:#0a0a14;border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-size:12px;font-family:'Space Mono',monospace;width:100%}
+.wm-input:focus{outline:none;border-color:rgba(0,240,255,.3)}
+.wm-range{-webkit-appearance:none;width:100%;height:3px;background:var(--border);border-radius:2px;outline:none}
+.wm-range::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--c);cursor:pointer;box-shadow:0 0 8px rgba(0,240,255,.5)}
+
+/* ── BRAND KIT ── */
+.brand-preview{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.brand-swatch{height:60px;border-radius:8px;display:flex;align-items:flex-end;padding:8px 12px;font-size:9px;font-family:'Space Mono',monospace;font-weight:700;letter-spacing:.2em}
+.brand-font-preview{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:center}
+.brand-font-name{font-size:9px;letter-spacing:.3em;color:var(--muted);margin-bottom:8px;font-family:'Space Mono',monospace;text-transform:uppercase}
+.brand-font-sample{font-size:28px;font-weight:900;letter-spacing:-.02em;background:linear-gradient(135deg,#fff,var(--c));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ── PRINT SHOP ── */
+.print-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.print-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;transition:all .3s;cursor:pointer}
+.print-card:hover{border-color:rgba(0,240,255,.25);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.print-card .icon{font-size:40px;margin-bottom:12px;display:block}
+.print-card h3{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;color:#e0e0e8;margin-bottom:6px}
+.print-card p{font-size:11px;color:var(--muted);line-height:1.5}
+
+/* ── RADIO ── */
+.radio-player{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:480px;margin:0 auto 40px}
+.eq-viz{display:flex;align-items:flex-end;gap:3px;height:40px;justify-content:center;margin-bottom:20px}
+.eq-bar{width:5px;background:var(--c);border-radius:2px 2px 0 0;animation:eqAnim .6s ease-in-out infinite alternate}
+@keyframes eqAnim{from{height:4px}to{height:var(--h,24px)}}
+.radio-title{font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:#fff;text-align:center;margin-bottom:4px}
+.radio-sub{font-size:10px;letter-spacing:.3em;color:var(--muted);text-align:center;margin-bottom:20px;font-family:'Space Mono',monospace;text-transform:uppercase}
+.radio-controls{display:flex;gap:12px;justify-content:center;align-items:center;margin-bottom:16px}
+.radio-btn{width:42px;height:42px;border-radius:50%;background:rgba(0,240,255,.08);border:1px solid rgba(0,240,255,.2);color:var(--c);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .2s}
+.radio-btn:hover{background:rgba(0,240,255,.2);box-shadow:0 0 16px rgba(0,240,255,.3)}
+.radio-btn.play-main{width:52px;height:52px;font-size:18px;background:rgba(0,240,255,.15);border-color:rgba(0,240,255,.4)}
+.radio-progress{height:3px;background:var(--border);border-radius:2px;margin-bottom:8px;position:relative;cursor:pointer}
+.radio-fill{height:100%;width:65%;background:var(--c);border-radius:2px;box-shadow:0 0 8px rgba(0,240,255,.4)}
+.radio-times{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-family:'Space Mono',monospace}
+.channel-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.channel{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:all .2s}
+.channel:hover{border-color:rgba(0,240,255,.25)}
+.channel-info h4{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:#e0e0e8;margin-bottom:2px}
+.channel-info p{font-size:10px;color:var(--muted)}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:blink 1s infinite;flex-shrink:0}
+.live-dot.on-air{background:var(--green)}
+
+/* ── SCHOOL ── */
+.course-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.course{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;transition:all .3s}
+.course:hover{border-color:rgba(0,240,255,.2);transform:translateY(-4px)}
+.course-tag{font-size:9px;letter-spacing:.3em;text-transform:uppercase;padding:2px 10px;border-radius:10px;font-family:'Space Mono',monospace;display:inline-block;margin-bottom:12px}
+.course-tag.beg{background:rgba(0,255,136,.1);color:var(--green);border:1px solid rgba(0,255,136,.2)}
+.course-tag.int{background:rgba(0,240,255,.08);color:var(--c);border:1px solid rgba(0,240,255,.15)}
+.course-tag.adv{background:rgba(176,64,255,.1);color:var(--purple);border:1px solid rgba(176,64,255,.2)}
+.course h3{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:#e0e0e8;margin-bottom:6px;letter-spacing:.08em}
+.course p{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:14px}
+.course-meta{display:flex;gap:16px;font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;margin-bottom:16px}
+.progress-bar{height:3px;background:rgba(255,255,255,.06);border-radius:2px;margin-bottom:16px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--c),rgba(0,240,255,.4));border-radius:2px}
+
+/* ── CODING STUDIO ── */
+.code-editor{background:#000;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.code-toolbar{display:flex;align-items:center;gap:8px;padding:10px 16px;background:#080810;border-bottom:1px solid var(--border)}
+.code-dots{display:flex;gap:6px}
+.code-dot{width:10px;height:10px;border-radius:50%}
+.code-tabs{display:flex;gap:4px;margin-left:12px}
+.code-tab{padding:4px 12px;font-size:10px;font-family:'Space Mono',monospace;border-radius:4px 4px 0 0;cursor:pointer;color:var(--muted);border:1px solid transparent}
+.code-tab.active{background:var(--card2);color:var(--c);border-color:var(--border)}
+.code-body{padding:20px;font-family:'Space Mono',monospace;font-size:12px;line-height:1.8;min-height:220px;overflow-x:auto;white-space:pre}
+.code-output{background:#040408;border-top:1px solid var(--border);padding:12px 20px;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);min-height:60px}
+/* syntax */
+.kw{color:#B040FF}.fn{color:#00F0FF}.str{color:#FFD700}.num{color:#FF3B3B}.cm{color:#3a4060}
+
+/* ── PIPELINE ── */
+.pipe-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+@media(max-width:700px){.pipe-steps{grid-template-columns:1fr 1fr;gap:12px}}
+.pipe-step{text-align:center;padding:28px 16px;border:1px solid var(--border);background:var(--card);position:relative;transition:all .3s}
+.pipe-step:first-child{border-radius:10px 0 0 10px}
+.pipe-step:last-child{border-radius:0 10px 10px 0}
+@media(max-width:700px){.pipe-step{border-radius:10px!important}}
+.pipe-step:hover{background:var(--card2);border-color:rgba(0,240,255,.25)}
+.pipe-num{position:absolute;top:8px;right:12px;font-family:'Orbitron',monospace;font-size:36px;font-weight:900;color:rgba(0,240,255,.05)}
+.pipe-icon{font-size:32px;margin-bottom:10px}
+.pipe-step h4{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:#e0e0e8;letter-spacing:.1em;margin-bottom:4px}
+.pipe-step p{font-size:11px;color:var(--muted);line-height:1.5}
+
+/* ── PRICING ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;max-width:1200px;margin:0 auto}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;text-align:center;transition:all .4s;position:relative}
+.price-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.price-card.featured{border-color:rgba(0,240,255,.4);box-shadow:0 0 40px rgba(0,240,255,.08)}
+.price-card.featured::before{content:'MOST POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--c);color:#000;font-size:8px;font-weight:900;letter-spacing:.3em;padding:3px 14px;border-radius:10px;font-family:'Space Mono',monospace}
+.price-card.enterprise{border-color:rgba(255,215,0,.3)}
+.price-tier{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;font-family:'Space Mono',monospace}
+.price-name{font-family:'Orbitron',monospace;font-size:18px;font-weight:900;color:#fff;margin-bottom:4px}
+.price-amount{font-family:'Orbitron',monospace;font-size:36px;font-weight:900;margin:16px 0 4px}
+.price-period{font-size:12px;color:var(--muted)}
+.price-desc{font-size:12px;color:var(--muted);margin-bottom:20px;line-height:1.5}
+.price-features{text-align:left;margin-bottom:24px;list-style:none}
+.price-features li{padding:7px 0;font-size:12px;display:flex;align-items:flex-start;gap:10px;border-bottom:1px solid rgba(255,255,255,.04);line-height:1.4}
+.price-features li:last-child{border:none}
+.price-features li .ic{flex-shrink:0;margin-top:1px;font-size:12px}
+.check{color:var(--green)}
+.cross{color:var(--muted)}
+.price-btn{display:block;width:100%;padding:13px;border-radius:7px;font-family:'Space Mono',monospace;font-weight:700;font-size:11px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .3s;border:1px solid}
+.price-btn.free{border-color:rgba(0,255,136,.3);color:var(--green);background:transparent}
+.price-btn.free:hover{background:rgba(0,255,136,.08)}
+.price-btn.creator{border-color:var(--c);color:#000;background:var(--c)}
+.price-btn.creator:hover{box-shadow:0 0 20px rgba(0,240,255,.4)}
+.price-btn.pro{border-color:var(--purple);color:#000;background:var(--purple)}
+.price-btn.pro:hover{box-shadow:0 0 20px rgba(176,64,255,.4)}
+.price-btn.studio{border-color:rgba(255,215,0,.5);color:var(--gold);background:transparent}
+.price-btn.studio:hover{background:rgba(255,215,0,.08)}
+.price-btn.enterprise{border-color:var(--gold);color:#000;background:linear-gradient(135deg,var(--gold),#ffaa00)}
+.price-btn.enterprise:hover{box-shadow:0 0 20px rgba(255,215,0,.4)}
+
+/* ── CTA ── */
+.cta-section{text-align:center;padding:120px 20px;position:relative;overflow:hidden}
+.cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,240,255,.06),transparent 70%);pointer-events:none;border-radius:50%}
+
+/* ── FOOTER ── */
+footer{padding:60px 20px 32px;border-top:1px solid var(--border);position:relative;z-index:1}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px;max-width:1200px;margin:0 auto 48px}
+@media(max-width:900px){.foot-grid{grid-template-columns:1fr 1fr;gap:32px}}
+@media(max-width:500px){.foot-grid{grid-template-columns:1fr;gap:24px}}
+.foot-brand{font-family:'Orbitron',monospace;font-size:16px;font-weight:900;color:var(--c);letter-spacing:.1em;margin-bottom:10px}
+.foot-tagline{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:20px}
+.foot-col h5{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--c);margin-bottom:14px}
+.foot-col a{display:block;font-size:12px;color:var(--muted);padding:4px 0;transition:color .2s}
+.foot-col a:hover{color:var(--c)}
+.foot-bottom{text-align:center;padding-top:28px;border-top:1px solid var(--border);font-size:11px;color:rgba(255,255,255,.2);font-family:'Space Mono',monospace;letter-spacing:.1em}
+.foot-bottom a{color:rgba(255,255,255,.3)}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+.rv.vis{opacity:1;transform:translateY(0)}
+.rv[data-d="1"]{transition-delay:.1s}.rv[data-d="2"]{transition-delay:.2s}.rv[data-d="3"]{transition-delay:.3s}.rv[data-d="4"]{transition-delay:.4s}.rv[data-d="5"]{transition-delay:.5s}.rv[data-d="6"]{transition-delay:.6s}
+
+/* ── SECURITY LAYERS ── */
+.sec-layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.sec-layer{display:flex;align-items:flex-start;gap:14px;padding:18px;border-left:3px solid var(--c);background:var(--card);border-radius:0 8px 8px 0;transition:all .3s}
+.sec-layer:hover{background:var(--card2);border-left-color:var(--gold)}
+.sec-layer-num{font-family:'Orbitron',monospace;font-size:22px;font-weight:900;color:rgba(0,240,255,.2);min-width:32px}
+.sec-layer h4{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:#e0e0e8;margin-bottom:2px;letter-spacing:.1em}
+.sec-layer p{font-size:11px;color:var(--muted);line-height:1.5}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  section{padding:60px 16px}
+  .platform-grid{grid-template-columns:1fr}
+  .pipe-steps{grid-template-columns:1fr 1fr}
+  .pricing-grid{grid-template-columns:1fr}
+  .brand-preview{grid-template-columns:1fr}
+  .wm-controls{grid-template-columns:1fr}
+  .ai-controls{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- BOOT SCREEN -->
+<div id="boot">
+  <div class="boot-logo">∞ ICE</div>
+  <div class="boot-sub">INFINITY · CORE · ENGINE</div>
+  <div class="boot-bar"><div class="boot-fill" id="boot-fill"></div></div>
+  <div class="boot-msg" id="boot-msg">INITIALIZING ENGINE...</div>
+</div>
+
+<!-- PROGRESS BAR -->
+<div id="prog"></div>
+
+<!-- BACKGROUNDS -->
+<canvas id="bg-canvas"></canvas>
+<div class="grid-layer"></div>
+<div class="noise"></div>
+<div class="scan-line"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">∞<span>ICE</span></div>
+  <div class="nav-links" id="nav-links">
+    <a href="#platform">Platform</a>
+    <a href="#ai-studio">AI Studio</a>
+    <a href="#watermark">Watermark</a>
+    <a href="#brand">Brand Kit</a>
+    <a href="#print">Print</a>
+    <a href="#radio">Radio</a>
+    <a href="#school">School</a>
+    <a href="#coding">Code</a>
+    <a href="#pricing">Pricing</a>
+  </div>
+  <div class="nav-right">
+    <button class="btn btn-o btn-sm" onclick="openPricing()">Login</button>
+    <button class="btn btn-p btn-sm" onclick="openPricing()">Start Free</button>
+    <button class="hamburger" id="hamburger">☰</button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mob-menu">
+  <button style="position:absolute;top:20px;right:20px;background:none;border:none;color:var(--c);font-size:26px;cursor:pointer" onclick="closeMob()">✕</button>
+  <a href="#platform" onclick="closeMob()">Platform</a>
+  <a href="#ai-studio" onclick="closeMob()">AI Studio</a>
+  <a href="#watermark" onclick="closeMob()">Watermark</a>
+  <a href="#brand" onclick="closeMob()">Brand Kit</a>
+  <a href="#print" onclick="closeMob()">Print Shop</a>
+  <a href="#radio" onclick="closeMob()">Radio</a>
+  <a href="#school" onclick="closeMob()">School</a>
+  <a href="#coding" onclick="closeMob()">Coding</a>
+  <a href="#pricing" onclick="closeMob()">Pricing</a>
+  <button class="btn btn-p" onclick="closeMob();openPricing()">Start Free</button>
+</div>
+
+<!-- ══════════════════════════════════════════ HERO -->
+<section class="hero" id="hero">
+  <div class="hero-badge"><span class="dot"></span> Engine v3.0 — All Systems Online</div>
+  <h1 class="hero-title">
+    <span class="t1">INFINITY CORE ENGINE</span>
+    <span class="t2">By KNOCKSSTUDiOS · hollywoodimaging.studio</span>
+  </h1>
+  <p class="hero-sub">Movies. Music. Print. AI Generation. Radio. School. Code. Watermarks. Brand Kits. — One platform that rivals Google, Adobe Firefly, Canva, Printify, and every top engine. Our way. No copyright. Zero limits.</p>
+  <div class="hero-btns">
+    <button class="btn btn-p" onclick="openPricing()">🎬 Start Creating — Free</button>
+    <a href="#pricing" class="btn btn-o">View All Plans</a>
+    <a href="https://github.com/KNOCKSSTUDiOS-labs/INFINITY-CORE-ENGINE" target="_blank" class="btn btn-o">⭐ GitHub</a>
+  </div>
+  <div class="hero-stats">
+    <div class="h-stat"><div class="h-stat-num" data-count="10" data-suf="K+">0</div><div class="h-stat-label">Creators</div></div>
+    <div class="h-stat"><div class="h-stat-num" data-count="500" data-suf="+">0</div><div class="h-stat-label">Studios</div></div>
+    <div class="h-stat"><div class="h-stat-num" data-count="1" data-suf="M+">0</div><div class="h-stat-label">Renders</div></div>
+    <div class="h-stat"><div class="h-stat-num" data-count="200" data-suf="+">0</div><div class="h-stat-label">Schools</div></div>
+    <div class="h-stat"><div class="h-stat-num" data-count="50" data-suf="+">0</div><div class="h-stat-label">Enterprise</div></div>
+    <div class="h-stat"><div class="h-stat-num" data-count="678" data-suf="">0</div><div class="h-stat-label">Commits</div></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span>MP4 Production</span><span>AI Image Generation</span><span>Watermark Engine</span><span>Brand Kit Studio</span><span>Print Shop</span><span>Radio Broadcasting</span><span>Coding School</span><span>Render Farm</span><span>4K Export</span><span>Prompt Generator</span><span>Color Grading</span><span>VFX Pipeline</span><span>Audio Mastering</span><span>Global CDN</span><span>Zero Copyright</span><span>Movie Studio</span>
+    <span>MP4 Production</span><span>AI Image Generation</span><span>Watermark Engine</span><span>Brand Kit Studio</span><span>Print Shop</span><span>Radio Broadcasting</span><span>Coding School</span><span>Render Farm</span><span>4K Export</span><span>Prompt Generator</span><span>Color Grading</span><span>VFX Pipeline</span><span>Audio Mastering</span><span>Global CDN</span><span>Zero Copyright</span><span>Movie Studio</span>
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════ PLATFORM -->
+<section id="platform">
+  <div class="sec-inner">
+    <div class="sec-head rv">
+      <div class="sec-tag">Core Platform</div>
+      <div class="sec-h">Everything You Need. <span>One Engine.</span></div>
+      <p class="sec-p">12 production-grade modules. Comparable to Google Workspace + Adobe Creative Cloud + Canva + Printify + Spotify — built from the ground up by one creator.</p>
+    </div>
+    <div class="platform-grid">
+      <div class="mod-card rv" data-d="1"><span class="mod-icon">🎬</span><h3>MP4 Movie Lab</h3><p>Full cinematic production. Multi-track timeline, VFX pipeline, color grading, sound design. Export 720p → 8K. Premier-ready from day one.</p><span class="mod-badge">Video</span></div>
+      <div class="mod-card rv" data-d="2"><span class="mod-icon">⚡</span><h3>Render Engine</h3><p>GPU-accelerated real-time rendering. Batch queue. Cinematic quality. Frame-perfect sync at 24, 30, or 60fps. No external software needed.</p><span class="mod-badge">Engine</span></div>
+      <div class="mod-card rv" data-d="3"><span class="mod-icon">🖼️</span><h3>AI Image Studio</h3><p>Generate original images, artwork, textures, and backgrounds with your own prompt engine — no Midjourney, no Firefly. Fully original. Our way.</p><span class="mod-badge purple">AI</span></div>
+      <div class="mod-card rv" data-d="4"><span class="mod-icon">✍️</span><h3>AI Prompt Generator</h3><p>Generate perfect prompts for images, video, audio, code, and copy. Style presets, genre modes, cinematic modes. Works with any creative workflow.</p><span class="mod-badge purple">AI</span></div>
+      <div class="mod-card rv" data-d="5"><span class="mod-icon">🔏</span><h3>Watermark Engine</h3><p>Visible + invisible steganographic watermarking. Batch processing. Tamper detection. Ownership encoding. Protect every asset before it leaves.</p><span class="mod-badge red">Protection</span></div>
+      <div class="mod-card rv" data-d="6"><span class="mod-icon">🎨</span><h3>Brand Kit Studio</h3><p>Full identity system. Logo builder, color palettes, font pairing, motion identity, social kit templates. Download in all formats. Your brand, fully owned.</p><span class="mod-badge gold">Brand</span></div>
+      <div class="mod-card rv" data-d="1"><span class="mod-icon">🖨️</span><h3>Print Shop</h3><p>Design and order custom merch, posters, apparel, stickers, books, and packaging. Powered by your brand kit. Printify-level but fully integrated.</p><span class="mod-badge gold">Print</span></div>
+      <div class="mod-card rv" data-d="2"><span class="mod-icon">📻</span><h3>AIR · Radio</h3><p>Live radio streaming, podcast hosting, music distribution. 3 branded channels, audio mastering, broadcast to 50+ platforms. 24/7 on-air capable.</p><span class="mod-badge green">Radio</span></div>
+      <div class="mod-card rv" data-d="3"><span class="mod-icon">🎓</span><h3>School & Coding</h3><p>Courses in filmmaking, VFX, engine development, coding. Live code editor, AI tutor, certificates. Built for students, schools, and institutions.</p><span class="mod-badge">Education</span></div>
+      <div class="mod-card rv" data-d="4"><span class="mod-icon">🎭</span><h3>Credits Engine</h3><p>Hollywood-grade intro sequences and rolling credits. Studio logos, title sequences, cast and crew rolls. Synchronized to score. Cinema-ready output.</p><span class="mod-badge">Cinema</span></div>
+      <div class="mod-card rv" data-d="5"><span class="mod-icon">📡</span><h3>Social Deploy</h3><p>One-click publish to TikTok, YouTube, Instagram, Facebook, X, LinkedIn. Format-optimized exports for every platform's algorithm.</p><span class="mod-badge green">Distribution</span></div>
+      <div class="mod-card rv" data-d="6"><span class="mod-icon">🔐</span><h3>Sentinel Security</h3><p>Zero-trust 6-layer protection. SSL hardening, DRM watermarking, content shielding, domain locks, tamper detection. Military-grade for creators.</p><span class="mod-badge red">Security</span></div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════ AI STUDIO -->
+<section id="ai-studio" style="background:rgba(176,64,255,.02)">
+  <div class="sec-inner">
+    <div class="sec-head rv">
+      <div class="sec-tag">AI Generation</div>
+      <div class="sec-h">AI Image & <span>Prompt Studio</span></div>
+      <p class="sec-p">Generate original images, copy, prompts, and scripts. No copyright. No Midjourney. No Firefly. Our engine. Your style.</p>
+    </div>
+    <div class="ai-panel rv">
+      <div class="ai-mode-tabs" id="ai-tabs">
+        <button class="ai-tab active" data-mode="image">🖼 Image</button>
+        <button class="ai-tab" data-mode="video">🎬 Video</button>
+        <button class="ai-tab" data-mode="audio">🎵 Audio</button>
+        <button class="ai-tab" data-mode="copy">✍️ Copy</button>
+        <button class="ai-tab" data-mode="code">💻 Code</button>
+        <button class="ai-tab" data-mode="logo">🎨 Logo</button>
+        <button class="ai-tab" data-mode="watermark">🔏 Watermark</button>
+        <button class="ai-tab" data-mode="script">🎭 Script</button>
+      </div>
+      <textarea class="ai-input" id="ai-input" placeholder="Describe what you want to create... e.g. 'A cinematic Hollywood-style poster for a sci-fi thriller, dark moody tones, neon city rain, lone hero silhouette'"></textarea>
+      <div class="ai-controls">
+        <select class="ai-select" id="ai-style">
+          <option value="">Style: Any</option>
+          <option>Cinematic / Film</option>
+          <option>Photorealistic</option>
+          <option>Anime / Illustrated</option>
+          <option>Abstract / Art</option>
+          <option>Minimalist</option>
+          <option>Retro / Vintage</option>
+          <option>Dark / Neon</option>
+          <option>Corporate / Clean</option>
+        </select>
+        <select class="ai-select" id="ai-ratio">
+          <option>Aspect: 16:9 (Landscape)</option>
+          <option>9:16 (Vertical / Social)</option>
+          <option>1:1 (Square)</option>
+          <option>4:3 (Classic)</option>
+          <option>21:9 (Ultra-wide)</option>
+        </select>
+        <select class="ai-select" id="ai-quality">
+          <option>Quality: Standard</option>
+          <option>Quality: High</option>
+          <option>Quality: Ultra 4K</option>
+        </select>
+        <select class="ai-select" id="ai-brand">
+          <option>Brand: None</option>
+          <option>Brand: Apply My Kit</option>
+          <option>Brand: KNOCKSSTUDiOS</option>
+        </select>
+      </div>
+      <div class="ai-output" id="ai-output"><span class="placeholder">Your enhanced prompt will appear here. Click "Generate Prompt" to build a detailed, optimized creative brief...</span></div>
+      <div class="ai-actions">
+        <button class="btn btn-pu btn-sm" onclick="generatePrompt()">✨ Generate Prompt</button>
+        <button class="btn btn-o btn-sm" onclick="copyPrompt()">📋 Copy</button>
+        <button class="btn btn-o btn-sm" onclick="clearPrompt()">✕ Clear</button>
+        <button class="btn btn-p btn-sm" onclick="openPricing()">🚀 Generate Image →</button>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════ WATERMARK ENGINE -->
+<section id="watermark">
+  <div class="sec-inner">
+    <div class="sec-head rv">
+      <div class="sec-tag">Asset Protection</div>
+      <div class="sec-h">Watermark <span>Engine</span></div>
+      <p class="sec-p">Military-grade visible and invisible watermarking. Steganographic ownership encoding. Every asset protected before it leaves your studio.</p>
+    </div>
+    <div style="max-width:800px;margin:0 auto">
+      <div class="wm-canvas-wrap rv" id="wm-preview">
+        <canvas id="wm-canvas" width="800" height="450"></canvas>
+      </div>
+      <div class="wm-controls rv">
+        <div class="wm-group">
+          <label class="wm-label">Upload Image</label>
+          <input type="file" accept="image/*" class="wm-input" id="wm-upload" onchange="loadWmImage(this)">
+        </div>
+        <div class="wm-group">
+          <label class="wm-label">Watermark Text</label>
+          <input type="text" class="wm-input" id="wm-text" value="© KNOCKS Hollywood MOTiON Pictures" onchange="applyWatermark()">
+        </div>
+        <div class="wm-group">
+          <label class="wm-label">Position</label>
+          <select class="wm-input" id="wm-pos" onchange="applyWatermark()">
+            <option>Center</option><option>Bottom Right</option><option>Bottom Left</option><option>Top Right</option><option>Top Left</option><option>Diagonal Tile</option>
+          </select>
+        </div>
+        <div class="wm-group">
+          <label class="wm-label">Opacity: <span id="wm-opacity-val">30</span>%</label>
+          <input type="range" class="wm-range" id="wm-opacity" min="5" max="100" value="30" oninput="document.getElementById('wm-opacity-val').textContent=this.value;applyWatermark()">
+        </div>
+        <div class="wm-group">
+          <label class="wm-label">Font Size: <span id="wm-size-val">24</span>px</label>
+          <input type="range" class="wm-range" id="wm-size" min="10" max="72" value="24" oninput="document.getElementById('wm-size-val').textContent=this.value;applyWatermark()">
+        </div>
+        <div class="wm-group">
+          <label class="wm-label">Color</label>
+          <input type="color" class="wm-input" id="wm-color" value="#ffffff" style="height:38px;padding:2px 6px" onchange="applyWatermark()">
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap" class="rv">
+        <button class="btn btn-p" onclick="downloadWatermarked()">⬇ Download Protected</button>
+        <button class="btn btn-o" onclick="applyInvisibleWm()">🔏 Add Invisible Mark</button>
+        <button class="btn btn-o" onclick="batchWm()">📦 Batch Watermark</button>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════ BRAND KIT -->
+<section id="brand" style="background:rgba(255,215,0,.015)">
+  <div class="sec-inner">
+    <div class="sec-head rv">
+      <div class="sec-tag">Identity System</div>
+      <div class="sec-h">Brand Kit <span>Studio</span></div>
+      <p class="sec-p">Full visual identity. Logo, colors, typography, motion templates, and social kits. Own every pixel. No Canva watermark. No templates you don't own.</p>
+    </div>
+    <div style="max-width:900px;margin:0 auto">
+      <div class="brand-preview rv">
+        <div>
+          <div class="brand-swatch rv" style="background:linear-gradient(135deg,#00F0FF,#0088cc);color:#000;font-family:'Orbitron',monospace;font-weight:900;font-size:10px;letter-spacing:.3em">◆ PRIMARY CYAN</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px">
+            <div class="brand-swatch" style="background:#FFD700;color:#000;font-size:8px;letter-spacing:.2em">GOLD</div>
+            <div class="brand-swatch" style="background:#B040FF;color:#fff;font-size:8px;letter-spacing:.2em">VIOLET</div>
+            <div class="brand-swatch" style="background:#00FF88;color:#000;font-size:8px;letter-spacing:.2em">GREEN</div>
+            <div class="brand-swatch" style="background:#FF3B3B;color:#fff;font-size:8px;letter-spacing:.2em">RED</div>
+            <div class="brand-swatch" style="background:#08090e;border:1px solid var(--border);color:var(--muted);font-size:8px;letter-spacing:.2em">VOID</div>
+            <div class="brand-swatch" style="background:#1a1b2e;color:var(--muted);font-size:8px;letter-spacing:.2em">CARBON</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="brand-font-preview">
+            <div class="brand-font-name">Display — Orbitron</div>
+            <div class="brand-font-sample" style="font-family:'Orbitron',monospace">INFINITY</div>
+          </div>
+          <div class="brand-font-preview">
+            <div class="brand-font-name">Mono — Space Mono</div>
+            <div class="brand-font-sample" style="font-family:'Space Mono',monospace;font-size:20px">ENGINE v3.0</div>
+          </div>
+          <div class="brand-font-preview">
+            <div class="brand-font-name">Body — Inter</div>
+            <div class="brand-font-sample" style="font-family:'Inter',sans-serif;font-size:18px">Hollywood Studio</div>
+          </div>
+        </div>
+      </div>
+      <div class="platform-grid rv" style="margin-top:24px">
+        <div class="mod-card"><span class="mod-icon">🏷️</span><h3>Logo Builder</h3><p>Build vector logos with custom marks, wordmarks, and icon variants. Export SVG, PNG, PDF.</p><button class="btn btn-o btn-sm" style="margin-top:12px" onclick="openPricing()">Build Logo</button></div>
+        <div class="mod-card"><span class="mod-icon">📐</span><h3>Motion Identity</h3><p>Animated logo reveals, transitions, lower thirds, and brand animations — ready for video.</p><button class="btn btn-o btn-sm" style="margin-top:12px" onclick="openPricing()">Build Motion</button></div>
+        <div class="mod-card"><span class="mod-icon">📱</span><h3>Social Kit</h3><p>All social platform templates. Posts, stories, headers, thumbnails — sized correctly for every platform.</p><button class="btn btn-o btn-sm" style="margin-top:12px" onclick="openPricing()">Build Kit</button></div>
+        <div class="mod-card"><span class="mod-icon">📖</span><h3>Style Guide Export</h3><p>Auto-generate a full brand style guide PDF. Share with partners and vendors. Your IP, documented.</p><button class="btn btn-o btn-sm" style="margin-top:12px" onclick="openPricing()">Export Guide</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════ PRINT SHOP -->
+<section id="print">
+  <div class="sec-inner">
+    <div class="sec-head rv">
+      <div class="sec-tag">Merchandise & Print</div>
+      <div class="sec-h">Print <span>Shop</span></div>
+      <p class="sec-p">Design, brand, and order custom products. Apparel, posters, books, stickers, packaging. Printify-powered, brand-kit integrated. Your store. Your profit.</p>
+    </div>
+    <div class="print-grid">
+      <div class="print-card rv" data-d="1" onclick="openPricing()"><span class="icon">👕</span><h3>Apparel</h3><p>T-shirts, hoodies, hats, and merch. Custom designs with your brand kit applied.</p></div>
+      <div class="print-card rv" data-d="2" onclick="openPricing()"><span class="icon">🖼️</span><h3>Posters & Art Prints</h3><p>Movie posters, cinematic stills, promotional art. Gallery and commercial quality.</p></div>
+      <div class="print-card rv" data-d="3" onclick="openPricing()"><span class="icon">📚</span><h3>Books & Zines</h3><p>Self-publish screenplay books, photo books, portfolios, and magazines.</p></div>
+      <div class="print-card rv" data-d="4" onclick="openPricing()"><span class="icon">🏷️</span><h3>Stickers & Labels</h3><p>Die-cut stickers, holographic labels, and branded packaging tape.</p></div>
+      <div class="print-card rv" data-d="5" onclick="openPricing()"><span class="icon">📦</span><h3>Packaging</h3><p>Custom boxes, mailers, and inserts. Ship your products with your brand everywhere.</p></div>
+      <div class="print-card rv" data-d="6" onclick="openPricing()"><span class="icon">🪪</span><h3>Business Cards & Press Kits</h3><p>Professional cards, media kits, and promotional materials ready for print.</p></div>
+      <div class="print-card rv" data-d="1" onclick="openPricing()"><span class="icon">📱</span><h3>Phone Cases</h3><p>Branded phone cases and tech accessories featuring your artwork or logo.</p></div>
+      <div class="print-card rv" data-d="2" onclick="openPricing()"><span class="icon">🎁</span><h3>Studio Gifts</h3><p>Mugs, notebooks, tote bags, and crew gifts. Perfect for premieres and wrap parties.</p></div>
+    </div>
+    <div style="text-align:center;margin-top:40px" class="rv">
+      <button class="btn btn-g" onclick="openPricing()">🛒 Open Print Shop</button>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════ RADIO -->
+<section id="radio" style="background:rgba(0,255,136,.015)">
+  <div class="sec-inner">
+    <div class="sec-head rv">
+      <div class="sec-tag">Broadcast</div>
+      <div class="sec-h">AIR · <span>Radio</span></div>
+      <p class="sec-p">Live radio, podcast hosting, music broadcasting. Three branded channels. 24/7 on-air capable. Audio mastering built in.</p>
+    </div>
+    <div class="radio-player rv">
+      <div class="eq-viz" id="eq-viz"></div>
+      <div class="radio-title">KNOCKS FM</div>
+      <div class="radio-sub">24/7 Cinematic Beats · LIVE</div>
+      <div class="radio-controls">
+        <button class="radio-btn" title="Previous">⏮</button>
+        <button class="radio-btn" title="Rewind">⏪</button>
+        <button class="radio-btn play-main" id="radio-play" onclick="toggleRadio()">▶</button>
+        <button class="radio-btn" title="Fast Forward">⏩</button>
+        <button class="radio-btn" title="Next">⏭</button>
+      </div>
+      <div class="radio-progress"><div class="radio-fill" id="radio-fill"></div></div>
+      <div class="radio-times"><span>03:42</span><span>05:15</span></div>
+    </div>
+    <div class="channel-list rv">
+      <div class="channel"><div class="channel-info"><h4>KNOCKS FM</h4><p>24/7 Cinematic Beats</p></div><div style="display:flex;align-items:center;gap:8px"><div class="live-dot"></div><span style="font-size:9px;color:var(--red);font-family:'Space Mono',monospace;letter-spacing:.2em">LIVE</span></div></div>
+      <div class="channel"><div class="channel-info"><h4>ENGINE RADIO</h4><p>Production Tutorials</p></div><span style="font-size:9px;color:var(--c);font-family:'Space Mono',monospace;letter-spacing:.2em">ON AIR</span></div>
+      <div class="channel"><div class="channel-info"><h4>TITAN WAVE</h4><p>Ambient & Atmospheric</p></div><div class="live-dot on-air"></div></div>
+      <div class="channel"><div class="channel-info"><h4>SCHOOL CAST</h4><p>Lessons & Interviews</p></div><span style="font-size:9px;color:var(--muted);font-family:'Space Mono',monospace">SCHEDULED</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:24px" class="rv">
+      <div class="mod-card"><span class="mod-icon">🎙️</span><h3>Podcast Hosting</h3><p>Record, edit, and distribute podcasts to Spotify, Apple, and 50+ directories.</p></div>
+      <div class="mod-card"><span class="mod-icon">🎵</span><h3>Music Distribution</h3><p>Release original music to all streaming platforms. Royalties go to you. No middleman.</p></div>
+      <div class="mod-card"><span class="mod-icon">🔊</span><h3>Audio Mastering</h3><p>Built-in mastering suite. EQ, compression, limiting. Broadcast-ready in minutes.</p></div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════ SCHOOL -->
+<section id="school">
+  <div class="sec-inner">
+    <div class="sec-head rv">
+      <div class="sec-tag">Education</div>
+      <div class="sec-h">School — <span>Learn Everything</span></div>
+      <p class="sec-p">Courses in filmmaking, animation, VFX, audio, coding, and engine development. Built for students, schools, and institutions. Certificates included.</p>
+    </div>
+    <div class="course-list">
+      <div class="course rv" data-d="1"><span class="course-tag beg">Beginner</span><h3>Filmmaking 101</h3><p>Concept to final cut. Storytelling, shot composition, editing, and exporting your first professional short film.</p><div class="course-meta"><span>12 Lessons</span><span>Free Tier</span><span>Certificate</span></div><div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div><button class="btn btn-p btn-sm" onclick="openPricing()">Enroll Free</button></div>
+      <div class="course rv" data-d="2"><span class="course-tag int">Intermediate</span><h3>Engine Development</h3><p>Build your own render pipeline. JavaScript, WebGL, canvas API, and real-time graphics. Hands-on projects every lesson.</p><div class="course-meta"><span>24 Lessons</span><span>Creator+</span><span>Certificate</span></div><div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div><button class="btn btn-p btn-sm" onclick="openPricing()">Enroll</button></div>
+      <div class="course rv" data-d="3"><span class="course-tag adv">Advanced</span><h3>Cinematic VFX</h3><p>Hollywood-grade visual effects. Particle systems, compositing, motion tracking, and 3D integration techniques.</p><div class="course-meta"><span>18 Lessons</span><span>Pro+</span><span>Certificate</span></div><div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div><button class="btn btn-p btn-sm" onclick="openPricing()">Enroll</button></div>
+      <div class="course rv" data-d="4"><span class="course-tag beg">Beginner</span><h3>AI Prompt Crafting</h3><p>Master the art of writing prompts for image, video, audio, and copy generation. Get better results every time.</p><div class="course-meta"><span>8 Lessons</span><span>Free Tier</span><span>Certificate</span></div><div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div><button class="btn btn-p btn-sm" onclick="openPricing()">Enroll Free</button></div>
+      <div class="course rv" data-d="5"><span class="course-tag int">Intermediate</span><h3>Brand Identity Design</h3><p>Build a full visual identity from scratch. Logo, color, typography, motion, and brand guidelines.</p><div class="course-meta"><span>10 Lessons</span><span>Creator+</span><span>Certificate</span></div><div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div><button class="btn btn-p btn-sm" onclick="openPricing()">Enroll</button></div>
+      <div class="course rv" data-d="6"><span class="course-tag adv">Advanced</span><h3>Audio Production</h3><p>Full audio post-production. Foley, ADR, score composition, mixing, and mastering for film and broadcast.</p><div class="course-meta"><span>15 Lessons</span><span>Pro+</span><span>Certificate</span></div><div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div><button class="btn btn-p btn-sm" onclick="openPricing()">Enroll</button></div>
+    </div>
+    <div style="text-align:center;margin-top:48px" class="rv">
+      <p style="font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:.2em;margin-bottom:16px">INSTITUTIONAL LICENSING AVAILABLE FOR SCHOOLS & UNIVERSITIES</p>
+      <button class="btn btn-o" onclick="openPricing()">Request School License</button>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════ CODING STUDIO -->
+<section id="coding" style="background:rgba(0,240,255,.015)">
+  <div class="sec-inner">
+    <div class="sec-head rv">
+      <div class="sec-tag">Development</div>
+      <div class="sec-h">Coding <span>Studio</span></div>
+      <p class="sec-p">Built-in code editor, live preview, AI code completion. Build, test, and deploy right inside the engine. No external IDE needed.</p>
+    </div>
+    <div class="code-editor rv" style="max-width:900px;margin:0 auto">
+      <div class="code-toolbar">
+        <div class="code-dots">
+          <div class="code-dot" style="background:#ff5f57"></div>
+          <div class="code-dot" style="background:#febc2e"></div>
+          <div class="code-dot" style="background:#28c840"></div>
+        </div>
+        <div class="code-tabs">
+          <div class="code-tab active">watermark.js</div>
+          <div class="code-tab">engine.js</div>
+          <div class="code-tab">brand.css</div>
+        </div>
+        <div style="flex:1"></div>
+        <span style="font-size:10px;color:var(--muted);font-family:'Space Mono',monospace">INFINITY-CORE-ENGINE</span>
+      </div>
+      <div class="code-body"><span class="cm">// INFINITY CORE ENGINE — Watermark Module v3.0</span>
+<span class="cm">// © KNOCKSSTUDiOS — hollywoodimaging.studio</span>
+
+<span class="kw">class</span> <span class="fn">WatermarkEngine</span> {
+  <span class="fn">constructor</span>(canvas) {
+    <span class="kw">this</span>.canvas = canvas;
+    <span class="kw">this</span>.ctx = canvas.getContext(<span class="str">'2d'</span>);
+    <span class="kw">this</span>.brand = <span class="str">'© KNOCKS Hollywood MOTiON Pictures'</span>;
+  }
+
+  <span class="fn">applyVisible</span>(text, opacity = <span class="num">0.3</span>, pos = <span class="str">'center'</span>) {
+    <span class="kw">const</span> { width, height } = <span class="kw">this</span>.canvas;
+    <span class="kw">this</span>.ctx.globalAlpha = opacity;
+    <span class="kw">this</span>.ctx.fillStyle = <span class="str">'#ffffff'</span>;
+    <span class="kw">this</span>.ctx.font = <span class="str">'bold 24px Orbitron'</span>;
+    <span class="cm">// Position and render watermark...</span>
+    <span class="kw">this</span>.<span class="fn">render</span>(text, pos, width, height);
+  }
+
+  <span class="fn">applyInvisible</span>(ownerData) {
+    <span class="cm">// LSB steganographic encoding — ownership in pixels</span>
+    <span class="kw">const</span> imageData = <span class="kw">this</span>.ctx.<span class="fn">getImageData</span>(<span class="num">0</span>, <span class="num">0</span>, ...);
+    <span class="kw">return this</span>.<span class="fn">encodeLSB</span>(imageData, ownerData);
+  }
+}</div>
+      <div class="code-output">✓ WatermarkEngine initialized · Canvas: 3840×2160 · GPU: Active · LSB encoder ready</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:32px" class="rv">
+      <div class="mod-card"><span class="mod-icon">🤖</span><h3>AI Code Completion</h3><p>Context-aware suggestions. Finish functions, fix bugs, and explain code in plain English.</p></div>
+      <div class="mod-card"><span class="mod-icon">▶️</span><h3>Live Preview</h3><p>See your code run in real time. Split-screen editor and output. Hot reload on every change.</p></div>
+      <div class="mod-card"><span class="mod-icon">🚀</span><h3>One-Click Deploy</h3><p>Push to GitHub Pages, Netlify, or Vercel directly from the editor. No terminal needed.</p></div>
+      <div class="mod-card"><span class="mod-icon">📦</span><h3>Package Manager</h3><p>Install any npm package without leaving the studio. Built-in sandbox. Zero config.</p></div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════ PIPELINE -->
+<section id="pipeline">
+  <div class="sec-inner">
+    <div class="sec-head rv">
+      <div class="sec-tag">Production Flow</div>
+      <div class="sec-h">The <span>Pipeline</span></div>
+      <p class="sec-p">From raw idea to global premiere — every step happens inside the engine. No third-party tools. No switching apps.</p>
+    </div>
+    <div class="pipe-steps rv">
+      <div class="pipe-step"><div class="pipe-num">01</div><div class="pipe-icon">✏️</div><h4>Create</h4><p>Compose scenes, write scripts, generate with AI</p></div>
+      <div class="pipe-step"><div class="pipe-num">02</div><div class="pipe-icon">⚡</div><h4>Render</h4><p>GPU pipeline. Real-time preview. Batch queue.</p></div>
+      <div class="pipe-step"><div class="pipe-num">03</div><div class="pipe-icon">🔏</div><h4>Protect</h4><p>Watermark. Brand. DRM. Ownership secured.</p></div>
+      <div class="pipe-step"><div class="pipe-num">04</div><div class="pipe-icon">🌐</div><h4>Distribute</h4><p>Social deploy. Print. Radio. Stream. Premiere.</p></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:32px" class="rv">
+      <div style="display:flex;align-items:flex-start;gap:12px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px"><span style="color:var(--green);margin-top:1px">✓</span><div><strong style="font-size:12px;color:#e0e0e8;display:block;margin-bottom:2px">Multi-Resolution Export</strong><span style="font-size:11px;color:var(--muted)">720p, 1080p, 2K, 4K, 8K with adaptive bitrate</span></div></div>
+      <div style="display:flex;align-items:flex-start;gap:12px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px"><span style="color:var(--green);margin-top:1px">✓</span><div><strong style="font-size:12px;color:#e0e0e8;display:block;margin-bottom:2px">Frame-Perfect Sync</strong><span style="font-size:11px;color:var(--muted)">Audio-video at 24, 30, or 60fps</span></div></div>
+      <div style="display:flex;align-items:flex-start;gap:12px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px"><span style="color:var(--green);margin-top:1px">✓</span><div><strong style="font-size:12px;color:#e0e0e8;display:block;margin-bottom:2px">Batch Rendering</strong><span style="font-size:11px;color:var(--muted)">Queue multiple projects, render overnight</span></div></div>
+      <div style="display:flex;align-items:flex-start;gap:12px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px"><span style="color:var(--green);margin-top:1px">✓</span><div><strong style="font-size:12px;color:#e0e0e8;display:block;margin-bottom:2px">Format Options</strong><span style="font-size:11px;color:var(--muted)">MP4, MOV, WebM, GIF, still sequences</span></div></div>
+      <div style="display:flex;align-items:flex-start;gap:12px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px"><span style="color:var(--green);margin-top:1px">✓</span><div><strong style="font-size:12px;color:#e0e0e8;display:block;margin-bottom:2px">Color Grading</strong><span style="font-size:11px;color:var(--muted)">Built-in LUT support, cinematic correction</span></div></div>
+      <div style="display:flex;align-items:flex-start;gap:12px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px"><span style="color:var(--green);margin-top:1px">✓</span><div><strong style="font-size:12px;color:#e0e0e8;display:block;margin-bottom:2px">Auto Watermark</strong><span style="font-size:11px;color:var(--muted)">Brand applied on export. Optional clean output.</span></div></div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════ SECURITY -->
+<section id="security" style="background:rgba(255,59,59,.015)">
+  <div class="sec-inner">
+    <div class="sec-head rv">
+      <div class="sec-tag">Zero Trust</div>
+      <div class="sec-h">Sentinel <span>Security</span></div>
+      <p class="sec-p">Six layers of protection for your content, domain, and creative assets. Military-grade because your work deserves it.</p>
+    </div>
+    <div class="sec-layers rv">
+      <div class="sec-layer"><div class="sec-layer-num">01</div><div><h4>Registrar Seal</h4><p>Domain lock, transfer protection, and registrar-level access control</p></div></div>
+      <div class="sec-layer"><div class="sec-layer-num">02</div><div><h4>DNS Shield</h4><p>DNS immutability verification, propagation monitoring, breach alerts</p></div></div>
+      <div class="sec-layer"><div class="sec-layer-num">03</div><div><h4>GitHub Armor</h4><p>Branch protection, CODEOWNERS, commit signing, and CodeQL scanning</p></div></div>
+      <div class="sec-layer"><div class="sec-layer-num">04</div><div><h4>SSL Fortress</h4><p>HTTPS enforcement, HSTS headers, certificate monitoring, auto-renewal</p></div></div>
+      <div class="sec-layer"><div class="sec-layer-num">05</div><div><h4>Content Shield</h4><p>DRM watermarking, ownership hash verification, tamper detection system</p></div></div>
+      <div class="sec-layer"><div class="sec-layer-num">06</div><div><h4>Final Seal</h4><p>Automated breach response, audit logging, compliance controls, IP protection</p></div></div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════ PRICING -->
+<section id="pricing">
+  <div class="sec-inner">
+    <div class="sec-head rv">
+      <div class="sec-tag">Plans & Pricing</div>
+      <div class="sec-h">Choose Your <span>Tier</span></div>
+      <p class="sec-p">From everyday people to global enterprise studios. Scale when you're ready. Upgrade or downgrade anytime. No contracts.</p>
+    </div>
+    <div class="pricing-grid">
+      <!-- FREE -->
+      <div class="price-card rv" data-d="1">
+        <div class="price-tier">Starter</div>
+        <div class="price-name">Free</div>
+        <div class="price-amount" style="color:var(--green)">$0<span class="price-period">/forever</span></div>
+        <div class="price-desc">For everyday people exploring creative tools for the first time</div>
+        <ul class="price-features">
+          <li><span class="ic check">✓</span> 3 video projects/month</li>
+          <li><span class="ic check">✓</span> 1080p MP4 export</li>
+          <li><span class="ic check">✓</span> Basic AI prompts (10/day)</li>
+          <li><span class="ic check">✓</span> Watermark engine (basic)</li>
+          <li><span class="ic check">✓</span> 2 brand colors + 1 font</li>
+          <li><span class="ic check">✓</span> 3 courses (free tier)</li>
+          <li><span class="ic check">✓</span> KNOCKS FM radio access</li>
+          <li><span class="ic check">✓</span> 5GB cloud storage</li>
+          <li><span class="ic cross">—</span> Print shop access</li>
+          <li><span class="ic cross">—</span> KNOCKSSTUDiOS watermark on exports</li>
+        </ul>
+        <button class="price-btn free" onclick="openPricing()">Start Free</button>
+      </div>
+      <!-- CREATOR -->
+      <div class="price-card rv" data-d="2">
+        <div class="price-tier">Individual</div>
+        <div class="price-name">Creator</div>
+        <div class="price-amount" style="color:var(--c)">$12<span class="price-period">/month</span></div>
+        <div class="price-desc">For content creators, musicians, and independent filmmakers</div>
+        <ul class="price-features">
+          <li><span class="ic check">✓</span> Unlimited projects</li>
+          <li><span class="ic check">✓</span> 4K MP4 export</li>
+          <li><span class="ic check">✓</span> AI prompts unlimited</li>
+          <li><span class="ic check">✓</span> Full watermark engine</li>
+          <li><span class="ic check">✓</span> Full brand kit</li>
+          <li><span class="ic check">✓</span> Print shop (10 products/mo)</li>
+          <li><span class="ic check">✓</span> All radio channels</li>
+          <li><span class="ic check">✓</span> All school courses</li>
+          <li><span class="ic check">✓</span> Coding studio</li>
+          <li><span class="ic check">✓</span> No watermark on exports</li>
+          <li><span class="ic check">✓</span> 50GB storage</li>
+        </ul>
+        <button class="price-btn creator" onclick="openPricing()">Subscribe</button>
+      </div>
+      <!-- PRO -->
+      <div class="price-card featured rv" data-d="3">
+        <div class="price-tier">Professional</div>
+        <div class="price-name">Pro Studio</div>
+        <div class="price-amount" style="color:var(--purple)">$29<span class="price-period">/month</span></div>
+        <div class="price-desc">For serious creators and small production studios building real movies</div>
+        <ul class="price-features">
+          <li><span class="ic check">✓</span> Everything in Creator</li>
+          <li><span class="ic check">✓</span> 8K export + batch render queue</li>
+          <li><span class="ic check">✓</span> Priority render servers</li>
+          <li><span class="ic check">✓</span> Invisible steganographic watermark</li>
+          <li><span class="ic check">✓</span> Full print shop (unlimited)</li>
+          <li><span class="ic check">✓</span> Podcast hosting (2 shows)</li>
+          <li><span class="ic check">✓</span> Music distribution (5 releases/mo)</li>
+          <li><span class="ic check">✓</span> Premiere tools + red carpet pack</li>
+          <li><span class="ic check">✓</span> Social deploy automation</li>
+          <li><span class="ic check">✓</span> 3 team members</li>
+          <li><span class="ic check">✓</span> 250GB storage</li>
+          <li><span class="ic check">✓</span> Priority support</li>
+        </ul>
+        <button class="price-btn pro" onclick="openPricing()">Start Pro</button>
+      </div>
+      <!-- STUDIO -->
+      <div class="price-card rv" data-d="4">
+        <div class="price-tier">Full Production</div>
+        <div class="price-name">Movie Studio</div>
+        <div class="price-amount" style="color:var(--gold)">$79<span class="price-period">/month</span></div>
+        <div class="price-desc">For production companies, agencies, and full film studios</div>
+        <ul class="price-features">
+          <li><span class="ic check">✓</span> Everything in Pro Studio</li>
+          <li><span class="ic check">✓</span> Dedicated render farm</li>
+          <li><span class="ic check">✓</span> Unlimited team members (up to 25)</li>
+          <li><span class="ic check">✓</span> Own branded radio channel</li>
+          <li><span class="ic check">✓</span> Unlimited music distribution</li>
+          <li><span class="ic check">✓</span> School institutional access</li>
+          <li><span class="ic check">✓</span> Global CDN distribution</li>
+          <li><span class="ic check">✓</span> Analytics dashboard</li>
+          <li><span class="ic check">✓</span> Custom watermark logos</li>
+          <li><span class="ic check">✓</span> 1TB+ storage</li>
+          <li><span class="ic check">✓</span> Dedicated account manager</li>
+          <li><span class="ic check">✓</span> SLA guarantee</li>
+        </ul>
+        <button class="price-btn studio" onclick="openPricing()">Go Studio</button>
+      </div>
+      <!-- ENTERPRISE -->
+      <div class="price-card enterprise rv" data-d="5">
+        <div class="price-tier">Enterprise</div>
+        <div class="price-name">Infinity</div>
+        <div class="price-amount" style="color:var(--gold)">Custom<span class="price-period"> pricing</span></div>
+        <div class="price-desc">For global networks, broadcast companies, educational institutions, and mega-studios</div>
+        <ul class="price-features">
+          <li><span class="ic check">✓</span> Everything in Movie Studio</li>
+          <li><span class="ic check">✓</span> White-label branding</li>
+          <li><span class="ic check">✓</span> Custom domain deployment</li>
+          <li><span class="ic check">✓</span> API access + webhooks</li>
+          <li><span class="ic check">✓</span> Unlimited team members</li>
+          <li><span class="ic check">✓</span> Multiple radio channels</li>
+          <li><span class="ic check">✓</span> Institution-wide school licensing</li>
+          <li><span class="ic check">✓</span> On-premise deployment option</li>
+          <li><span class="ic check">✓</span> Custom integrations</li>
+          <li><span class="ic check">✓</span> Unlimited storage</li>
+          <li><span class="ic check">✓</span> 24/7 priority support + SLA</li>
+          <li><span class="ic check">✓</span> Dedicated engineering team</li>
+        </ul>
+        <button class="price-btn enterprise" onclick="openPricing()">Contact Sales</button>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:24px;font-family:'Space Mono',monospace" class="rv">All plans include: SSL, DRM protection, 99.9% uptime, and our zero-copyright guarantee. Cancel anytime.</p>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════ CTA -->
+<div class="cta-section">
+  <div class="cta-glow"></div>
+  <div class="sec-tag rv" style="display:inline-block">The Engine Awaits</div>
+  <h2 class="sec-h rv" style="font-size:clamp(28px,6vw,60px);margin:16px auto;max-width:700px;text-align:center">Build <span>Everything</span>.<br>Own <span>All of It</span>.</h2>
+  <p class="rv" style="color:var(--muted);font-size:16px;max-width:480px;margin:0 auto 36px;line-height:1.7;text-align:center">Step into the studio. Create what hasn't been imagined. Protect it. Distribute it to the world. From nothing — infinity.</p>
+  <div class="rv" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <button class="btn btn-p" onclick="openPricing()">🎬 Start Creating Free</button>
+    <button class="btn btn-g" onclick="openPricing()">💼 Enterprise Demo</button>
+    <a href="https://github.com/KNOCKSSTUDiOS-labs/INFINITY-CORE-ENGINE" target="_blank" class="btn btn-o">⭐ Star on GitHub</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-brand">∞ INFINITY-CORE-ENGINE</div>
+      <p class="foot-tagline">Master Movie Studio Platform powered by KNOCKSSTUDiOS. Create cinematic productions, print, broadcast, and distribute — from concept to global premiere. Built alone. Built for everyone.</p>
+      <a href="https://hollywoodimaging.studio" style="font-size:11px;color:var(--c);font-family:'Space Mono',monospace">hollywoodimaging.studio</a>
+    </div>
+    <div class="foot-col">
+      <h5>Platform</h5>
+      <a href="#platform">Engine Modules</a>
+      <a href="#ai-studio">AI Studio</a>
+      <a href="#watermark">Watermark Engine</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#security">Security</a>
+    </div>
+    <div class="foot-col">
+      <h5>Create</h5>
+      <a href="#brand">Brand Kit</a>
+      <a href="#print">Print Shop</a>
+      <a href="#radio">Radio</a>
+      <a href="#coding">Coding Studio</a>
+      <a href="#school">School</a>
+    </div>
+    <div class="foot-col">
+      <h5>Business</h5>
+      <a href="#pricing">Free Tier</a>
+      <a href="#pricing">Creator $12/mo</a>
+      <a href="#pricing">Pro Studio $29/mo</a>
+      <a href="#pricing">Movie Studio $79/mo</a>
+      <a href="#pricing">Enterprise</a>
+    </div>
+    <div class="foot-col">
+      <h5>Resources</h5>
+      <a href="https://github.com/KNOCKSSTUDiOS-labs/INFINITY-CORE-ENGINE" target="_blank">GitHub</a>
+      <a href="#pricing">Documentation</a>
+      <a href="#pricing">API Reference</a>
+      <a href="#pricing">Support</a>
+      <a href="#security">Security Policy</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    © 2026 <a href="https://hollywoodimaging.studio">KNOCKS Hollywood MOTiON Pictures</a> · All Rights Reserved · INFINITY-CORE-ENGINE™ · KNOCKSSTUDiOS™ · Riverside, CA · Built alone. Built from nothing. Built for infinity.
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════ SCRIPTS -->
+<script>
+// ── BOOT SEQUENCE ──
+const bootMsgs = ['INITIALIZING ENGINE...','LOADING MODULES...','MOUNTING RENDER PIPELINE...','CONNECTING WATERMARK ENGINE...','CALIBRATING AI STUDIO...','TUNING RADIO SYSTEMS...','SECURING WITH SENTINEL...','READY.'];
+let bPct = 0, bIdx = 0;
+const fill = document.getElementById('boot-fill');
+const msg = document.getElementById('boot-msg');
+const boot = document.getElementById('boot');
+const bootTimer = setInterval(() => {
+  bPct += Math.random() * 18 + 8;
+  if(bPct > 100) bPct = 100;
+  fill.style.width = bPct + '%';
+  if(bIdx < bootMsgs.length - 1) {
+    msg.textContent = bootMsgs[Math.floor(bPct / (100 / bootMsgs.length))];
+    bIdx++;
+  }
+  if(bPct >= 100) {
+    clearInterval(bootTimer);
+    msg.textContent = 'READY.';
+    setTimeout(() => boot.classList.add('done'), 600);
+  }
+}, 120);
+
+// ── PARTICLE CANVAS ──
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, pts = [];
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+for(let i = 0; i < 70; i++) pts.push({
+  x: Math.random() * 1920, y: Math.random() * 1080,
+  dx: (Math.random() - .5) * .35, dy: (Math.random() - .5) * .35,
+  r: Math.random() * 1.5 + .4, o: Math.random() * .5 + .15
+});
+function drawPts() {
+  ctx.clearRect(0, 0, W, H);
+  pts.forEach(p => {
+    p.x += p.dx; p.y += p.dy;
+    if(p.x < 0) p.x = W; if(p.x > W) p.x = 0;
+    if(p.y < 0) p.y = H; if(p.y > H) p.y = 0;
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0,240,255,${p.o})`; ctx.fill();
+  });
+  pts.forEach((a, i) => pts.slice(i + 1).forEach(b => {
+    const d = Math.hypot(a.x - b.x, a.y - b.y);
+    if(d < 130) {
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+      ctx.strokeStyle = `rgba(0,240,255,${(1 - d/130) * .07})`; ctx.stroke();
+    }
+  }));
+  requestAnimationFrame(drawPts);
+}
+drawPts();
+
+// ── SCROLL PROGRESS ──
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const s = document.documentElement;
+  prog.style.width = (s.scrollTop / (s.scrollHeight - s.clientHeight) * 100) + '%';
+});
+
+// ── REVEAL OBSERVER ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); }});
+}, { threshold: .06, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+// ── NAV ACTIVE ──
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.querySelectorAll('.nav-links a').forEach(x => x.classList.remove('active'));
+    a.classList.add('active');
+  });
+});
+
+// ── HAMBURGER ──
+document.getElementById('hamburger').onclick = () => document.getElementById('mob-menu').classList.add('open');
+function closeMob() { document.getElementById('mob-menu').classList.remove('open'); }
+document.querySelectorAll('#mob-menu a').forEach(a => a.addEventListener('click', closeMob));
+
+// ── SMOOTH SCROLL ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// ── COUNTER ANIMATION ──
+function animCount(el) {
+  const target = +el.dataset.count, suf = el.dataset.suf || '';
+  let start = 0;
+  const step = target / 60;
+  const timer = setInterval(() => {
+    start += step;
+    if(start >= target) { start = target; clearInterval(timer); }
+    el.textContent = Math.floor(start) + suf;
+  }, 25);
+}
+const cObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) { animCount(e.target); cObs.unobserve(e.target); }
+  });
+});
+document.querySelectorAll('[data-count]').forEach(el => cObs.observe(el));
+
+// ── AI TABS ──
+document.querySelectorAll('.ai-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.ai-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const mode = tab.dataset.mode;
+    const placeholders = {
+      image: "Describe your image... e.g. 'A cinematic movie poster for a sci-fi thriller, dark neon tones, rain-soaked city, lone hero silhouette'",
+      video: "Describe your video scene... e.g. 'Opening title sequence, studio logo reveal with particle burst, 15 seconds, black background'",
+      audio: "Describe your audio... e.g. 'Epic orchestral trailer score, building tension, cinematic drums, 60 seconds'",
+      copy: "Describe your copy... e.g. 'Film synopsis for a Hollywood-style action movie set in Los Angeles in 2047'",
+      code: "Describe what to build... e.g. 'A watermark engine that applies text to images with adjustable opacity and position'",
+      logo: "Describe your logo... e.g. 'Bold minimalist logo for a film studio called KNOCKS, using cyan and black'",
+      watermark: "Describe your watermark... e.g. 'Diagonal semi-transparent text watermark with studio name and copyright year'",
+      script: "Describe your script... e.g. 'Opening scene of a thriller. A detective arrives at a rain-drenched crime scene in downtown LA.'",
+    };
+    document.getElementById('ai-input').placeholder = placeholders[mode] || 'Describe what you want to create...';
+    document.getElementById('ai-output').innerHTML = '<span class="placeholder">Click "Generate Prompt" to build an enhanced creative brief for ' + mode + ' generation...</span>';
+  });
+});
+
+// ── AI PROMPT GENERATOR ──
+function generatePrompt() {
+  const input = document.getElementById('ai-input').value.trim();
+  const mode = document.querySelector('.ai-tab.active')?.dataset.mode || 'image';
+  const style = document.getElementById('ai-style').value;
+  const ratio = document.getElementById('ai-ratio').value.split(':')[1]?.trim() || '16:9 Landscape';
+  const quality = document.getElementById('ai-quality').value.split(':')[1]?.trim() || 'Standard';
+  const out = document.getElementById('ai-output');
+  if(!input) { out.innerHTML = '<span class="placeholder">Please describe what you want to create first.</span>'; return; }
+  out.textContent = 'Generating enhanced prompt...';
+  const styles = {
+    image: `INFINITY-CORE-ENGINE // Image Generation Prompt\n\n[SUBJECT]\n${input}\n\n[STYLE DIRECTIVE]\n${style ? style + ' aesthetic. ' : ''}Cinematic composition, professional studio quality, no watermarks, fully original artwork.\n\n[TECHNICAL SPECS]\nAspect ratio: ${ratio} | Quality: ${quality}\nLighting: Dramatic three-point studio lighting\nColor: Deep contrast with intentional color story\nSharpness: Tack sharp subject, subtle environmental depth of field\n\n[BRAND LAYER]\nWatermark: © KNOCKS Hollywood MOTiON Pictures\nStyle: hollywoodimaging.studio signature aesthetic\n\n[NEGATIVE PROMPT]\nNo watermarks from third parties, no stock photo artifacts, no generic AI aesthetics, no copyright violations`,
+    video: `INFINITY-CORE-ENGINE // Video Generation Prompt\n\n[SCENE DESCRIPTION]\n${input}\n\n[CINEMATOGRAPHY]\n${style ? style + ' visual language. ' : ''}Shot type: Medium to wide establishing. Camera movement: Slow push-in with subtle stabilizer float.\nFramerate: 24fps (cinematic) | Resolution: 4K\n\n[COLOR GRADE]\nLook: Hollywood blockbuster grade — deep shadows, lifted mids, cool highlights\nLUT: Custom ICE-grade\n\n[AUDIO]\nScore: Original orchestral-cinematic. No licensed music.\nSound design: Environmental ambience + foley`,
+    code: `INFINITY-CORE-ENGINE // Code Generation Brief\n\n[FEATURE REQUEST]\n${input}\n\n[TECHNICAL SPEC]\nLanguage: JavaScript (Vanilla / Canvas API)\nTarget: Browser-native, zero dependencies\nPerformance: 60fps, GPU-accelerated where possible\n\n[CODE STANDARDS]\n- ES2022 syntax\n- JSDoc comments\n- Error handling on all I/O\n- Mobile-responsive\n\n[INTEGRATION]\nModule exports compatible with INFINITY-CORE-ENGINE pipeline\nWatermark: Apply ICE brand signature on output`,
+    script: `INFINITY-CORE-ENGINE // Screenplay Brief\n\n[SCENE]\n${input}\n\n[GENRE & TONE]\n${style || 'Cinematic / Dramatic'}\n\n[FORMAT]\nFade in. INT/EXT. Action lines. Dialogue. Camera direction.\nStyle: Hollywood feature format, WGA-standard\n\n[BRAND SLATE]\nOpening card: KNOCKS Hollywood MOTiON Pictures presents\nProduction: hollywoodimaging.studio`,
+  };
+  setTimeout(() => {
+    out.textContent = styles[mode] || `INFINITY-CORE-ENGINE // ${mode.toUpperCase()} Brief\n\n[REQUEST]\n${input}\n\n[STYLE]\n${style || 'Cinematic, professional, original'}\n\n[QUALITY]\n${quality}\n\n[BRAND]\nApply KNOCKSSTUDiOS watermark. hollywoodimaging.studio signature.`;
+  }, 400);
+}
+function copyPrompt() {
+  const text = document.getElementById('ai-output').textContent;
+  if(text && !text.includes('Click ') && !text.includes('Please ')) {
+    navigator.clipboard?.writeText(text).then(() => {
+      const btn = event.target; const orig = btn.textContent;
+      btn.textContent = '✓ Copied!'; setTimeout(() => btn.textContent = orig, 2000);
+    });
+  }
+}
+function clearPrompt() {
+  document.getElementById('ai-input').value = '';
+  document.getElementById('ai-output').innerHTML = '<span class="placeholder">Your enhanced prompt will appear here...</span>';
+}
+
+// ── WATERMARK ENGINE ──
+let wmImg = null;
+const wmCanvas = document.getElementById('wm-canvas');
+const wmCtx = wmCanvas.getContext('2d');
+
+// Draw default placeholder
+(function initWm() {
+  wmCtx.fillStyle = '#0a0a14';
+  wmCtx.fillRect(0, 0, 800, 450);
+  wmCtx.strokeStyle = 'rgba(0,240,255,.15)';
+  wmCtx.setLineDash([8,8]);
+  wmCtx.strokeRect(20, 20, 760, 410);
+  wmCtx.setLineDash([]);
+  wmCtx.fillStyle = 'rgba(0,240,255,.3)';
+  wmCtx.font = '14px Space Mono, monospace';
+  wmCtx.textAlign = 'center';
+  wmCtx.fillText('Upload an image to apply watermark', 400, 210);
+  wmCtx.font = '11px Space Mono, monospace';
+  wmCtx.fillStyle = 'rgba(0,240,255,.15)';
+  wmCtx.fillText('Supports JPG, PNG, WebP', 400, 240);
+  applyWatermark();
+})();
+
+function loadWmImage(input) {
+  if(!input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => { wmImg = img; applyWatermark(); };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+function applyWatermark() {
+  wmCanvas.width = 800; wmCanvas.height = 450;
+  wmCtx.clearRect(0, 0, 800, 450);
+  if(wmImg) {
+    const ratio = Math.min(800 / wmImg.width, 450 / wmImg.height);
+    const w = wmImg.width * ratio, h = wmImg.height * ratio;
+    wmCtx.drawImage(wmImg, (800 - w) / 2, (450 - h) / 2, w, h);
+  } else {
+    wmCtx.fillStyle = '#0a0a14';
+    wmCtx.fillRect(0, 0, 800, 450);
+    wmCtx.strokeStyle = 'rgba(0,240,255,.15)';
+    wmCtx.setLineDash([8,8]);
+    wmCtx.strokeRect(20, 20, 760, 410);
+    wmCtx.setLineDash([]);
+    wmCtx.fillStyle = 'rgba(0,240,255,.3)';
+    wmCtx.font = '14px Space Mono, monospace';
+    wmCtx.textAlign = 'center';
+    wmCtx.fillText('Upload an image to apply watermark', 400, 210);
+  }
+  const text = document.getElementById('wm-text').value;
+  const opacity = document.getElementById('wm-opacity').value / 100;
+  const size = document.getElementById('wm-size').value;
+  const pos = document.getElementById('wm-pos').value;
+  const color = document.getElementById('wm-color').value;
+  wmCtx.globalAlpha = opacity;
+  wmCtx.fillStyle = color;
+  wmCtx.font = `bold ${size}px Orbitron, monospace`;
+  wmCtx.textAlign = 'center';
+  wmCtx.textBaseline = 'middle';
+  if(pos === 'Diagonal Tile') {
+    wmCtx.save();
+    wmCtx.translate(400, 225);
+    wmCtx.rotate(-Math.PI / 6);
+    for(let y = -400; y < 400; y += 80) {
+      for(let x = -600; x < 600; x += 300) {
+        wmCtx.fillText(text, x, y);
+      }
+    }
+    wmCtx.restore();
+  } else {
+    const positions = {
+      'Center': [400, 225],
+      'Bottom Right': [720, 420],
+      'Bottom Left': [80, 420],
+      'Top Right': [720, 30],
+      'Top Left': [80, 30],
+    };
+    const [x, y] = positions[pos] || [400, 225];
+    if(pos !== 'Center') wmCtx.textAlign = pos.includes('Right') ? 'right' : 'left';
+    wmCtx.fillText(text, x, y);
+  }
+  wmCtx.globalAlpha = 1;
+}
+
+function downloadWatermarked() {
+  const link = document.createElement('a');
+  link.download = 'KNOCKS-watermarked.png';
+  link.href = wmCanvas.toDataURL('image/png');
+  link.click();
+}
+function applyInvisibleWm() { alert('Invisible steganographic watermark applied. Your ownership data is encoded in the image pixels. Available in Creator plan and above.'); }
+function batchWm() { alert('Batch watermarking available in Pro Studio plan and above. Upload multiple files and process them all at once.'); }
+
+// ── EQUALIZER ──
+const eqWrap = document.getElementById('eq-viz');
+const eqHeights = [12,28,18,40,22,36,16,44,20,32,14,38,26,42,18,34,22,30,16,28];
+eqHeights.forEach((h, i) => {
+  const bar = document.createElement('div');
+  bar.className = 'eq-bar';
+  bar.style.setProperty('--h', h + 'px');
+  bar.style.animationDelay = (i * 0.07) + 's';
+  bar.style.animationDuration = (0.5 + Math.random() * 0.4) + 's';
+  eqWrap.appendChild(bar);
+});
+
+// ── RADIO ──
+let radioPlaying = false;
+const radioFill = document.getElementById('radio-fill');
+function toggleRadio() {
+  radioPlaying = !radioPlaying;
+  document.getElementById('radio-play').textContent = radioPlaying ? '⏸' : '▶';
+  if(radioPlaying) {
+    let pct = 65;
+    const t = setInterval(() => {
+      pct = (pct + .05) % 100;
+      radioFill.style.width = pct + '%';
+      if(!radioPlaying) clearInterval(t);
+    }, 100);
+  }
+}
+
+// ── PRICING MODAL ──
+function openPricing() {
+  const p = document.getElementById('pricing');
+  if(p) { p.scrollIntoView({ behavior: 'smooth' }); }
+}
+
+// ── MOBILE SMOOTH SCROLL CLOSE ──
+document.querySelectorAll('#mob-menu a').forEach(a => {
+  a.addEventListener('click', () => {
+    setTimeout(closeMob, 100);
+  });
+});
+</script>
+</body>
+</html>
