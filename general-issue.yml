@@ -1,0 +1,28 @@
+name: General Issue
+description: Track tasks, notes, fixes, or anything related to the INFINITY-CORE-ENGINE.
+title: "[ISSUE] "
+labels: ["issue"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Brief description of the issue or task.
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Add any relevant context, notes, or information.
+    validations:
+      required: false
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps / Actions
+      description: List the steps or actions needed.
+    validations:
+      required: false
