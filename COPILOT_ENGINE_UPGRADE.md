@@ -1,4 +1,4 @@
-@github-copilot apply# .github/workflows/promote.yml
+# .github/workflows/promote.yml
 name: Promote Rendered Video
 
 on:
@@ -32,15 +32,17 @@ on:
 
 env:
   NODE_ENV: production
+
   # Base paths inside INFINITY-CORE-ENGINE
-  ICE_CONTENT_ROOT: content/videos
-  ICE_ASSETS_ROOT: content/assets
-  ICE_PROMO_OUTPUT: content/promo
+  KNOCKSHollywoodMOTiONPictures_CONTENT_ROOT: content/videos
+  KNOCKSHollywoodMOTiONPictures_assets_root: assets
+  KNOCKSHollywoodMOTiONPictures_PROMO_OUTPUT: content/promo
+
   # External endpoints (configure in repo or org settings)
-  HOLLYWOODIMAGING_API_BASE: ${{ secrets.HOLLYWOODIMAGING_API_BASE }}
-  HOLLYWOODIMAGING_API_KEY: ${{ secrets.HOLLYWOODIMAGING_API_KEY }}
-  KNOCKSSTUDIOS_SOCIAL_API_BASE: ${{ secrets.KNOCKSSTUDIOS_SOCIAL_API_BASE }}
-  KNOCKSSTUDIOS_SOCIAL_API_KEY: ${{ secrets.KNOCKSSTUDIOS_SOCIAL_API_KEY }}
+  hollywoodimaging.studio_API_BASE: ${{ secrets.hollywoodimaging.studio_API_BASE }}
+  hollywoodimaging.studio_API_BASE: ${{ secrets.hollywoodimaging.studio_API_BASE }}
+  KNOCKSSTUDiOS_SOCIAL_API_BASE: ${{ secrets.KNOCKSSTUDiOS_SOCIAL_API_BASE }}
+  KNOCKSSTUDiOS_SOCIAL_API_KEY: ${{ secrets.KNOCKSSTUDiOS_SOCIAL_API_KEY }}
 
 jobs:
   promote:
@@ -68,8 +70,8 @@ jobs:
         id: resolve_paths
         run: |
           VIDEO_ID="${{ github.event.inputs.video_id }}"
-          VIDEO_DIR="${ICE_CONTENT_ROOT}/${VIDEO_ID}"
-          PROMO_DIR="${ICE_PROMO_OUTPUT}/${VIDEO_ID}"
+          VIDEO_DIR="${KNOCKSHollywoodMOTiONPictures_CONTENT_ROOT}/${VIDEO_ID}"
+          PROMO_DIR="${KNOCKSHollywoodMOTiONPictures_PROMO_OUTPUT}/${VIDEO_ID}"
 
           echo "video_dir=${VIDEO_DIR}" >> "$GITHUB_OUTPUT"
           echo "promo_dir=${PROMO_DIR}" >> "$GITHUB_OUTPUT"
@@ -129,18 +131,18 @@ jobs:
           echo "manifest=${PROMO_DIR}/promo-manifest.json" >> "$GITHUB_OUTPUT"
 
       - name: Publish to hollywoodimaging.studio
-        if: env.HOLLYWOODIMAGING_API_BASE != ''
+        if: env.hollywoodimaging.studio_API_BASE != ''
         run: |
-          curl -X POST "${HOLLYWOODIMAGING_API_BASE}/v1/videos/publish" \
-            -H "Authorization: Bearer ${HOLLYWOODIMAGING_API_KEY}" \
+          curl -X POST "${hollywoodimaging.studio_API_BASE}/v1/videos/publish" \
+            -H "Authorization: Bearer ${hollywoodimaging.studio_API_KEY}" \
             -H "Content-Type: application/json" \
             --data-binary "@${{ steps.manifest.outputs.manifest }}"
 
       - name: Publish to KNOCKSSTUDiOS social channels
-        if: env.KNOCKSSTUDIOS_SOCIAL_API_BASE != ''
+        if: env.KNOCKSSTUDiOS_SOCIAL_API_BASE != ''
         run: |
-          curl -X POST "${KNOCKSSTUDIOS_SOCIAL_API_BASE}/v1/promos/publish" \
-            -H "Authorization: Bearer ${KNOCKSSTUDIOS_SOCIAL_API_KEY}" \
+          curl -X POST "${KNOCKSSTUDiOS_SOCIAL_API_BASE}/v1/promos/publish" \
+            -H "Authorization: Bearer ${KNOCKSSTUDiOS_SOCIAL_API_KEY}" \
             -H "Content-Type: application/json" \
             --data-binary "@${{ steps.manifest.outputs.manifest }}"
 
@@ -148,11 +150,3 @@ jobs:
         run: |
           echo "✅ Promotion workflow completed for video: ${{ github.event.inputs.video_id }}"
           echo "Promo assets directory: ${{ steps.resolve_paths.outputs.promo_dir }}"
-
-Perform a scan of full repository, if need to do engine upgrade. Scan the entire repository and fix, add, refine, clean up, and correct all files. Improve HTML, CSS, JS, and any other code. Repair broken structure, missing tags, invalid syntax, and inconsistent formatting.
-
-Optimize all files for performance, readability, and stability. Ensure all filenames remain the same unless a correction is required. Organize assets, remove duplicates, and fix broken paths or references.
-
-Refine and enhance all cinematic, UI, and engine-related components. Apply consistent formatting, indentation, and structure across the entire repo. Add missing pieces where needed and complete incomplete files.
-
-After all fixes and upgrades are applied, prepare the repository for upload and commit all improvements as a single update.
