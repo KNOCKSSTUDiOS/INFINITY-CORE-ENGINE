@@ -1,0 +1,303 @@
+INFINITY_CORE_ENGINE_MAX_PACK_KNOCKS_V1
+
+==================================================
+0. PACK PURPOSE
+==================================================
+Deliver the FULL ENGINE PACK:
+- All systems
+- All modules
+- All UI
+- All tiles
+- All bots
+- All themes
+- All galleries
+- All store systems
+- All radio systems
+- All app creator systems
+- All render systems
+- All safety systems
+- All backup systems
+- All mode systems
+- All routing
+- All expansions
+- All add-only components
+
+This pack NEVER overwrites existing engine.
+This pack ONLY adds, extends, or upgrades.
+
+==================================================
+1. GLOBAL ENGINE FOUNDATION
+==================================================
+ENGINE STYLE:
+- Ultra-dark base (#0A0A0F)
+- Neon accents (red/blue/green/purple/gold/cyan)
+- Glow edges
+- Cinematic shadows
+- 4D parallax tiles
+- Smooth transitions (120ms)
+- High-end studio-grade visuals
+
+ENGINE RULES:
+- Add-only
+- Never overwrite
+- Never delete
+- Never break routing
+- Always create backups
+- User work is untouchable
+- Engine must remain stable
+
+==================================================
+2. ROUTING PACK
+==================================================
+ADD ROUTES:
+- /social
+- /social/connect
+- /social/share
+
+- /galleries
+- /galleries/regular
+- /galleries/studio
+
+- /godmode
+- /godmode/render
+- /godmode/scenes
+- /godmode/timeline
+- /godmode/fx
+- /godmode/audio
+- /godmode/compositor
+- /godmode/director
+- /godmode/animator
+- /godmode/editor
+- /godmode/sound
+
+- /store
+- /store/templates
+- /store/presets
+- /store/luts
+- /store/fx
+- /store/printify
+- /store/posters
+- /store/merch
+
+- /radio
+- /radio/live
+- /radio/playlists
+
+- /apps
+- /apps/starter
+- /apps/advanced
+
+- /system
+- /system/tuneup
+- /system/backup
+- /system/restore
+- /system/logs
+
+==================================================
+3. TILE PACK
+==================================================
+TILE TYPES:
+- Navigation tiles
+- Action tiles
+- Status tiles
+- Feature tiles
+
+TILE EFFECTS:
+- 4D parallax tilt
+- Neon glow edges
+- Animated previews
+- Edge tracing
+- Cinematic hover
+
+TILE RULES:
+- Every tile must route somewhere
+- No dead tiles
+- Landing page stays clean
+
+==================================================
+4. THEME PACK
+==================================================
+THEMES:
+- Hypercar
+- Sports Arena
+- World Cities
+- Anime Neon
+- Tech Noir
+- Retro Wave
+- Galaxy Core
+- Minimal Pro
+- Cinematic
+- Countries
+- Cars
+- Sports
+- Retro Neon
+
+THEMES APPLY TO:
+- Tiles
+- Galleries
+- Backgrounds
+- Accent colors
+- Animations
+
+==================================================
+5. BOT PACK
+==================================================
+REGULAR MODE BOTS:
+- School Bot
+- Coding Bot
+- Render Lite Bot
+- Prompt Builder Bot
+- App Builder Bot
+- Email Engine Bot
+- Social Bot
+
+GOD MODE BOTS:
+- Full Render Engine Bot
+- Cinematic Director Bot
+- Animator Bot
+- Editor Bot
+- Sound Designer Bot
+- Engine Mechanic Bot
+- Backup Mechanic Bot
+- DevOps Bot
+- Mode Switch Bot
+- Upgrade Bot
+
+BOT RULES:
+- Bots never overwrite user work
+- Bots always create backups
+- Bots run in isolated sandboxes
+
+==================================================
+6. MODE PACK
+==================================================
+REGULAR MODE:
+- School tools
+- Coding tools
+- App starter tools
+- Pic→Pic
+- Pic→Video
+- Prompt→Pic
+- Prompt→Video
+- Gallery A
+
+GOD MODE:
+- Full render engine
+- Scene builder
+- Timeline editor
+- FX engine
+- Audio engine
+- Compositor
+- Director/Animator/Editor/Sound bots
+- Gallery B
+- Store
+- Radio
+- Advanced AI tools
+
+==================================================
+7. GALLERY PACK
+==================================================
+GALLERY A (REGULAR):
+- Pic→Pic
+- Pic→Video
+- Prompt→Pic
+- Prompt→Video
+- Video→Video upscale
+- Neon frames
+- Animated previews
+
+GALLERY B (GOD MODE):
+- Full-resolution previews
+- Cinematic reels
+- Multi-layer scenes
+- Timelines
+- Advanced AI modes
+
+==================================================
+8. STORE PACK
+==================================================
+STORE SECTIONS:
+- Templates
+- Presets
+- LUTs
+- FX packs
+- Printify clothing
+- Posters
+- Merch
+
+STORE RULES:
+- Tier-aware access
+- Add-only
+- No overwrites
+
+==================================================
+9. RADIO PACK
+==================================================
+RADIO FEATURES:
+- KNOCKSSTUDiOS Air Radio
+- AI DJ
+- User playlists
+- Themed channels
+- Neon equalizer UI
+
+==================================================
+10. APP CREATOR PACK
+==================================================
+APP CREATOR:
+- Starter mode
+- Advanced mode
+- UI builder
+- Asset manager
+- Preview generator
+
+==================================================
+11. RENDER PACK
+==================================================
+RENDER ENGINE:
+- Scene builder
+- Timeline editor
+- FX engine
+- Audio engine
+- Compositor
+- Director/Animator/Editor/Sound bots
+
+==================================================
+12. SAFETY PACK
+==================================================
+SAFETY MODULES:
+- Tune-up
+- Backup
+- Restore
+- Logs
+
+TUNE-UP TASKS:
+- UI integrity scan
+- Tile link verification
+- Animation health check
+- Dependency check
+- Cache purge
+
+==================================================
+13. BACKUP PACK
+==================================================
+BACKUP RULES:
+- Before updates
+- Before bot operations
+- Before engine changes
+
+RESTORE:
+- Mechanic Bot restores last stable snapshot
+- Backup Mechanic Bot restores secondary snapshot
+
+==================================================
+14. FINAL ENGINE RULES
+==================================================
+- Add-only
+- Never overwrite
+- Never delete
+- Never break routing
+- Always create backups
+- User work is untouchable
+- Engine must remain stable
+
+END_INFINITY_CORE_ENGINE_MAX_PACK_KNOCKS_V1
