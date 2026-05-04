@@ -45,7 +45,7 @@ npx next dev                   # if running the app/ tree
 npx next build && npx next export
 ```
 
-There is **no lint, test, or typecheck script** configured anywhere in the repo. The `.github/dependabot.yml` file is misnamed — it actually contains an "Auto Fix Code" workflow that runs `npm run format --if-present` and `npm run lint --if-present -- --fix` on push to `dev`, both of which are no-ops today. Do not add a placeholder script just to silence the workflow; if you wire up real linting/testing, update that file too (and likely move it to `.github/workflows/`).
+There is **no lint, test, or typecheck script** configured anywhere in the repo. `.github/workflows/auto-fix.yml` runs `npm run format --if-present` and `npm run lint --if-present -- --fix` on push to `dev`, both no-ops today; if you wire up real linting/testing, drop the `--if-present` so failures surface. Dependency updates are handled by `.github/dependabot.yml` (npm at `/` and `/cinema-engine`, plus github-actions).
 
 ## Conventions worth preserving
 
