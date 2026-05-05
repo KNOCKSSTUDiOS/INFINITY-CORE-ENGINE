@@ -6,7 +6,7 @@ class PageBuilder {
     this.monetization = config.monetization || null;
     this.animations = config.animations || null;
     this.sound = config.sound || null;
-    this.vercelConfig = config.vercel || {};
+    this.cloudRunConfig = config.cloudRun || {};
   }
 
   createPage(name, template = 'blank') {
@@ -111,27 +111,23 @@ class PageBuilder {
     return html;
   }
 
-  async deployToVercel(pageId, vercelToken) {
+  async deployToCloudRun(pageId, { endpoint, token } = {}) {
     const page = this.pages.find(p => p.id === pageId);
     if (!page) return { success: false, error: 'Page not found' };
+    if (!endpoint) return { success: false, error: 'Cloud Run endpoint not configured' };
 
     const html = this.generateHTML(pageId);
 
     try {
-      const response = await fetch('https://api.vercel.com/v13/deployments', {
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${vercelToken}`,
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           name: page.name.toLowerCase().replace(/\s/g, '-'),
-          files: [
-            {
-              file: 'index.html',
-              data: html
-            }
-          ]
+          files: [{ file: 'index.html', data: html }]
         })
       });
 
@@ -140,6 +136,7 @@ class PageBuilder {
         const deployment = await response.json();
         return { success: true, url: deployment.url, pageId };
       }
+      return { success: false, error: `Cloud Run deploy returned ${response.status}` };
     } catch (error) {
       return { success: false, error: error.message };
     }

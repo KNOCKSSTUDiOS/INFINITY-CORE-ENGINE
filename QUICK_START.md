@@ -105,12 +105,20 @@ git push -u origin main
 # Your site is live at: https://YOUR-USERNAME.github.io/INFINITY-CORE-ENGINE/
 ```
 
-### Option C: Vercel (1-Click Deploy)
+### Option C: Google Cloud Run + Cloud Load Balancer
 
 ```bash
-npm i -g vercel
-vercel
-# Follow prompts, live in 30 seconds
+# Build the static engine
+npm run build
+
+# Deploy via gcloud (Cloud Run hosts the API; LB serves the static front-end)
+gcloud run deploy hyper-cinema-engine --source . --region=us-west2
+
+# Point the domain at Cloud DNS using nameservers:
+#   ns-cloud-a1.googledomains.com
+#   ns-cloud-a2.googledomains.com
+#   ns-cloud-a3.googledomains.com
+#   ns-cloud-a4.googledomains.com
 ```
 
 ## ⚡ Performance

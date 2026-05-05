@@ -53,14 +53,14 @@ There is **no lint, test, or typecheck script** configured anywhere in the repo.
 - **Server module shape** (under `server/`): files use ES module `export` but also append `if (typeof module !== "undefined" && module.exports) { module.exports = { ... } }` for CommonJS interop. Preserve this dual export when editing existing files in that tree.
 - **Auth**: `server/auth/authEngine.js` reads `JWT_SECRET` from env and falls back to a literal placeholder. Any new protected route should go through the exported `requireAuth` middleware rather than rolling its own header parsing.
 - **Brand tokens** (per `.github/copilot-instructions.md` and `index.html` `:root` vars): black background `#02030a`/`#000`, primary cyan `#00F0FF` (also referenced as `#00FFFF`), accent gold `#FFD700`, supporting `#FF3B3B` / `#00FF88` / `#B040FF`. Typography is Orbitron + Space Mono + Inter from Google Fonts. Keep dark-theme defaults and the cinematic/industrial aesthetic when editing UI.
-- **Deploy targets**: `vercel.json` aliases `infinitycore.studio` and `hollywoodimaging.studio`, expects `VITE_API_KEY`/`VITE_STRIPE_KEY`/`VITE_AI_ENDPOINT`, and rewrites all routes to `/index.html`. `next.config.js` configures static export to `out/`. The repo also targets GitHub Pages via `CNAME`. A change that affects routing or asset paths usually needs to be reflected in all three.
+- **Deploy targets**: production hosting is **Google Cloud** — Cloud Run (`hyper-cinema-engine`, region `us-west2`) for the API, fronted by a global Cloud Load Balancer + serverless NEG that serves `hollywoodimaging.studio` / `www.hollywoodimaging.studio`. DNS is on Cloud DNS, with the registrar nameservers pointed at `ns-cloud-a{1-4}.googledomains.com`. `next.config.js` configures static export to `out/`. The repo also targets GitHub Pages via `CNAME`. A change that affects routing or asset paths usually needs to be reflected in both. **Vercel is no longer used** — do not reintroduce `vercel.json` or `@vercel/*` build steps.
 
 ## Repo hygiene
 
 The root contains a large amount of stray content: DNS notes, "FORTRESS LAYER" / "ZERO-TRUST" / "UIGM-*" memos, single-line scratch files, and files whose names are full sentences or contain spaces (e.g. `app.use("`, `cinema ` with a trailing space, `gh repo clone KNOCKSSTUDiOS-labs`). These are documentation artifacts, not code — do not import from them, do not assume they are authoritative, and do not delete them as part of unrelated changes.
 
-`.gitignore` already excludes `.env*`, `node_modules/`, `dist/`, `.next/`, `out/`, `.vercel/`, and `coverage/`. The committed `.env` and `.env.local` only contain Supabase **publishable** (public) keys; do not add anything else there.
+`.gitignore` already excludes `.env*`, `node_modules/`, `dist/`, `.next/`, `out/`, and `coverage/`. The committed `.env` and `.env.local` only contain Supabase **publishable** (public) keys; do not add anything else there.
 
 ## CODEOWNERS / review
 
-`CODEOWNERS` requires `@KNOCKSSTUDiOS` review on `/.github/`, `/ENGINE/`, `/sentinel/`, `/pipeline/`, `/index.html`, `/vercel.json`, and `/CNAME`. Plan PRs accordingly — splitting unrelated changes out of those paths avoids blocking the rest of a change on owner review.
+`CODEOWNERS` requires `@KNOCKSSTUDiOS` review on `/.github/`, `/ENGINE/`, `/sentinel/`, `/pipeline/`, `/index.html`, and `/CNAME`. Plan PRs accordingly — splitting unrelated changes out of those paths avoids blocking the rest of a change on owner review.
