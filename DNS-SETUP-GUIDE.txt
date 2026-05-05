@@ -1,41 +1,54 @@
 =====================================================
 INFINITY-CORE-ENGINE — DNS SETUP GUIDE
-hollywoodimaging.studio -> GitHub Pages
+hollywoodimaging.studio
 =====================================================
 
-Go to your domain registrar (wherever you bought hollywoodimaging.studio)
-and update these DNS records:
+Domain ownership: KNOCKSSTUDiOS (registrar account, Domain Lock + Transfer Lock + 2FA enabled).
 
---- OPTION A: A Records (Recommended) ---
+Production DNS is hosted on Google Cloud DNS. At your registrar,
+set the authoritative nameservers to:
 
-Type: A
-Name: @
-Value: 185.199.108.153
+    ns-cloud-a1.googledomains.com
+    ns-cloud-a2.googledomains.com
+    ns-cloud-a3.googledomains.com
+    ns-cloud-a4.googledomains.com
 
-Type: A
-Name: @
-Value: 185.199.109.153
+Once nameservers propagate, manage records inside the Cloud DNS
+zone (no zone records belong at the registrar anymore).
 
-Type: A
-Name: @
-Value: 185.199.110.153
+--- OPTION A: Google Cloud Run + Global Load Balancer (production) ---
 
-Type: A
-Name: @
-Value: 185.199.111.153
+Apex (hollywoodimaging.studio) and www. resolve to a static
+global IP reserved for the load balancer:
 
---- OPTION B: CNAME Record ---
+    Type: A      Name: @    Value: <hyper-cinema-ip from `gcloud compute addresses describe`>
+    Type: A      Name: www  Value: <hyper-cinema-ip>
 
-Type: CNAME
-Name: www
-Value: knocksstudios-labs.github.io
+Cloud Run service:   hyper-cinema-engine   (region us-west2)
+SSL cert:            hyper-cinema-cert     (Google-managed, covers @ and www)
+Forwarding rules:    hyper-cinema-rule (443) + hyper-cinema-http-rule (80 -> 301 https)
+
+--- OPTION B: GitHub Pages fallback (mirror only) ---
+
+Use only if Cloud Run is being torn down for maintenance.
+
+    Type: A      Name: @    Value: 185.199.108.153
+    Type: A      Name: @    Value: 185.199.109.153
+    Type: A      Name: @    Value: 185.199.110.153
+    Type: A      Name: @    Value: 185.199.111.153
+    Type: CNAME  Name: www  Value: knocksstudios-labs.github.io
+
+CNAME file in the repo must contain: hollywoodimaging.studio
 
 --- IMPORTANT ---
 
-1. DELETE any existing A records or CNAME pointing to Vercel
-2. DNS propagation takes 5 min to 24 hours
-3. After DNS propagates, go to GitHub Pages settings and check "Enforce HTTPS"
-4. Your CNAME file in the repo should contain: hollywoodimaging.studio
+1. DELETE any legacy A records or CNAMEs pointing at third-party
+   hosts that are no longer in use (Vercel is retired; do not point
+   any record at Vercel infrastructure).
+2. DNS propagation takes 5 min to 24 hours.
+3. With Cloud Run + LB, HTTPS is handled by the Google-managed cert.
+4. Verify with: dig hollywoodimaging.studio A +short
+                curl -sI https://hollywoodimaging.studio | head -10
 
 =====================================================
 INFINITY-CORE-ENGINE powered by KNOCKSSTUDiOS
